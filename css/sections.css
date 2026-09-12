@@ -1,0 +1,460 @@
+/* ============================================================
+   THE SCROLLABLE INVITATION
+   Shared section rhythm, then per-section treatments.
+   ============================================================ */
+
+#site {
+  position: relative;
+  background: var(--color-bg);
+}
+
+.section {
+  position: relative;
+  width: 100%;
+  max-width: var(--section-max-width);
+  margin: 0 auto;
+  padding: clamp(4.5rem, 14vh, 7rem) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.9rem;
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 4.5vw, 2.35rem);
+  margin-bottom: 0.75rem;
+}
+
+.section-intro {
+  max-width: var(--content-max-width);
+  color: var(--color-text-soft);
+  margin-bottom: 2.25rem;
+  font-size: 1.08rem;
+}
+
+.script {
+  font-family: var(--font-script);
+  font-size: 1.4rem;
+  color: var(--color-wax);
+}
+
+.hero__ornament {
+  width: 74px;
+  height: 1px;
+  background: var(--color-gold-line);
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto 1.75rem;
+}
+.hero__ornament span {
+  position: absolute;
+  inset: 0;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+/* ---- Buttons ------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  letter-spacing: var(--tracking-mid);
+  text-transform: uppercase;
+  padding: 0.95rem 2.1rem;
+  border-radius: 1px;
+  transition: transform var(--dur-fast) var(--ease-silk), box-shadow var(--dur-fast) var(--ease-silk), background var(--dur-fast);
+  text-decoration: none;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn--fill {
+  background: var(--color-wax);
+  color: var(--color-ivory);
+  box-shadow: 0 10px 24px -8px rgba(124, 33, 40, 0.55);
+}
+.btn--fill:hover { background: var(--color-wax-light); }
+
+.btn--ghost {
+  border: 1px solid var(--color-gold-line);
+  color: var(--color-charcoal);
+  margin-top: 1.5rem;
+}
+.btn--ghost:hover { background: rgba(176, 141, 79, 0.08); }
+
+/* ============================================================
+   1 + 6 — HERO
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  justify-content: center;
+  gap: 0;
+}
+
+.hero__names {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: clamp(0.6rem, 3vw, 1.25rem);
+  font-size: clamp(2.3rem, 9vw, 4.2rem);
+  flex-wrap: wrap;
+}
+
+.hero__names .amp {
+  font-family: var(--font-script);
+  color: var(--color-wax);
+  font-size: 1.05em;
+}
+
+.hero__date {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+}
+
+.hero .hero__ornament:last-of-type { margin-top: 1.75rem; margin-bottom: 0; }
+
+.scroll-cue {
+  position: absolute;
+  bottom: clamp(1.5rem, 5vh, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 36px;
+  border: 1px solid var(--color-gold-line);
+  border-radius: 12px;
+}
+.scroll-cue span {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 3px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--color-gold);
+  transform: translateX(-50%);
+  animation: scrollCue 1.8s ease-in-out infinite;
+}
+@keyframes scrollCue {
+  0% { opacity: 1; transform: translate(-50%, 0); }
+  70% { opacity: 0; transform: translate(-50%, 10px); }
+  100% { opacity: 0; transform: translate(-50%, 10px); }
+}
+
+/* ============================================================
+   3 — INVITATION MESSAGE
+   ============================================================ */
+.invite { background: var(--color-cream); }
+.invite__message {
+  max-width: var(--content-max-width);
+  font-size: clamp(1.15rem, 2.6vw, 1.4rem);
+  font-style: italic;
+  line-height: 1.75;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   4 — COUPLE PHOTOGRAPH
+   ============================================================ */
+.photo { padding-block: clamp(3.5rem, 10vh, 6rem); }
+.photo__frame {
+  position: relative;
+  width: min(560px, 100%);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  box-shadow: var(--shadow-paper-lg);
+}
+.photo__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: linear-gradient(160deg, var(--color-champagne), var(--color-cream));
+}
+.photo__frame-line {
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(251, 246, 236, 0.55);
+  pointer-events: none;
+}
+
+/* ============================================================
+   5 — OUR STORY
+   ============================================================ */
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 640px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  text-align: left;
+  position: relative;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 54px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: var(--color-gold-line);
+}
+.timeline__item {
+  display: grid;
+  grid-template-columns: 48px 24px 1fr;
+  align-items: start;
+  gap: 0.5rem;
+}
+.timeline__year {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--color-gold);
+  padding-top: 0.15rem;
+  text-align: right;
+}
+.timeline__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-wax);
+  margin: 0.4rem auto 0;
+  box-shadow: 0 0 0 4px var(--color-cream);
+}
+.timeline__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+.timeline__text {
+  color: var(--color-text-soft);
+  font-size: 1.02rem;
+}
+
+/* ============================================================
+   6 + 7 — CEREMONY / RECEPTION
+   ============================================================ */
+.event { max-width: 640px; }
+.event--alt { background: var(--color-cream); max-width: 100%; }
+.event--alt > * { max-width: 640px; }
+.event__time {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--color-wax);
+  margin-bottom: 0.5rem;
+}
+.event__address {
+  color: var(--color-text-soft);
+  margin-bottom: 1rem;
+}
+.event__note {
+  font-style: italic;
+  color: var(--color-text-soft);
+  max-width: 460px;
+}
+
+/* ============================================================
+   8 + 9 — VENUE / MAP
+   ============================================================ */
+.venue__address { color: var(--color-text-soft); margin-bottom: 2rem; }
+.venue__map {
+  width: 100%;
+  max-width: 720px;
+  aspect-ratio: 16 / 10;
+  box-shadow: var(--shadow-paper-md);
+  overflow: hidden;
+  filter: sepia(8%) saturate(85%);
+}
+.venue__map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ============================================================
+   10 — WEDDING TIMELINE (day-of schedule)
+   ============================================================ */
+.day-timeline { background: var(--color-cream); }
+.day-timeline__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+}
+.day-timeline__item {
+  display: grid;
+  grid-template-columns: 92px 24px 1fr;
+  text-align: left;
+  padding-block: 1.1rem;
+  border-bottom: 1px solid rgba(176, 141, 79, 0.18);
+}
+.day-timeline__item:last-child { border-bottom: none; }
+.day-timeline__time {
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  color: var(--color-gold);
+  padding-top: 0.2rem;
+}
+.day-timeline__rail { display: flex; justify-content: center; }
+.day-timeline__rail span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-wax);
+  margin-top: 0.4rem;
+}
+.day-timeline__body h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
+.day-timeline__body p { color: var(--color-text-soft); font-size: 0.98rem; }
+
+/* ============================================================
+   11 — GALLERY
+   ============================================================ */
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.5rem, 1.5vw, 0.9rem);
+  width: 100%;
+}
+.gallery__item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--color-champagne), var(--color-cream));
+  transition: transform var(--dur-fast) var(--ease-silk);
+}
+.gallery__item:active { transform: scale(0.96); }
+.gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-silk);
+}
+.gallery__item:active img { transform: scale(1.06); }
+
+/* ============================================================
+   12 — RSVP
+   ============================================================ */
+.rsvp { background: var(--color-cream); }
+.rsvp__form {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+}
+.field { display: flex; flex-direction: column; gap: 0.4rem; }
+.field--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.field label {
+  font-size: 0.72rem;
+  letter-spacing: var(--tracking-mid);
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+}
+.field input,
+.field select,
+.field textarea {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  padding: 0.7rem 0.2rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-gold-line);
+  color: var(--color-text);
+  border-radius: 0;
+  transition: border-color var(--dur-fast);
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-bottom-color: var(--color-wax);
+}
+.rsvp__form .btn { margin-top: 0.5rem; }
+.rsvp__status {
+  font-size: 0.9rem;
+  color: var(--color-wax);
+  min-height: 1.2em;
+}
+
+/* ============================================================
+   13 — CLOSING
+   ============================================================ */
+.closing {
+  background: linear-gradient(180deg, var(--color-ivory), var(--color-champagne) 130%);
+  padding-bottom: clamp(3rem, 8vh, 4rem);
+}
+.closing__heading { font-size: clamp(1.5rem, 4vw, 2.1rem); margin-bottom: 1rem; }
+.closing__message {
+  max-width: 480px;
+  color: var(--color-text-soft);
+  margin-bottom: 1.25rem;
+}
+.closing__signoff { margin-bottom: 2rem; font-size: 1.6rem; }
+.closing__fineprint {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(43, 35, 29, 0.4);
+}
+
+/* ============================================================
+   AUDIO TOGGLE
+   ============================================================ */
+.audio-toggle {
+  position: fixed;
+  top: 1.1rem;
+  right: 1.1rem;
+  z-index: 200;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(251, 246, 236, 0.85);
+  box-shadow: var(--shadow-paper-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  transition: transform var(--dur-fast) var(--ease-silk);
+}
+.audio-toggle:active { transform: scale(0.92); }
+
+.audio-toggle__wave { display: flex; align-items: flex-end; gap: 3px; height: 14px; }
+.audio-toggle__wave i {
+  width: 2.5px;
+  background: var(--color-wax);
+  border-radius: 2px;
+  height: 5px;
+  transition: height 0.25s ease;
+}
+.audio-toggle__wave i:nth-child(1) { height: 6px; }
+.audio-toggle__wave i:nth-child(2) { height: 12px; }
+.audio-toggle__wave i:nth-child(3) { height: 8px; }
+.audio-toggle[aria-pressed="true"] .audio-toggle__wave i { animation: waveBounce 1s ease-in-out infinite; }
+.audio-toggle__wave i:nth-child(1) { animation-delay: 0s; }
+.audio-toggle__wave i:nth-child(2) { animation-delay: 0.15s; }
+.audio-toggle__wave i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes waveBounce {
+  0%, 100% { height: 4px; }
+  50% { height: 14px; }
+}

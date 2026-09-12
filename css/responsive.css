@@ -1,0 +1,53 @@
+/* ============================================================
+   RESPONSIVE ADJUSTMENTS
+   Mobile-first base already lives in envelope.css / sections.css
+   via clamp(); these are the deliberate breakpoint overrides.
+   ============================================================ */
+
+/* Small phones (320–374px): tighten everything a touch further */
+@media (max-width: 374px) {
+  .envelope-scene__stage { gap: 1.1rem; }
+  .envelope__flap-copy { font-size: 0.48rem; }
+  .reveal-title__continue span { display: none; }
+  .reveal-title__continue::before { content: "Enter"; }
+  .field--split { grid-template-columns: 1fr; }
+}
+
+/* Large phones / small tablets */
+@media (min-width: 600px) {
+  .gallery__grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  body { font-size: 19px; }
+
+  .section { padding-inline: clamp(3rem, 8vw, 6rem); }
+
+  .timeline__item { grid-template-columns: 64px 24px 1fr; }
+  .day-timeline__item { grid-template-columns: 110px 24px 1fr; }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .envelope-scene__stage { gap: 3rem; }
+
+  .gallery__grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+
+  .event { display: grid; }
+
+  .venue__map { max-width: 820px; }
+}
+
+/* Large desktop */
+@media (min-width: 1440px) {
+  .section-max-width, .section { max-width: 1180px; }
+}
+
+/* Short viewports (landscape phones) — keep the opening sequence from
+   overflowing vertically. */
+@media (max-height: 560px) {
+  :root { --env-w: clamp(240px, 46vh, 380px); }
+  .envelope-scene__stage { gap: 0.75rem; }
+  .envelope-scene__hint { display: none; }
+}

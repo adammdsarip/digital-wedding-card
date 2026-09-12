@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Amara &amp; Julian — 15 May 2027</title>
+<meta name="description" content="You are cordially invited to the wedding of Amara &amp; Julian." />
+<meta name="theme-color" content="#f3e9d7" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%237c2128'/%3E%3Cpath d='M32 44c-9-6-16-12-16-19a9 9 0 0 1 16-5 9 9 0 0 1 16 5c0 7-7 13-16 19Z' fill='none' stroke='%23f3e9d7' stroke-width='2.6'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Parisienne&display=swap"
+  rel="stylesheet"
+/>
+
+<link rel="stylesheet" href="css/variables.css" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/envelope.css" />
+<link rel="stylesheet" href="css/sections.css" />
+<link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="is-locked">
+
+<!-- ============================================================
+     AUDIO TOGGLE — persistent, small, corner-mounted
+     ============================================================ -->
+<button id="audio-toggle" class="audio-toggle" aria-label="Toggle wedding music" aria-pressed="false">
+  <span class="audio-toggle__wave" aria-hidden="true">
+    <i></i><i></i><i></i>
+  </span>
+</button>
+<audio id="bg-audio" loop preload="none"></audio>
+
+<!-- ============================================================
+     OPENING SEQUENCE — Scenes 1–6
+     A fixed, full-viewport cinematic overlay. Removed from the
+     interaction flow once the invitation has been opened.
+     ============================================================ -->
+<div id="envelope-scene" class="envelope-scene" role="button" tabindex="0"
+     aria-label="Tap to open your wedding invitation">
+
+  <div class="envelope-scene__backdrop">
+    <div class="backdrop__vignette"></div>
+    <div class="backdrop__light"></div>
+    <svg class="backdrop__sprig backdrop__sprig--tl" viewBox="0 0 120 160" aria-hidden="true"><use href="#sprig"/></svg>
+    <svg class="backdrop__sprig backdrop__sprig--br" viewBox="0 0 120 160" aria-hidden="true"><use href="#sprig"/></svg>
+  </div>
+
+  <div class="envelope-scene__stage">
+
+    <div class="envelope" id="envelope">
+
+      <!-- soft contact shadow, breathes independently of the envelope -->
+      <div class="envelope__floor-shadow"></div>
+
+      <!-- back panel -->
+      <div class="envelope__back paper-grain"></div>
+
+      <!-- pocket front (lower envelope paper, in front of the card) -->
+      <div class="envelope__pocket paper-grain">
+        <div class="envelope__pocket-seam"></div>
+      </div>
+
+      <!-- flap, hinged at the top edge -->
+      <div class="envelope__flap-perspective">
+        <div class="envelope__flap" id="envelope-flap">
+          <div class="envelope__flap-face envelope__flap-face--outer paper-grain">
+            <div class="envelope__flap-copy">
+              <span>A Special Invitation</span>
+              <i class="envelope__flap-divider"></i>
+              <span>To Our Wedding</span>
+            </div>
+          </div>
+          <div class="envelope__flap-face envelope__flap-face--inner"></div>
+        </div>
+      </div>
+
+      <!-- wax seal -->
+      <button class="wax-seal" id="wax-seal" aria-label="Break the wax seal">
+        <span class="wax-seal__visual" id="wax-seal-visual">
+          <svg viewBox="0 0 100 100" class="wax-seal__emblem" aria-hidden="true">
+            <use href="#seal-emblem" />
+          </svg>
+        </span>
+        <span class="wax-seal__half wax-seal__half--left">
+          <span class="wax-seal__clone" id="wax-clone-left">
+            <svg viewBox="0 0 100 100" class="wax-seal__emblem" aria-hidden="true"><use href="#seal-emblem" /></svg>
+          </span>
+        </span>
+        <span class="wax-seal__half wax-seal__half--right">
+          <span class="wax-seal__clone" id="wax-clone-right">
+            <svg viewBox="0 0 100 100" class="wax-seal__emblem" aria-hidden="true"><use href="#seal-emblem" /></svg>
+          </span>
+        </span>
+        <span class="wax-seal__fragments" id="wax-fragments">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+        </span>
+        <span class="wax-seal__sheen"></span>
+      </button>
+
+      <p class="envelope__tagline">Together for a Brighter Tomorrow</p>
+    </div>
+
+    <p class="envelope-scene__hint" id="envelope-hint">Tap to Open</p>
+  </div>
+
+  <!-- invitation card: emerges independent of the small envelope footprint -->
+  <div class="invitation-card-wrap">
+  <div class="invitation-card paper-grain" id="envelope-card">
+    <div class="reveal-title">
+      <p class="reveal-title__eyebrow">The Wedding Of</p>
+      <h1 class="reveal-title__names">
+        <span class="reveal-title__name" id="title-bride">Amara</span>
+        <span class="reveal-title__amp">&amp;</span>
+        <span class="reveal-title__name" id="title-groom">Julian</span>
+      </h1>
+      <div class="reveal-title__rule"><span></span></div>
+      <p class="reveal-title__date" id="title-date">15 · May · 2027</p>
+      <button class="reveal-title__continue" id="continue-btn">
+        <span>Enter the Invitation</span>
+        <svg width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true">
+          <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- Shared SVG defs, referenced by <use> above (kept out of layout) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="seal-emblem">
+      <path d="M50 68 C 30 52, 18 40, 18 28 C 18 18, 27 12, 36 15 C 42 17, 47 22, 50 28 C 53 22, 58 17, 64 15 C 73 12, 82 18, 82 28 C 82 40, 70 52, 50 68 Z"
+            fill="none" stroke="currentColor" stroke-width="2.4" opacity="0.85"/>
+      <path d="M50 74 C 26 55, 12 41, 12 27 C 12 15, 23 8, 34 12 C 41 14, 46 20, 50 27 C 54 20, 59 14, 66 12 C 77 8, 88 15, 88 27 C 88 41, 74 55, 50 74 Z"
+            fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+    </g>
+    <g id="sprig">
+      <path d="M60 150 C 58 110, 58 70, 60 20" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M60 40 C 45 34, 35 30, 22 32" fill="none" stroke="currentColor" stroke-width="1"/>
+      <path d="M60 60 C 75 54, 85 50, 98 52" fill="none" stroke="currentColor" stroke-width="1"/>
+      <path d="M60 85 C 45 80, 34 78, 20 82" fill="none" stroke="currentColor" stroke-width="1"/>
+      <path d="M60 105 C 76 100, 87 99, 100 104" fill="none" stroke="currentColor" stroke-width="1"/>
+      <circle cx="22" cy="32" r="2.4" fill="currentColor"/>
+      <circle cx="98" cy="52" r="2.4" fill="currentColor"/>
+      <circle cx="20" cy="82" r="2.4" fill="currentColor"/>
+      <circle cx="100" cy="104" r="2.4" fill="currentColor"/>
+      <circle cx="60" cy="18" r="3" fill="currentColor"/>
+    </g>
+  </defs>
+</svg>
+
+<!-- ============================================================
+     THE INVITATION — vertically scrolling experience
+     Populated at runtime from js/config.js by js/render.js
+     ============================================================ -->
+<main id="site">
+
+  <!-- 1 + 6 — Opening / Couple Names -->
+  <section class="section hero" id="hero" data-reveal-root>
+    <div class="hero__ornament" data-reveal="line"><span></span></div>
+    <p class="eyebrow" data-reveal="fade">The Wedding Of</p>
+    <h1 class="hero__names" data-reveal="fade">
+      <span id="hero-bride"></span>
+      <span class="amp">&amp;</span>
+      <span id="hero-groom"></span>
+    </h1>
+    <!-- 2 — Wedding Date -->
+    <p class="hero__date" id="hero-date" data-reveal="fade"></p>
+    <div class="hero__ornament" data-reveal="line"><span></span></div>
+    <button class="scroll-cue" id="scroll-cue" aria-label="Scroll to explore">
+      <span></span>
+    </button>
+  </section>
+
+  <!-- 3 — Invitation message -->
+  <section class="section invite" id="invite" data-reveal-root>
+    <p class="eyebrow" data-reveal="fade" id="invite-eyebrow"></p>
+    <p class="invite__message" data-reveal="fade" id="invite-message"></p>
+    <p class="invite__signoff script" data-reveal="fade" id="invite-signoff"></p>
+  </section>
+
+  <!-- 4 — Couple photograph -->
+  <section class="section photo" id="photo" data-reveal-root>
+    <div class="photo__frame" data-reveal="scale">
+      <img id="hero-photo" alt="" loading="lazy" />
+      <div class="photo__frame-line"></div>
+    </div>
+  </section>
+
+  <!-- 5 — Our Story -->
+  <section class="section story" id="story" data-reveal-root>
+    <p class="eyebrow" data-reveal="fade">Our Story</p>
+    <h2 class="section-title" data-reveal="fade" id="story-heading"></h2>
+    <p class="section-intro" data-reveal="fade" id="story-intro"></p>
+    <ol class="timeline" id="story-list"></ol>
+  </section>
+
+  <!-- 6 — Wedding Ceremony -->
+  <section class="section event" id="ceremony" data-reveal-root>
+    <p class="eyebrow" data-reveal="fade">Wedding Ceremony</p>
+    <h2 class="section-title" data-reveal="fade" id="ceremony-venue"></h2>
+    <p class="event__time" data-reveal="fade" id="ceremony-time"></p>
+    <p class="event__address" data-reveal="fade" id="ceremony-address"></p>
+    <p class="event__note" data-reveal="fade" id="ceremony-note"></p>
+  </section>
+
+  <!-- 7 — Reception -->
+  <section class="section event event--alt" id="reception" data-reveal-root>
+    <p class="eyebrow" data-reveal="fade">Reception</p>
+    <h2 class="section-title" data-reveal="fade" id="reception-venue"></h2>
+    <p class="event__time" data-reveal="fade" id="reception-time"></p>
+    <p class="event__address" data-reveal="fade" id="reception-address"></p>
+    <p class="event__note" data-reveal="fade" id="reception-note"></p>
+  </section>
+
+  <!-- 8 + 9 — Venue / Map -->
+  <section class="section venue" id="venue" data-reveal-root>
+    <p class="eyebrow" data-reveal="fade">Venue</p>
+    <h2 class="section-title" data-reveal="fade" id="venue-name"></h2>
+    <p class="venue__address" data-reveal="fade" id="venue-address"></p>
+    <div class="venue__map" data-reveal="scale">
+      <iframe
+        id="venue-map-frame"
+        title="Venue location"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <a class="btn btn--ghost" id="venue-map-link" target="_blank" rel="noopener">Open in Maps</a>
+  </section>
+
+  <!-- 10 — Wedding Timeline -->
+  <section class="section day-timeline" id="day-timeline" data-reveal-root>
+    <p class="eyebrow" data-reveal="fade">Wedding Timeline</p>
+    <h2 class="section-title" data-reveal="fade" id="timeline-heading"></h2>
+    <ol class="day-timeline__list" id="timeline-list"></ol>
+  </section>
+
+  <!-- 11 — Photo Gallery -->
+  <section class="section gallery" id="gallery" data-reveal-root>
+    <p class="eyebrow" data-reveal="fade">Photo Gallery</p>
+    <h2 class="section-title" data-reveal="fade" id="gallery-heading"></h2>
+    <p class="section-intro" data-reveal="fade" id="gallery-intro"></p>
+    <div class="gallery__grid" id="gallery-grid"></div>
+  </section>
+
+  <!-- 12 — RSVP -->
+  <section class="section rsvp" id="rsvp" data-reveal-root>
+    <p class="eyebrow" data-reveal="fade">RSVP</p>
+    <h2 class="section-title" data-reveal="fade" id="rsvp-heading"></h2>
+    <p class="section-intro" data-reveal="fade" id="rsvp-intro"></p>
+
+    <form class="rsvp__form" id="rsvp-form" data-reveal="fade">
+      <div class="field">
+        <label for="rsvp-name">Full Name</label>
+        <input type="text" id="rsvp-name" name="name" required />
+      </div>
+      <div class="field field--split">
+        <div>
+          <label for="rsvp-attend">Will you attend?</label>
+          <select id="rsvp-attend" name="attending" required>
+            <option value="joyfully-accept">Joyfully Accept</option>
+            <option value="regretfully-decline">Regretfully Decline</option>
+          </select>
+        </div>
+        <div>
+          <label for="rsvp-guests">Guests</label>
+          <input type="number" id="rsvp-guests" name="guests" min="0" max="6" value="1" />
+        </div>
+      </div>
+      <div class="field">
+        <label for="rsvp-note">Message (optional)</label>
+        <textarea id="rsvp-note" name="note" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn--fill">Send RSVP</button>
+      <p class="rsvp__status" id="rsvp-status" role="status"></p>
+    </form>
+  </section>
+
+  <!-- 13 — Closing message -->
+  <footer class="section closing" id="closing" data-reveal-root>
+    <div class="hero__ornament" data-reveal="line"><span></span></div>
+    <h2 class="closing__heading" data-reveal="fade" id="closing-heading"></h2>
+    <p class="closing__message" data-reveal="fade" id="closing-message"></p>
+    <p class="closing__signoff script" data-reveal="fade" id="closing-signoff"></p>
+    <p class="closing__fineprint">Made with love for our wedding day.</p>
+  </footer>
+
+</main>
+
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/render.js"></script>
+<script src="js/envelope.js"></script>
+<script src="js/scroll-reveals.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
