@@ -129,14 +129,15 @@
 .invitation-card {
   width: min(88vw, 400px);
   opacity: 0;
+  visibility: hidden;
   transform: translateY(26px) scale(0.62);
   background: linear-gradient(170deg, #fffef9, var(--color-ivory) 60%, #f6efe1 100%);
   border-radius: 2px;
   box-shadow: var(--shadow-paper-lg);
   padding: clamp(2rem, 6vh, 3rem) clamp(1.5rem, 6vw, 2.5rem);
-}
-
-.invitation-card.is-interactive {
+  /* GSAP's autoAlpha drives opacity + visibility together, so the card
+     (and its continue button) is both invisible and unclickable until
+     the reveal tween runs — no separate pointer-events toggle needed. */
   pointer-events: auto;
 }
 

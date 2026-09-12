@@ -8,90 +8,102 @@
  * ------------------------------------------------------------
  */
 (function () {
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   function init() {
     if (typeof gsap === "undefined") return;
     gsap.registerPlugin(ScrollTrigger);
 
-    if (prefersReduced) {
-      // Simply present everything — no motion, still fully readable.
-      document.querySelectorAll("[data-reveal]").forEach((el) => {
-        el.style.opacity = 1;
-        el.style.transform = "none";
-      });
-      document.querySelectorAll(".reveal-title__rule span, .hero__ornament span")
-        .forEach((el) => (el.style.transform = "scaleX(1)"));
-      return;
-    }
+    // gsap.matchMedia() re-evaluates automatically if the OS-level
+    // reduced-motion setting ever changes mid-session, rather than
+    // reading it once at load — the documented pattern for accessible,
+    // responsive GSAP setup.
+    gsap.matchMedia().add(
+      { reduceMotion: "(prefers-reduced-motion: reduce)" },
+      (context) => {
+        const { reduceMotion } = context.conditions;
 
-    const fadeEls = gsap.utils.toArray('[data-reveal="fade"]');
-    const scaleEls = gsap.utils.toArray('[data-reveal="scale"]');
-    const lineEls = gsap.utils.toArray('[data-reveal="line"]');
+        if (reduceMotion) {
+          // Simply present everything — no motion, still fully readable.
+          document.querySelectorAll("[data-reveal]").forEach((el) => {
+            el.style.opacity = 1;
+            el.style.visibility = "visible";
+            el.style.transform = "none";
+          });
+          document.querySelectorAll(".reveal-title__rule span, .hero__ornament span")
+            .forEach((el) => (el.style.transform = "scaleX(1)"));
+          return;
+        }
 
-    gsap.set(fadeEls, { opacity: 0, y: 26 });
-    gsap.set(scaleEls, { opacity: 0, scale: 0.94 });
+        const fadeEls = gsap.utils.toArray('[data-reveal="fade"]');
+        const scaleEls = gsap.utils.toArray('[data-reveal="scale"]');
+        const lineEls = gsap.utils.toArray('[data-reveal="line"]');
 
-    ScrollTrigger.batch(fadeEls, {
-      start: "top 88%",
-      once: true,
-      onEnter: (batch) =>
-        gsap.to(batch, {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          stagger: 0.08,
-        }),
-    });
+        // autoAlpha (opacity + visibility) keeps content not yet revealed
+        // out of the tab order too — a hidden RSVP field or gallery tile
+        // can't steal keyboard focus before its entrance has played.
+        gsap.set(fadeEls, { autoAlpha: 0, y: 26 });
+        gsap.set(scaleEls, { autoAlpha: 0, scale: 0.94 });
 
-    ScrollTrigger.batch(scaleEls, {
-      start: "top 85%",
-      once: true,
-      onEnter: (batch) =>
-        gsap.to(batch, {
-          opacity: 1,
-          scale: 1,
-          duration: 1,
-          ease: "power3.out",
-          stagger: 0.1,
-        }),
-    });
+        ScrollTrigger.batch(fadeEls, {
+          start: "top 88%",
+          once: true,
+          onEnter: (batch) =>
+            gsap.to(batch, {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.9,
+              ease: "power3.out",
+              stagger: 0.08,
+            }),
+        });
 
-    lineEls.forEach((line) => {
-      ScrollTrigger.create({
-        trigger: line,
-        start: "top 90%",
-        once: true,
-        onEnter: () =>
-          gsap.to(line.querySelector("span") || line, {
-            scaleX: 1,
-            duration: 1,
-            ease: "power2.inOut",
-          }),
-      });
-    });
+        ScrollTrigger.batch(scaleEls, {
+          start: "top 85%",
+          once: true,
+          onEnter: (batch) =>
+            gsap.to(batch, {
+              autoAlpha: 1,
+              scale: 1,
+              duration: 1,
+              ease: "power3.out",
+              stagger: 0.1,
+            }),
+        });
 
-    // Timeline items (.timeline__item, .day-timeline__item) and gallery
-    // tiles (.gallery__item) already carry data-reveal="fade"/"scale" in
-    // their markup, so the batches above handle their entrance — no need
-    // for a second, duplicate set of ScrollTriggers here.
+        lineEls.forEach((line) => {
+          ScrollTrigger.create({
+            trigger: line,
+            start: "top 90%",
+            once: true,
+            onEnter: () =>
+              gsap.to(line.querySelector("span") || line, {
+                scaleX: 1,
+                duration: 1,
+                ease: "power2.inOut",
+              }),
+          });
+        });
 
-    // ---- Subtle parallax on the couple photograph ------------------------------
-    const photoImg = document.querySelector(".photo__frame img");
-    if (photoImg) {
-      gsap.to(photoImg, {
-        yPercent: 8,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".photo__frame",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    }
+        // Timeline items (.timeline__item, .day-timeline__item) and gallery
+        // tiles (.gallery__item) already carry data-reveal="fade"/"scale" in
+        // their markup, so the batches above handle their entrance — no need
+        // for a second, duplicate set of ScrollTriggers here.
 
+        // ---- Subtle parallax on the couple photograph -----------------------
+        const photoImg = document.querySelector(".photo__frame img");
+        if (photoImg) {
+          gsap.to(photoImg, {
+            yPercent: 8,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".photo__frame",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        }
+      }
+    );
   }
 
   // Reveals only need to run once the opening sequence hands off,
