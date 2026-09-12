@@ -1,27 +1,43 @@
 /**
  * Design tokens — the entire visual system in one place.
  * Change a value here to re-theme the whole invitation.
+ *
+ * Art direction: gold foil on warm ivory paper, set against blush
+ * silk — taken from the printed envelope this site is modelled on.
  */
 :root {
-  /* ---- Colour palette --------------------------------------------- */
-  --color-ivory: #fbf6ec;
-  --color-ivory-deep: #f3ecdd;
-  --color-cream: #f3e9d7;
-  --color-champagne: #e9dabb;
-  --color-paper-shadow: #d9cbae;
+  /* ---- Paper & ground ---------------------------------------------- */
+  --color-ivory: #fdfaf4;
+  --color-ivory-deep: #f6eee2;
+  --color-cream: #f4ead9;
+  --color-champagne: #ecdcc0;
+  --color-blush: #f3e3da;
+  --color-blush-deep: #e7d2c6;
+  --color-paper-shadow: #d8c6b6;
 
-  --color-wax: #7c2128;
-  --color-wax-light: #9c3038;
-  --color-wax-dark: #4a1216;
-  --color-wax-highlight: #b8464f;
+  /* ---- Gold foil ----------------------------------------------------- */
+  --color-gold: #b08b4f;
+  --color-gold-deep: #8f6f39;
+  --color-gold-light: #dcc08a;
+  --color-gold-line: rgba(176, 139, 79, 0.42);
 
-  --color-gold: #b08d4f;
-  --color-gold-soft: #cbae7a;
-  --color-gold-line: rgba(176, 141, 79, 0.45);
+  /* ---- Gold sealing wax (richer and more saturated than flat foil) ---- */
+  --color-wax: #c2a263;
+  --color-wax-light: #e2c894;
+  --color-wax-dark: #8a6a33;
+  --color-wax-highlight: #f2e0b4;
 
-  --color-charcoal: #2b231d;
-  --color-charcoal-soft: #4a3f35;
-  --color-ink: #3a2e28;
+  /* ---- Ink ------------------------------------------------------------- */
+  --color-charcoal: #3a302a;
+  --color-charcoal-soft: #5c4e44;
+  --color-ink: #46392f;
+
+  /* ---- Interface accents ------------------------------------------------
+     Gold carries the decorative marks; espresso carries the solid,
+     high-contrast elements so the page never reads as "all gold". */
+  --color-accent: #a8834a;
+  --color-accent-strong: #4a3a2c;
+  --color-accent-strong-hover: #5e4a38;
 
   --color-bg: var(--color-ivory);
   --color-text: var(--color-charcoal);
@@ -50,8 +66,8 @@
   --radius-soft: 2px;
 
   /* ---- Shadows (layered, warm, paper-like) ----------------------------- */
-  --shadow-paper-sm: 0 1px 2px rgba(43, 35, 29, 0.08), 0 4px 10px rgba(43, 35, 29, 0.06);
-  --shadow-paper-md: 0 2px 6px rgba(43, 35, 29, 0.1), 0 14px 30px rgba(43, 35, 29, 0.12);
-  --shadow-paper-lg: 0 8px 20px rgba(43, 35, 29, 0.14), 0 30px 60px rgba(43, 35, 29, 0.18);
-  --shadow-envelope: 0 20px 45px rgba(35, 25, 15, 0.28), 0 4px 12px rgba(35, 25, 15, 0.18);
+  --shadow-paper-sm: 0 1px 2px rgba(74, 58, 44, 0.08), 0 4px 10px rgba(74, 58, 44, 0.06);
+  --shadow-paper-md: 0 2px 6px rgba(74, 58, 44, 0.1), 0 14px 30px rgba(74, 58, 44, 0.12);
+  --shadow-paper-lg: 0 8px 20px rgba(74, 58, 44, 0.13), 0 30px 60px rgba(74, 58, 44, 0.17);
+  --shadow-envelope: 0 22px 50px rgba(96, 70, 48, 0.22), 0 5px 14px rgba(96, 70, 48, 0.14);
 }

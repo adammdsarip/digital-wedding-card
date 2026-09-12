@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Amara &amp; Julian — 15 May 2027</title>
-<meta name="description" content="You are cordially invited to the wedding of Amara &amp; Julian." />
-<meta name="theme-color" content="#f3e9d7" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%237c2128'/%3E%3Cpath d='M32 44c-9-6-16-12-16-19a9 9 0 0 1 16-5 9 9 0 0 1 16 5c0 7-7 13-16 19Z' fill='none' stroke='%23f3e9d7' stroke-width='2.6'/%3E%3C/svg%3E" />
+<title>Adam &amp; Nurin — 15 May 2027</title>
+<meta name="description" content="You are cordially invited to the wedding of Adam &amp; Nurin." />
+<meta name="theme-color" content="#f3e3da" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c2a263'/%3E%3Ccircle cx='32' cy='32' r='23' fill='none' stroke='%237d5f2a' stroke-width='1.5' opacity='.6'/%3E%3Cline x1='40' y1='18' x2='24' y2='46' stroke='%237d5f2a' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,10 +42,11 @@
      aria-label="Tap to open your wedding invitation">
 
   <div class="envelope-scene__backdrop">
+    <div class="backdrop__silk"></div>
     <div class="backdrop__vignette"></div>
     <div class="backdrop__light"></div>
-    <svg class="backdrop__sprig backdrop__sprig--tl" viewBox="0 0 120 160" aria-hidden="true"><use href="#sprig"/></svg>
-    <svg class="backdrop__sprig backdrop__sprig--br" viewBox="0 0 120 160" aria-hidden="true"><use href="#sprig"/></svg>
+    <svg class="backdrop__bloom backdrop__bloom--tl" viewBox="0 0 130 112" aria-hidden="true"><use href="#babys-breath"/></svg>
+    <svg class="backdrop__bloom backdrop__bloom--br" viewBox="0 0 130 112" aria-hidden="true"><use href="#babys-breath"/></svg>
   </div>
 
   <div class="envelope-scene__stage">
@@ -61,17 +62,37 @@
       <!-- pocket front (lower envelope paper, in front of the card) -->
       <div class="envelope__pocket paper-grain">
         <div class="envelope__pocket-seam"></div>
+        <svg class="envelope__pocket-folds" viewBox="0 0 1000 688" aria-hidden="true">
+          <!-- shadow cast by the folded flap edge resting on the pocket -->
+          <path class="envelope__flap-shadow" d="M0 80 L500 442" />
+          <path class="envelope__flap-shadow" d="M1000 80 L500 442" />
+          <!-- creases of the side panels folded in behind -->
+          <path d="M0 372 L336 688" />
+          <path d="M1000 372 L664 688" />
+        </svg>
       </div>
 
       <!-- flap, hinged at the top edge -->
       <div class="envelope__flap-perspective">
         <div class="envelope__flap" id="envelope-flap">
           <div class="envelope__flap-face envelope__flap-face--outer paper-grain">
+            <!-- gold foil hairline tracing the flap's folded edges -->
+            <svg class="envelope__foil-edge" viewBox="0 0 1000 436" aria-hidden="true">
+              <path d="M13 76 L500 432 L987 76" />
+            </svg>
+
             <div class="envelope__flap-copy">
-              <span>A Special Invitation</span>
-              <i class="envelope__flap-divider"></i>
-              <span>To Our Wedding</span>
+              <span class="envelope__eyebrow" id="env-eyebrow">The Wedding Of</span>
+              <span class="envelope__name" id="env-name-one">Adam</span>
+              <span class="envelope__and">
+                <i></i><em id="env-connector">and</em><i></i>
+              </span>
+              <span class="envelope__name" id="env-name-two">Nurin</span>
+              <svg class="envelope__sprig" viewBox="0 0 100 34" aria-hidden="true"><use href="#sprig"/></svg>
             </div>
+
+            <!-- slow sheen that travels across the foil, as printed gold does -->
+            <div class="envelope__foil-sheen" id="foil-sheen"></div>
           </div>
           <div class="envelope__flap-face envelope__flap-face--inner"></div>
         </div>
@@ -100,7 +121,7 @@
         <span class="wax-seal__sheen"></span>
       </button>
 
-      <p class="envelope__tagline">Together for a Brighter Tomorrow</p>
+      <p class="envelope__tagline" id="env-tagline">A Beautiful Journey Together</p>
     </div>
 
     <p class="envelope-scene__hint" id="envelope-hint">Tap to Open</p>
@@ -110,11 +131,11 @@
   <div class="invitation-card-wrap">
   <div class="invitation-card paper-grain" id="envelope-card">
     <div class="reveal-title">
-      <p class="reveal-title__eyebrow">The Wedding Of</p>
+      <p class="reveal-title__eyebrow" id="title-eyebrow">The Wedding Of</p>
       <h1 class="reveal-title__names">
-        <span class="reveal-title__name" id="title-bride">Amara</span>
-        <span class="reveal-title__amp">&amp;</span>
-        <span class="reveal-title__name" id="title-groom">Julian</span>
+        <span class="reveal-title__name" id="title-name-one">Adam</span>
+        <span class="reveal-title__amp" id="title-connector">and</span>
+        <span class="reveal-title__name" id="title-name-two">Nurin</span>
       </h1>
       <div class="reveal-title__rule"><span></span></div>
       <p class="reveal-title__date" id="title-date">15 · May · 2027</p>
@@ -132,24 +153,64 @@
 <!-- Shared SVG defs, referenced by <use> above (kept out of layout) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <!-- Monogram struck into the wax: two initials split by a rule,
+         with a small sprig beneath, as on the printed seal. -->
     <g id="seal-emblem">
-      <path d="M50 68 C 30 52, 18 40, 18 28 C 18 18, 27 12, 36 15 C 42 17, 47 22, 50 28 C 53 22, 58 17, 64 15 C 73 12, 82 18, 82 28 C 82 40, 70 52, 50 68 Z"
-            fill="none" stroke="currentColor" stroke-width="2.4" opacity="0.85"/>
-      <path d="M50 74 C 26 55, 12 41, 12 27 C 12 15, 23 8, 34 12 C 41 14, 46 20, 50 27 C 54 20, 59 14, 66 12 C 77 8, 88 15, 88 27 C 88 41, 74 55, 50 74 Z"
-            fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
-      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+      <circle cx="50" cy="50" r="37" fill="none" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+      <line x1="63" y1="27" x2="37" y2="73" stroke="currentColor" stroke-width="1.7"
+            stroke-linecap="round" opacity="0.8"/>
+      <text class="seal-initial" id="seal-initial-one" x="35" y="48"
+            fill="currentColor" font-size="30" text-anchor="middle">A</text>
+      <text class="seal-initial" id="seal-initial-two" x="65" y="72"
+            fill="currentColor" font-size="30" text-anchor="middle">N</text>
+      <g opacity="0.75" transform="translate(50 81) scale(0.34)">
+        <path d="M-38 0 C -22 -5, -8 -6, 0 -3" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+        <path d="M38 0 C 22 -5, 8 -6, 0 -3" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+        <use href="#leaf" transform="translate(-30,-2) rotate(200) scale(1.5)"/>
+        <use href="#leaf" transform="translate(-16,-5) rotate(196) scale(1.4)"/>
+        <use href="#leaf" transform="translate(30,-2) rotate(-20) scale(1.5)"/>
+        <use href="#leaf" transform="translate(16,-5) rotate(-16) scale(1.4)"/>
+      </g>
     </g>
+
+    <!-- One leaf, reused along every branch -->
+    <path id="leaf" d="M0 0 C 2.6 -3.6 7.6 -4.4 11.2 -1.7 C 7.6 1.5 2.6 2.4 0 0 Z" fill="currentColor"/>
+
+    <!-- Olive-style sprig printed under the names -->
     <g id="sprig">
-      <path d="M60 150 C 58 110, 58 70, 60 20" fill="none" stroke="currentColor" stroke-width="1.2"/>
-      <path d="M60 40 C 45 34, 35 30, 22 32" fill="none" stroke="currentColor" stroke-width="1"/>
-      <path d="M60 60 C 75 54, 85 50, 98 52" fill="none" stroke="currentColor" stroke-width="1"/>
-      <path d="M60 85 C 45 80, 34 78, 20 82" fill="none" stroke="currentColor" stroke-width="1"/>
-      <path d="M60 105 C 76 100, 87 99, 100 104" fill="none" stroke="currentColor" stroke-width="1"/>
-      <circle cx="22" cy="32" r="2.4" fill="currentColor"/>
-      <circle cx="98" cy="52" r="2.4" fill="currentColor"/>
-      <circle cx="20" cy="82" r="2.4" fill="currentColor"/>
-      <circle cx="100" cy="104" r="2.4" fill="currentColor"/>
-      <circle cx="60" cy="18" r="3" fill="currentColor"/>
+      <path d="M50 29 C 40 26, 26 20, 11 8" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <path d="M50 29 C 60 26, 74 20, 89 8" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <use href="#leaf" transform="translate(42,24) rotate(206)"/>
+      <use href="#leaf" transform="translate(33,20) rotate(168)"/>
+      <use href="#leaf" transform="translate(30,17) rotate(214)"/>
+      <use href="#leaf" transform="translate(21,12) rotate(176)"/>
+      <use href="#leaf" transform="translate(18,10) rotate(220)"/>
+      <use href="#leaf" transform="translate(58,24) rotate(-26)"/>
+      <use href="#leaf" transform="translate(67,20) rotate(12)"/>
+      <use href="#leaf" transform="translate(70,17) rotate(-34)"/>
+      <use href="#leaf" transform="translate(79,12) rotate(4)"/>
+      <use href="#leaf" transform="translate(82,10) rotate(-40)"/>
+    </g>
+
+    <!-- Out-of-focus gypsophila, echoing the styling around the envelope -->
+    <g id="babys-breath" fill="#fffdfa">
+      <circle cx="34" cy="30" r="9" opacity="0.85"/>
+      <circle cx="58" cy="18" r="6" opacity="0.7"/>
+      <circle cx="20" cy="56" r="7" opacity="0.75"/>
+      <circle cx="52" cy="52" r="10" opacity="0.6"/>
+      <circle cx="80" cy="40" r="5.5" opacity="0.55"/>
+      <circle cx="14" cy="20" r="5" opacity="0.6"/>
+      <circle cx="72" cy="70" r="7" opacity="0.45"/>
+      <circle cx="100" cy="26" r="4.5" opacity="0.4"/>
+      <circle cx="38" cy="82" r="6" opacity="0.4"/>
+      <circle cx="96" cy="62" r="5" opacity="0.3"/>
+      <circle cx="120" cy="44" r="4" opacity="0.25"/>
+      <circle cx="62" cy="96" r="4.5" opacity="0.25"/>
+      <g stroke="#c9c2ae" stroke-width="1.4" fill="none" opacity="0.35">
+        <path d="M34 30 C 50 46, 62 70, 70 100"/>
+        <path d="M58 18 C 66 44, 80 62, 104 84"/>
+        <path d="M20 56 C 40 70, 52 84, 60 104"/>
+      </g>
     </g>
   </defs>
 </svg>
@@ -165,9 +226,9 @@
     <div class="hero__ornament" data-reveal="line"><span></span></div>
     <p class="eyebrow" data-reveal="fade">The Wedding Of</p>
     <h1 class="hero__names" data-reveal="fade">
-      <span id="hero-bride"></span>
-      <span class="amp">&amp;</span>
-      <span id="hero-groom"></span>
+      <span id="hero-name-one"></span>
+      <span class="amp" id="hero-connector"></span>
+      <span id="hero-name-two"></span>
     </h1>
     <!-- 2 — Wedding Date -->
     <p class="hero__date" id="hero-date" data-reveal="fade"></p>

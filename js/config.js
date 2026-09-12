@@ -12,14 +12,19 @@
 const WEDDING = {
 
   // ---- The couple -------------------------------------------------
-  bride: "Amara",
-  brideFull: "Amara Rose Whitfield",
-  groom: "Julian",
-  groomFull: "Julian Alexander Hart",
+  // Names appear in this order everywhere: envelope, hero, sign-offs.
+  partnerOne: "Adam",
+  partnerOneFull: "Adam Mohd Sarip",
+  partnerTwo: "Nurin",
+  partnerTwoFull: "Nurin Batrisyia",
 
-  // Shown on the envelope seal / tagline
-  monogram: "A & J",
-  tagline: "Together for a Brighter Tomorrow",
+  // The word between the two names. "and" (set in the script face) matches
+  // the printed envelope; "&" also works.
+  connector: "and",
+
+  // Envelope copy. The seal monogram is derived from the two initials.
+  envelopeEyebrow: "The Wedding Of",
+  tagline: "A Beautiful Journey Together",
 
   // ---- The date -----------------------------------------------------
   // isoDate powers the countdown; the rest are for display.
@@ -35,13 +40,13 @@ const WEDDING = {
     eyebrow: "Together with their families",
     message:
       "we joyfully invite you to share in the celebration of our marriage — an evening of love, laughter, and the beginning of forever.",
-    signoff: "With love, Amara & Julian",
+    signoff: "With love, Adam and Nurin",
   },
 
   // ---- Hero / couple photograph --------------------------------------
   heroPhoto: {
     src: "assets/images/couple-hero.jpg",
-    alt: "Amara and Julian",
+    alt: "Adam and Nurin",
   },
 
   // ---- Our story ------------------------------------------------------
@@ -120,12 +125,12 @@ const WEDDING = {
     heading: "Photo Gallery",
     intro: "A few of our favourite moments together.",
     photos: [
-      { src: "assets/images/gallery-1.jpg", alt: "Amara and Julian, moment one" },
-      { src: "assets/images/gallery-2.jpg", alt: "Amara and Julian, moment two" },
-      { src: "assets/images/gallery-3.jpg", alt: "Amara and Julian, moment three" },
-      { src: "assets/images/gallery-4.jpg", alt: "Amara and Julian, moment four" },
-      { src: "assets/images/gallery-5.jpg", alt: "Amara and Julian, moment five" },
-      { src: "assets/images/gallery-6.jpg", alt: "Amara and Julian, moment six" },
+      { src: "assets/images/gallery-1.jpg", alt: "Adam and Nurin, moment one" },
+      { src: "assets/images/gallery-2.jpg", alt: "Adam and Nurin, moment two" },
+      { src: "assets/images/gallery-3.jpg", alt: "Adam and Nurin, moment three" },
+      { src: "assets/images/gallery-4.jpg", alt: "Adam and Nurin, moment four" },
+      { src: "assets/images/gallery-5.jpg", alt: "Adam and Nurin, moment five" },
+      { src: "assets/images/gallery-6.jpg", alt: "Adam and Nurin, moment six" },
     ],
   },
 
@@ -136,7 +141,7 @@ const WEDDING = {
     deadline: "1 April 2027",
     // Set a `formEndpoint` (e.g. a Formspree URL) to receive real submissions.
     formEndpoint: "",
-    email: "amara.and.julian@example.com",
+    email: "adam.and.nurin@example.com",
     phone: "+1 (555) 019-2847",
   },
 
@@ -145,7 +150,7 @@ const WEDDING = {
     heading: "We Can't Wait to Celebrate With You",
     message:
       "Your presence is the greatest gift of all. Thank you for being part of our story, and for the one that begins next.",
-    signoff: "Amara & Julian",
+    signoff: "Adam and Nurin",
   },
 
   // ---- Music ---------------------------------------------------------------------
@@ -158,13 +163,13 @@ const WEDDING = {
   // ---- Colour palette (mirrored in css/variables.css — kept here for
   //      reference / for any JS-driven theming) --------------------------------
   palette: {
-    ivory: "#FBF6EC",
-    cream: "#F3E9D7",
-    champagne: "#E8D9B8",
-    wax: "#7C2128",
-    waxDark: "#4E1218",
-    gold: "#B08D4F",
-    charcoal: "#2B231D",
+    ivory: "#FDFAF4",
+    cream: "#F4EAD9",
+    champagne: "#ECDCC0",
+    blush: "#F3E3DA",
+    gold: "#B08B4F",
+    goldWax: "#C2A263",
+    charcoal: "#3A302A",
   },
 };
 

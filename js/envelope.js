@@ -23,6 +23,8 @@
   const pocket = document.querySelector(".envelope__pocket");
   const back = document.querySelector(".envelope__back");
   const tagline = document.querySelector(".envelope__tagline");
+  const sheen = document.getElementById("foil-sheen");
+  const stage = document.querySelector(".envelope-scene__stage");
 
   // gsap.matchMedia() keeps this in sync with the OS setting for as long as
   // the page lives — not just a value read once at load — and is the
@@ -37,12 +39,68 @@
 
   scene.dataset.state = "idle";
 
+  /* ---- Scene 1: the envelope settles onto the table ------------------- */
+  let shimmer;
+
+  function playIntro() {
+    if (reduceMotion) {
+      startShimmer();
+      return;
+    }
+    gsap.timeline({ defaults: { ease: "power3.out" }, onComplete: startShimmer })
+      .from(envelope, { y: 18, scale: 0.965, autoAlpha: 0, duration: 1.4 })
+      .from(".envelope__floor-shadow", { scaleX: 0.8, autoAlpha: 0, duration: 1.4 }, "<")
+      .from(hint, { autoAlpha: 0, y: 8, duration: 0.8 }, "-=0.5");
+  }
+
+  /* Gold foil catches the light every few seconds — the shimmer travels
+     through the printed names and a soft highlight crosses the paper. */
+  function startShimmer() {
+    if (reduceMotion || shimmer) return;
+    shimmer = gsap.timeline({ repeat: -1, repeatDelay: 3.6, defaults: { ease: "power1.inOut" } })
+      .fromTo(".envelope__name",
+        { backgroundPosition: "130% 0" },
+        { backgroundPosition: "-30% 0", duration: 2.6 })
+      .fromTo(sheen,
+        { autoAlpha: 0, xPercent: -55 },
+        { autoAlpha: 0.45, xPercent: 0, duration: 1.3 }, "<")
+      .to(sheen, { autoAlpha: 0, xPercent: 55, duration: 1.3 });
+  }
+
+  /* Ambient parallax: the envelope turns a few degrees toward the pointer.
+     quickTo reuses one tween per property instead of spawning a new tween
+     on every pointermove — and stays the single owner of rotationX/Y, so
+     nothing else needs to overwrite it. */
+  let turnX, turnY;
+
+  if (stage) {
+    turnY = gsap.quickTo(envelope, "rotationY", { duration: 0.9, ease: "power3" });
+    turnX = gsap.quickTo(envelope, "rotationX", { duration: 0.9, ease: "power3" });
+
+    scene.addEventListener("pointermove", (e) => {
+      if (reduceMotion || e.pointerType !== "mouse") return;
+      if (scene.dataset.state === "breaking" || scene.dataset.state === "done") return;
+      turnY((e.clientX / window.innerWidth - 0.5) * 7);
+      turnX((e.clientY / window.innerHeight - 0.5) * -5);
+    });
+
+    scene.addEventListener("pointerleave", () => {
+      if (reduceMotion) return;
+      turnY(0);
+      turnX(0);
+    });
+  }
+
+  playIntro();
+
   function liftEnvelope() {
     if (scene.dataset.state !== "idle") return;
     scene.dataset.state = "lifted";
     hint.textContent = "Tap the Seal to Open";
 
-    gsap.timeline({ defaults: { duration: 0.55, ease: "power2.out" } })
+    // overwrite:"auto" hands the envelope over cleanly if a guest taps
+    // while the intro tween is still settling it into place.
+    gsap.timeline({ defaults: { duration: 0.55, ease: "power2.out", overwrite: "auto" } })
       .to(envelope, { scale: 1.035, y: -6 })
       .to(".envelope__floor-shadow", { autoAlpha: 0.55, scaleX: 1.06 }, "<")
       .to(tagline, { autoAlpha: 0.4, duration: 0.4 }, "<");
@@ -52,6 +110,12 @@
     if (scene.dataset.state !== "lifted") return;
     scene.dataset.state = "breaking";
     hint.classList.add("is-hidden");
+
+    // The foil has done its job; square the envelope up to the viewer so
+    // the flap opens face-on rather than from a parallax angle.
+    if (shimmer) shimmer.kill();
+    gsap.to(sheen, { autoAlpha: 0, duration: 0.3 });
+    if (turnX) { turnX(0); turnY(0); }
 
     const tl = gsap.timeline({
       defaults: { ease: "power2.out" },

@@ -43,7 +43,7 @@
 .script {
   font-family: var(--font-script);
   font-size: 1.4rem;
-  color: var(--color-wax);
+  color: var(--color-accent);
 }
 
 .hero__ornament {
@@ -79,11 +79,11 @@
 .btn:active { transform: scale(0.97); }
 
 .btn--fill {
-  background: var(--color-wax);
+  background: var(--color-accent-strong);
   color: var(--color-ivory);
-  box-shadow: 0 10px 24px -8px rgba(124, 33, 40, 0.55);
+  box-shadow: 0 10px 24px -8px rgba(74, 58, 44, 0.5);
 }
-.btn--fill:hover { background: var(--color-wax-light); }
+.btn--fill:hover { background: var(--color-accent-strong-hover); }
 
 .btn--ghost {
   border: 1px solid var(--color-gold-line);
@@ -113,7 +113,7 @@
 
 .hero__names .amp {
   font-family: var(--font-script);
-  color: var(--color-wax);
+  color: var(--color-accent);
   font-size: 1.05em;
 }
 
@@ -232,7 +232,7 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: var(--color-wax);
+  background: var(--color-accent);
   margin: 0.4rem auto 0;
   box-shadow: 0 0 0 4px var(--color-cream);
 }
@@ -254,7 +254,7 @@
 .event__time {
   font-family: var(--font-display);
   font-size: 1.3rem;
-  color: var(--color-wax);
+  color: var(--color-accent);
   margin-bottom: 0.5rem;
 }
 .event__address {
@@ -317,7 +317,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--color-wax);
+  background: var(--color-accent);
   margin-top: 0.4rem;
 }
 .day-timeline__body h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
@@ -388,12 +388,12 @@
 .field select:focus,
 .field textarea:focus {
   outline: none;
-  border-bottom-color: var(--color-wax);
+  border-bottom-color: var(--color-accent);
 }
 .rsvp__form .btn { margin-top: 0.5rem; }
 .rsvp__status {
   font-size: 0.9rem;
-  color: var(--color-wax);
+  color: var(--color-accent);
   min-height: 1.2em;
 }
 
@@ -442,7 +442,7 @@
 .audio-toggle__wave { display: flex; align-items: flex-end; gap: 3px; height: 14px; }
 .audio-toggle__wave i {
   width: 2.5px;
-  background: var(--color-wax);
+  background: var(--color-accent);
   border-radius: 2px;
   height: 5px;
   transition: height 0.25s ease;

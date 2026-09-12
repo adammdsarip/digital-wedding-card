@@ -15,16 +15,30 @@
     if (el) el.textContent = text;
   };
 
-  // ---- Envelope title (inside the opening sequence) ----------------------
-  set("title-bride", W.bride);
-  set("title-groom", W.groom);
+  // ---- The printed envelope ------------------------------------------------
+  set("env-eyebrow", W.envelopeEyebrow);
+  set("env-name-one", W.partnerOne);
+  set("env-connector", W.connector);
+  set("env-name-two", W.partnerTwo);
+  set("env-tagline", W.tagline);
+
+  // The wax seal is struck with the two initials.
+  set("seal-initial-one", W.partnerOne.charAt(0).toUpperCase());
+  set("seal-initial-two", W.partnerTwo.charAt(0).toUpperCase());
+
+  // ---- Invitation card (inside the opening sequence) ----------------------
+  set("title-eyebrow", W.envelopeEyebrow);
+  set("title-name-one", W.partnerOne);
+  set("title-connector", W.connector);
+  set("title-name-two", W.partnerTwo);
   set("title-date", `${W.day} · ${W.month} · ${W.year}`);
 
   // ---- Hero ------------------------------------------------------------------
-  set("hero-bride", W.bride);
-  set("hero-groom", W.groom);
+  set("hero-name-one", W.partnerOne);
+  set("hero-connector", W.connector);
+  set("hero-name-two", W.partnerTwo);
   set("hero-date", W.displayDate);
-  document.title = `${W.bride} & ${W.groom} — ${W.displayDate}`;
+  document.title = `${W.partnerOne} & ${W.partnerTwo} — ${W.displayDate}`;
 
   // ---- Invitation message ------------------------------------------------------
   set("invite-eyebrow", W.invitation.eyebrow);
