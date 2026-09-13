@@ -1,0 +1,22 @@
+{
+  "summary": "Frontend-only E2E test of the cinematic wedding invitation at mobile viewport 390x844 (and 375/414 for overflow). All acceptance criteria verified: opening scene loads with envelope + hint + skip; tap-to-open animation transitions to main-invitation within ~4.5s; skip button jumps directly to main; hero shows Aarav & Isha, date 14 . 02 . 2027; countdown seconds update over 2s (59->57); gallery lightbox opens and closes; RSVP form flow works (attend-no hides guests select, submit shows rsvp-thanks, reset returns to form); Google Maps iframe and Get Directions button render; no horizontal overflow at 375/390/414 (scrollWidth <= innerWidth+1); envelope-stage and section-hero computed transforms are translate-only (matrix(1,0,0,1,tx,ty)) with no rotate/skew — card stays front-facing as required.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "rsvp-guests is a <select> element (correct); tests must use select_option, not fill. Not a bug — noted for future testers."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (not tested per request)", "frontend": "100%"},
+  "test_credentials": "none required",
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Testing performed at 390x844 mobile viewport. All 10 requested acceptance criteria verified passing. Envelope transform verified translate-only via getComputedStyle. RSVP has NO backend (form UI only) — do not test API persistence. Backend only has GET /api/health.",
+  "rca of the issue": "n/a — no issues found"
+}
