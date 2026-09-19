@@ -1,0 +1,13 @@
+# Netlify configuration
+#
+# This is a plain static site: no build step, no dependencies to install.
+# GSAP is vendored in js/vendor/, so there is nothing to compile — Netlify
+# just serves the repository root as-is.
+#
+# Caching is deliberately left to Netlify's defaults (revalidated HTML,
+# ETag'd assets). Wedding details get edited late and often; serving a
+# stale config.js to guests is a worse failure than an extra request.
+
+[build]
+  publish = "."
+  command = ""
