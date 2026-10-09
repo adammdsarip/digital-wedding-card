@@ -232,7 +232,7 @@
   // ---- Floral artwork: only drawn once you supply it -----------------------------------------
   const fl = W.florals || {};
   document.querySelectorAll("[data-florals]").forEach((sheet) => {
-    [["topLeft", "tl"], ["bottomRight", "br"]].forEach(([key, pos]) => {
+    [["topLeft", "tl"], ["topRight", "tr"], ["bottomLeft", "bl"], ["bottomRight", "br"]].forEach(([key, pos]) => {
       if (!fl[key]) return;
       const img = document.createElement("img");
       img.className = `sheet__floral sheet__floral--${pos}`;
@@ -240,6 +240,8 @@
       img.alt = "";
       img.setAttribute("aria-hidden", "true");
       img.decoding = "async";
+      // the first sheet is on screen as the envelope opens; the rest can wait for the scroll
+      if (sheet.id !== "invitation") img.loading = "lazy";
       sheet.prepend(img);
     });
   });

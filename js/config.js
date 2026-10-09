@@ -146,12 +146,14 @@ const WEDDING = {
   },
 
   // ---- Floral artwork ----------------------------------------------------
-  // Leave empty for a clean sheet. When you have the artwork, drop the
-  // transparent PNGs into assets/florals/ and set the paths, e.g.
-  //   topLeft: "assets/florals/top-left.png"
+  // The four corners of the floral frame, set behind the type on every sheet.
+  // They are cut from your artwork by tools/make_florals.py. Leave a path empty
+  // to leave that corner bare.
   florals: {
-    topLeft: "",
-    bottomRight: "",
+    topLeft: "assets/florals/top-left.webp",
+    topRight: "assets/florals/top-right.webp",
+    bottomLeft: "assets/florals/bottom-left.webp",
+    bottomRight: "assets/florals/bottom-right.webp",
   },
 
   // ---- Music -----------------------------------------------------------------

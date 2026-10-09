@@ -36,13 +36,15 @@ js/
   vendor/                GSAP, ScrollTrigger and a QR generator, vendored (see note below)
 assets/
   images/                Background photograph, cotton-paper and wax-seal images, card paper
-  florals/               Drop floral artwork here (see "Adding the florals")
+  florals/               The four floral corners used on every sheet
   audio/                 Put an mp3/ogg here and point js/config.js at it
 ```
 
 ## The six sheets
 
-1. **The invitation** — arched gold frame, the names, the date, the venue.
+1. **The invitation** — arched gold frame, the names, the date, the venue. Set in
+   `em` from one size that follows the screen's width *and* height, so on a phone the
+   whole sheet fits one screen (down to 320 × 568) and is centred on taller ones.
 2. **The Big Day** — the itinerary, with a line that draws itself stop by stop.
 3. **Location** — map, an "Open in Google Maps" button, and how to get there.
 4. **RSVP** — a QR code and a link, both generated from `rsvp.url`.
@@ -79,21 +81,23 @@ To change the map: `venue.mapEmbedUrl` accepts either a key-free
 `https://maps.google.com/maps?q=<address>&output=embed` URL (default) or a
 full "Share → Embed a map" URL copied from Google Maps for more control.
 
-### Adding the florals
+### The florals
 
-The sheets are designed to carry floral corners, but ship without them. When
-you have the artwork, export it as **transparent PNGs** (about 1200px wide is
-plenty for a phone), put them in `assets/florals/`, and set the paths:
+All six sheets carry the floral frame you supplied: its four corners sit behind
+the type, and the sheets are tinted to the artwork's own cream so the clusters
+melt into them. The four corner images are in `assets/florals/` and are cut
+from your artwork by `tools/make_florals.py`:
 
-```js
-florals: {
-  topLeft: "assets/florals/top-left.png",
-  bottomRight: "assets/florals/bottom-right.png",
-},
+```bash
+python3 tools/make_florals.py path/to/floral-frame.png   # needs numpy + Pillow
 ```
 
-The same two images are placed on every sheet, behind the text. Leaving them
-empty keeps a clean sheet.
+Each corner is cropped to the same width, so one scale fits all, and feathered
+on its inner edge so it dissolves rather than ending on a line. To change or
+drop a corner, edit `florals` in `js/config.js` (an empty path leaves that corner
+bare). The sheets keep clear room at top and bottom so the type never sits on the
+roses; if you change the artwork's size, adjust `.sheet__floral { width }` and
+the sheet padding in `css/sections.css` together.
 
 ## The opening sequence — design notes
 
