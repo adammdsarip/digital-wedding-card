@@ -20,6 +20,10 @@ body {
   font-family: var(--font-body);
   font-size: 18px;
   line-height: 1.6;
+  /* Cormorant and Playfair default to old-style figures, which read as
+     "ıı.oo" for a time or a phone number; lining figures are legible. */
+  font-variant-numeric: lining-nums;
+  font-feature-settings: "lnum" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;

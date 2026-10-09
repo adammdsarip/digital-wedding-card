@@ -27,6 +27,11 @@
   --color-wax-dark: #8a6a33;
   --color-wax-highlight: #f2e0b4;
 
+  /* Gold for text. The foil gold above is for lines and ornaments; set
+     small type in it and it drops under 3:1 on cream, so text uses these. */
+  --color-gold-ink: #7a5f35;
+  --color-gold-name: #8c6c36;
+
   /* ---- Ink ------------------------------------------------------------- */
   --color-charcoal: #3a302a;
   --color-charcoal-soft: #5c4e44;
@@ -38,6 +43,13 @@
   --color-accent: #a8834a;
   --color-accent-strong: #4a3a2c;
   --color-accent-strong-hover: #5e4a38;
+
+  /* Deep green, taken from the leaves and swatches in the layout design */
+  --color-forest: #2f3b33;
+  --color-forest-soft: #435046;
+
+  /* The ground the printed sheets rest on */
+  --color-ground: #efe3d8;
 
   --color-bg: var(--color-ivory);
   --color-text: var(--color-charcoal);

@@ -1,421 +1,645 @@
 /* ============================================================
-   THE SCROLLABLE INVITATION
-   Shared section rhythm, then per-section treatments.
+   THE INVITATION — six printed sheets
+   Each sheet is a piece of the stationery suite: ivory stock on a
+   warm ground, a hairline gold frame, small caps set wide, one
+   large display name. Florals are optional and sit behind the type.
    ============================================================ */
 
 #site {
   position: relative;
-  background: var(--color-bg);
+  background: var(--color-ground);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
 }
 
-.section {
+.sheet {
   position: relative;
-  width: 100%;
-  max-width: var(--section-max-width);
-  margin: 0 auto;
-  padding: clamp(4.5rem, 14vh, 7rem) var(--gutter);
+  isolation: isolate;
+  overflow: hidden;
+  width: min(100%, 460px);
+  padding: clamp(3.4rem, 12vw, 4.4rem) clamp(1.5rem, 7vw, 2.4rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  color: var(--color-ink);
+  background: linear-gradient(176deg, #fffdf8 0%, var(--color-ivory) 38%, #f8f0e3 100%);
+  box-shadow: var(--shadow-paper-md);
 }
 
-.eyebrow {
-  font-size: 0.7rem;
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  color: var(--color-gold);
-  margin-bottom: 0.9rem;
-}
-
-.section-title {
-  font-size: clamp(1.6rem, 4.5vw, 2.35rem);
-  margin-bottom: 0.75rem;
-}
-
-.section-intro {
-  max-width: var(--content-max-width);
-  color: var(--color-text-soft);
-  margin-bottom: 2.25rem;
-  font-size: 1.08rem;
-}
-
-.script {
-  font-family: var(--font-script);
-  font-size: 1.4rem;
-  color: var(--color-accent);
-}
-
-.hero__ornament {
-  width: 74px;
-  height: 1px;
-  background: var(--color-gold-line);
-  position: relative;
-  overflow: hidden;
-  margin: 0 auto 1.75rem;
-}
-.hero__ornament span {
-  position: absolute;
-  inset: 0;
-  background: var(--color-gold);
-  transform: scaleX(0);
-  transform-origin: center;
-}
-
-/* ---- Buttons ------------------------------------------------------------------- */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-size: 0.78rem;
-  letter-spacing: var(--tracking-mid);
-  text-transform: uppercase;
-  padding: 0.95rem 2.1rem;
-  border-radius: 1px;
-  transition: transform var(--dur-fast) var(--ease-silk), box-shadow var(--dur-fast) var(--ease-silk), background var(--dur-fast);
-  text-decoration: none;
-}
-.btn:active { transform: scale(0.97); }
-
-.btn--fill {
-  background: var(--color-accent-strong);
-  color: var(--color-ivory);
-  box-shadow: 0 10px 24px -8px rgba(74, 58, 44, 0.5);
-}
-.btn--fill:hover { background: var(--color-accent-strong-hover); }
-
-.btn--ghost {
-  border: 1px solid var(--color-gold-line);
-  color: var(--color-charcoal);
-  margin-top: 1.5rem;
-}
-.btn--ghost:hover { background: rgba(176, 141, 79, 0.08); }
-
-/* ============================================================
-   1 + 6 — HERO
-   ============================================================ */
-.hero {
-  min-height: 100vh;
-  min-height: 100svh;
-  justify-content: center;
-  gap: 0;
-}
-
-.hero__names {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: clamp(0.6rem, 3vw, 1.25rem);
-  font-size: clamp(2.3rem, 9vw, 4.2rem);
-  flex-wrap: wrap;
-}
-
-.hero__names .amp {
-  font-family: var(--font-script);
-  color: var(--color-accent);
-  font-size: 1.05em;
-}
-
-.hero__date {
-  margin-top: 1.5rem;
-  font-size: 0.85rem;
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  color: var(--color-text-soft);
-}
-
-.hero .hero__ornament:last-of-type { margin-top: 1.75rem; margin-bottom: 0; }
-
-.scroll-cue {
-  position: absolute;
-  bottom: clamp(1.5rem, 5vh, 3rem);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 22px;
-  height: 36px;
-  border: 1px solid var(--color-gold-line);
-  border-radius: 12px;
-}
-.scroll-cue span {
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  width: 3px;
-  height: 8px;
-  border-radius: 2px;
-  background: var(--color-gold);
-  transform: translateX(-50%);
-  animation: scrollCue 1.8s ease-in-out infinite;
-}
-@keyframes scrollCue {
-  0% { opacity: 1; transform: translate(-50%, 0); }
-  70% { opacity: 0; transform: translate(-50%, 10px); }
-  100% { opacity: 0; transform: translate(-50%, 10px); }
-}
-
-/* ============================================================
-   3 — INVITATION MESSAGE
-   ============================================================ */
-.invite { background: var(--color-cream); }
-.invite__message {
-  max-width: var(--content-max-width);
-  font-size: clamp(1.15rem, 2.6vw, 1.4rem);
-  font-style: italic;
-  line-height: 1.75;
-  color: var(--color-text);
-  margin-bottom: 1.5rem;
-}
-
-/* ============================================================
-   4 — COUPLE PHOTOGRAPH
-   ============================================================ */
-.photo { padding-block: clamp(3.5rem, 10vh, 6rem); }
-.photo__frame {
-  position: relative;
-  width: min(560px, 100%);
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  box-shadow: var(--shadow-paper-lg);
-}
-.photo__frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: linear-gradient(160deg, var(--color-champagne), var(--color-cream));
-}
-.photo__frame-line {
-  position: absolute;
-  inset: 14px;
-  border: 1px solid rgba(251, 246, 236, 0.55);
-  pointer-events: none;
-}
-
-/* ============================================================
-   5 — OUR STORY
-   ============================================================ */
-.timeline {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  max-width: 640px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 2.25rem;
-  text-align: left;
-  position: relative;
-}
-.timeline::before {
+/* Hairline gold frame, inset from the edge as on the printed sheets */
+.sheet--framed::before {
   content: "";
   position: absolute;
-  left: 54px;
-  top: 6px;
-  bottom: 6px;
-  width: 1px;
-  background: var(--color-gold-line);
-}
-.timeline__item {
-  display: grid;
-  grid-template-columns: 48px 24px 1fr;
-  align-items: start;
-  gap: 0.5rem;
-}
-.timeline__year {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  color: var(--color-gold);
-  padding-top: 0.15rem;
-  text-align: right;
-}
-.timeline__dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  margin: 0.4rem auto 0;
-  box-shadow: 0 0 0 4px var(--color-cream);
-}
-.timeline__title {
-  font-size: 1.25rem;
-  margin-bottom: 0.35rem;
-}
-.timeline__text {
-  color: var(--color-text-soft);
-  font-size: 1.02rem;
+  inset: 9px;
+  border: 1px solid var(--color-gold-line);
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* ============================================================
-   6 + 7 — CEREMONY / RECEPTION
-   ============================================================ */
-.event { max-width: 640px; }
-.event--alt { background: var(--color-cream); max-width: 100%; }
-.event--alt > * { max-width: 640px; }
-.event__time {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  color: var(--color-accent);
-  margin-bottom: 0.5rem;
+/* Floral artwork (only present once supplied in config.js) */
+.sheet__floral {
+  position: absolute;
+  z-index: -1;
+  width: 56%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  mix-blend-mode: multiply;
 }
-.event__address {
-  color: var(--color-text-soft);
-  margin-bottom: 1rem;
-}
-.event__note {
-  font-style: italic;
-  color: var(--color-text-soft);
-  max-width: 460px;
-}
+.sheet__floral--tl { top: 0; left: 0; }
+.sheet__floral--br { bottom: 0; right: 0; }
+.sheet--invite .sheet__floral { width: 74%; }
 
-/* ============================================================
-   8 + 9 — VENUE / MAP
-   ============================================================ */
-.venue__address { color: var(--color-text-soft); margin-bottom: 2rem; }
-.venue__map {
+/* ---- Shared type -------------------------------------------------------- */
+.sheet__head {
   width: 100%;
-  max-width: 720px;
-  aspect-ratio: 16 / 10;
-  box-shadow: var(--shadow-paper-md);
-  overflow: hidden;
-  filter: sepia(8%) saturate(85%);
-}
-.venue__map iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-/* ============================================================
-   10 — WEDDING TIMELINE (day-of schedule)
-   ============================================================ */
-.day-timeline { background: var(--color-cream); }
-.day-timeline__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  max-width: 640px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
 }
-.day-timeline__item {
-  display: grid;
-  grid-template-columns: 92px 24px 1fr;
-  text-align: left;
-  padding-block: 1.1rem;
-  border-bottom: 1px solid rgba(176, 141, 79, 0.18);
+
+.sheet__kicker {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-gold-ink);
 }
-.day-timeline__item:last-child { border-bottom: none; }
-.day-timeline__time {
-  font-size: 0.82rem;
-  letter-spacing: 0.06em;
+.sheet__kicker--sub { margin-top: 0.15rem; color: var(--color-ink); }
+
+.sheet__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.7rem, 7.6vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  text-wrap: balance;
+}
+.sheet__title--wide { letter-spacing: 0.24em; text-indent: 0.24em; }
+.sheet__title--xl {
+  font-size: clamp(2.3rem, 11vw, 3rem);
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
+  color: var(--color-gold-name);
+}
+
+/* Hairlines either side of a four-petal ornament */
+.divider {
+  width: min(78%, 15rem);
+  margin-block: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
   color: var(--color-gold);
-  padding-top: 0.2rem;
 }
-.day-timeline__rail { display: flex; justify-content: center; }
-.day-timeline__rail span {
+.divider i {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold));
+}
+.divider i:last-child { background: linear-gradient(270deg, transparent, var(--color-gold)); }
+.divider svg { width: 15px; height: 15px; flex: none; }
+
+/* A divider that sits between blocks, rather than inside a header,
+   needs more air above it than below. */
+.sheet > .divider { margin-top: 1.9rem; margin-bottom: 1rem; }
+
+/* Line icons share one weight, set here once */
+.itinerary__icon svg,
+.getting__item svg,
+.pill svg,
+.rsvp__legend svg,
+.socials svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============================================================
+   1 — THE INVITATION
+   ============================================================ */
+.sheet--invite {
+  padding: clamp(1.4rem, 6vw, 2.2rem) clamp(1.5rem, 8vw, 2.5rem);
+}
+
+.arch {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--color-gold);
+  /* A radius larger than the box resolves to a half-circle at each end */
+  border-radius: 999px;
+  padding: clamp(3.6rem, 18vw, 5rem) 6% clamp(3.2rem, 14vw, 4.6rem);
+}
+
+.invite__eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  line-height: 1.75;
+  text-transform: uppercase;
+  color: var(--color-gold-ink);
+}
+
+.invite__invite {
+  margin: 0.6rem 0 0;
+  max-width: 17rem;
+  font-size: 1rem;
+  font-style: italic;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+  color: var(--color-charcoal-soft);
+  text-wrap: balance;
+}
+
+.invite__names {
+  margin: 1.2rem 0 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  font-weight: 500;
+}
+
+.invite__name {
+  font-family: var(--font-display);
+  font-size: clamp(2.7rem, 14.5vw, 4.2rem);
+  line-height: 1.02;
+  letter-spacing: 0.08em;
+  text-indent: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-gold-name);
+}
+
+.invite__and {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-block: -0.1rem;
+}
+.invite__and i {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold));
+}
+.invite__and i:last-child { background: linear-gradient(270deg, transparent, var(--color-gold)); }
+.invite__and em {
+  font-family: var(--font-script);
+  font-style: normal;
+  font-size: clamp(2rem, 9.5vw, 2.8rem);
+  line-height: 1.2;
+  color: var(--color-gold-name);
+}
+
+.invite__blessing {
+  margin: 1.1rem 0 0;
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
+  line-height: 1.95;
+  text-transform: uppercase;
+  color: var(--color-gold-ink);
+}
+
+.invite__date {
+  margin: 1.4rem 0 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  white-space: nowrap;
+}
+.invite__weekday,
+.invite__month {
+  font-size: clamp(0.58rem, 2.6vw, 0.74rem);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+.invite__weekday { text-align: right; padding-right: 0.7rem; }
+.invite__month { text-align: left; padding-left: 0.7rem; }
+.invite__day {
+  padding: 0.1rem clamp(0.7rem, 3.6vw, 1.1rem);
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 10.5vw, 3rem);
+  line-height: 1.1;
+  color: var(--color-gold-name);
+  border-inline: 1px solid var(--color-gold);
+}
+
+.invite__time {
+  margin: 0.6rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.invite__venue { margin-top: 1.4rem; }
+.invite__venue-name {
+  margin: 0;
+  font-size: clamp(0.82rem, 3.6vw, 0.98rem);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+.invite__venue-address {
+  margin: 0.35rem 0 0;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  line-height: 1.8;
+  text-transform: uppercase;
+  color: var(--color-gold-ink);
+}
+
+.invite__reception {
+  margin: 0;
+  font-family: var(--font-script);
+  font-size: clamp(1.6rem, 7.6vw, 2.1rem);
+  line-height: 1.3;
+  color: var(--color-gold-ink);
+}
+
+.invite__closing {
+  margin: 0.5rem 0 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  line-height: 1.95;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+/* ============================================================
+   2 — THE BIG DAY
+   ============================================================ */
+.itinerary {
+  list-style: none;
+  margin: 2.2rem 0 0;
+  padding: 0;
+  width: min(100%, 22rem);
+  display: grid;
+  gap: 1.8rem;
+  text-align: left;
+}
+
+.itinerary__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 52px 22px 1fr;
+  align-items: start;
+}
+
+/* The line that ties the day together: one segment per stop, running from
+   this icon's centre to the next one's, and drawn in order on scroll. */
+.itinerary__seg {
+  position: absolute;
+  left: 63px;
+  top: 26px;
+  width: 1px;
+  height: calc(100% + 1.8rem);
+  background: var(--color-gold);
+  opacity: 0.75;
+  transform-origin: top center;
+}
+.itinerary__item:last-child .itinerary__seg { display: none; }
+
+.itinerary__icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-gold);
+  border-radius: 50%;
+  color: var(--color-gold-ink);
+  background: var(--color-ivory);
+}
+.itinerary__icon svg { width: 31px; height: 31px; }
+
+.itinerary__dot {
+  position: relative;
+  z-index: 1;
+  justify-self: center;
+  margin-top: 22.5px;
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--color-accent);
-  margin-top: 0.4rem;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 4px var(--color-ivory);
 }
-.day-timeline__body h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
-.day-timeline__body p { color: var(--color-text-soft); font-size: 0.98rem; }
+
+.itinerary__body { padding-left: 0.9rem; }
+.itinerary__time {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+.itinerary__title {
+  margin: 0.1rem 0 0.15rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+.itinerary__detail {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.35;
+  color: var(--color-charcoal-soft);
+  text-wrap: balance;
+}
 
 /* ============================================================
-   11 — GALLERY
+   3 — LOCATION
    ============================================================ */
-.gallery__grid {
+.loc__venue {
+  margin: 0.2rem 0 0;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+.loc__address {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  line-height: 1.8;
+  text-transform: uppercase;
+  color: var(--color-gold-ink);
+}
+
+.map {
+  width: 100%;
+  margin-top: 1.5rem;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--color-gold-line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--color-cream);
+  filter: sepia(0.14) saturate(0.85);
+}
+.map iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+.pill {
+  margin-top: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.7rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-silk), background var(--dur-fast), box-shadow var(--dur-fast);
+}
+.pill svg { width: 16px; height: 16px; }
+.pill:active { transform: scale(0.97); }
+.pill:focus-visible,
+.socials a:focus-visible,
+.contact__phone a:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 3px;
+}
+
+.pill--dark {
+  background: var(--color-forest);
+  color: var(--color-ivory);
+  box-shadow: 0 10px 22px -10px rgba(47, 59, 51, 0.7);
+}
+.pill--dark:hover { background: var(--color-forest-soft); }
+
+.pill--line {
+  width: min(100%, 17rem);
+  margin-top: 0.7rem;
+  padding: 0.8rem 1.3rem;
+  border: 1px solid var(--color-forest);
+  color: var(--color-forest);
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+.pill--line:hover { background: rgba(47, 59, 51, 0.06); }
+
+.getting {
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(0.5rem, 1.5vw, 0.9rem);
-  width: 100%;
 }
-.gallery__item {
-  aspect-ratio: 1;
-  overflow: hidden;
-  background: linear-gradient(160deg, var(--color-champagne), var(--color-cream));
-  transition: transform var(--dur-fast) var(--ease-silk);
-}
-.gallery__item:active { transform: scale(0.96); }
-.gallery__item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s var(--ease-silk);
-}
-.gallery__item:active img { transform: scale(1.06); }
-
-/* ============================================================
-   12 — RSVP
-   ============================================================ */
-.rsvp { background: var(--color-cream); }
-.rsvp__form {
-  width: 100%;
-  max-width: 480px;
+.getting__item {
+  padding: 0 0.4rem;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  text-align: left;
+  align-items: center;
+  gap: 0.2rem;
+  color: var(--color-gold-ink);
 }
-.field { display: flex; flex-direction: column; gap: 0.4rem; }
-.field--split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+.getting__item + .getting__item { border-left: 1px solid var(--color-gold-line); }
+.getting__item svg { width: 34px; height: 34px; margin-bottom: 0.2rem; }
+.getting__label {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--color-ink);
 }
-.field label {
-  font-size: 0.72rem;
-  letter-spacing: var(--tracking-mid);
-  text-transform: uppercase;
-  color: var(--color-text-soft);
-}
-.field input,
-.field select,
-.field textarea {
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  padding: 0.7rem 0.2rem;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--color-gold-line);
-  color: var(--color-text);
-  border-radius: 0;
-  transition: border-color var(--dur-fast);
-}
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  outline: none;
-  border-bottom-color: var(--color-accent);
-}
-.rsvp__form .btn { margin-top: 0.5rem; }
-.rsvp__status {
-  font-size: 0.9rem;
-  color: var(--color-accent);
-  min-height: 1.2em;
+.getting__detail {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--color-charcoal-soft);
 }
 
 /* ============================================================
-   13 — CLOSING
+   4 — RSVP
    ============================================================ */
-.closing {
-  background: linear-gradient(180deg, var(--color-ivory), var(--color-champagne) 130%);
-  padding-bottom: clamp(3rem, 8vh, 4rem);
-}
-.closing__heading { font-size: clamp(1.5rem, 4vw, 2.1rem); margin-bottom: 1rem; }
-.closing__message {
-  max-width: 480px;
-  color: var(--color-text-soft);
-  margin-bottom: 1.25rem;
-}
-.closing__signoff { margin-bottom: 2rem; font-size: 1.6rem; }
-.closing__fineprint {
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
+.rsvp__deadline {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
   text-transform: uppercase;
-  color: rgba(43, 35, 29, 0.4);
+  color: var(--color-ink);
+}
+
+.rsvp__qr {
+  width: 140px;
+  height: 140px;
+  margin-top: 1.6rem;
+  padding: 7px;
+  color: #26221d;
+}
+.rsvp__qr svg { display: block; width: 100%; height: 100%; }
+
+.rsvp__scan {
+  margin: 0.9rem 0 0;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+.rsvp__or {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-script);
+  font-size: 1.35rem;
+  line-height: 1.2;
+  color: var(--color-gold-ink);
+}
+
+.rsvp__legend {
+  list-style: none;
+  margin: 1.8rem 0 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+.rsvp__legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 1.2rem;
+  text-align: left;
+  font-size: 0.8rem;
+  line-height: 1.25;
+  color: var(--color-charcoal-soft);
+}
+.rsvp__legend li + li { border-left: 1px solid var(--color-gold-line); }
+.rsvp__legend svg { width: 30px; height: 30px; flex: none; color: var(--color-ink); }
+
+/* ============================================================
+   5 — DRESS CODE AND A NOTE
+   ============================================================ */
+.dress {
+  margin-top: 1.6rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+}
+.dress__figures { width: min(62%, 15rem); height: auto; }
+.dress__swatches {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.dress__swatches span {
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(60, 50, 40, 0.2);
+}
+.dress__caption {
+  margin: 1.1rem 0 0;
+  font-size: 0.94rem;
+  color: var(--color-charcoal-soft);
+}
+
+.note__text {
+  margin: 0.5rem 0 0;
+  max-width: 25rem;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--color-charcoal-soft);
+  text-wrap: pretty;
+}
+
+/* ============================================================
+   6 — CONTACT
+   ============================================================ */
+.contact__intro {
+  margin: 0.2rem 0 0;
+  font-size: 0.94rem;
+  color: var(--color-charcoal-soft);
+}
+
+.contact__people {
+  margin-top: 1.4rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.contact__person { padding: 0 0.6rem; }
+.contact__person + .contact__person { border-left: 1px solid var(--color-gold-line); }
+.contact__role {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.contact__phone { margin: 0.1rem 0 0; font-size: 1rem; }
+.contact__phone a { color: var(--color-ink); text-decoration: none; }
+.contact__name { margin: 0; font-size: 0.94rem; color: var(--color-charcoal-soft); }
+
+.contact__share {
+  margin: 0.2rem 0 0;
+  font-size: 0.96rem;
+  color: var(--color-charcoal-soft);
+}
+.socials {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  gap: 1.5rem;
+  color: var(--color-ink);
+}
+.socials a,
+.socials span { display: block; color: inherit; }
+.socials svg { display: block; width: 34px; height: 34px; }
+.hashtag {
+  margin: 0.9rem 0 0;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  color: var(--color-ink);
 }
 
 /* ============================================================

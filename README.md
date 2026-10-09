@@ -19,37 +19,56 @@ map `<iframe>`, which most browsers block from `file://` for security.)
 ## Project structure
 
 ```
-index.html              Markup for the opening sequence + all 13 site sections
+index.html              The opening sequence + the six sheets, and the icon sprite
 css/
-  variables.css          Design tokens — colour palette, type, motion, shadows
-  base.css               Reset + shared paper-grain texture utility
-  envelope.css           Scenes 1–6: the envelope, seal, flap, card, title reveal
-  sections.css           The scrollable invitation's sections
-  responsive.css          Breakpoint overrides (mobile-first base lives in the files above)
+  variables.css          Design tokens — palette, type, motion, shadows
+  base.css               Reset, lining figures, shared paper-grain texture
+  envelope.css           The envelope, seal, flap, card and title reveal
+  sections.css           The six sheets
+  responsive.css         Breakpoint overrides (the base is mobile-first, sized with clamp())
 js/
   config.js              *** Single source of truth for all wedding content ***
-  render.js               Populates the DOM from config.js — no copy is hard-coded in HTML
-  envelope.js             The opening-sequence state machine + GSAP timeline
-  scroll-reveals.js       ScrollTrigger-driven entrance animations for the site
-  audio.js                Optional background-music toggle
-  main.js                 RSVP form handling, scroll-cue, small glue
-  vendor/                 GSAP + ScrollTrigger, vendored (see note below)
+  render.js              Fills the page from config.js; draws the QR code
+  envelope.js            The opening-sequence state machine + GSAP timeline
+  scroll-reveals.js      Entrance animations for the sheets
+  audio.js               Optional background-music toggle
+  main.js                Keeps ScrollTrigger's measurements honest
+  vendor/                GSAP, ScrollTrigger and a QR generator, vendored (see note below)
 assets/
-  images/                 Photos (placeholders are generated gradients — swap them)
-  audio/                  Put an mp3/ogg here and point js/config.js at it
+  images/                The art-direction reference for the envelope
+  florals/               Drop floral artwork here (see "Adding the florals")
+  audio/                 Put an mp3/ogg here and point js/config.js at it
 ```
+
+## The six sheets
+
+1. **The invitation** — arched gold frame, the names, the date, the venue.
+2. **The Big Day** — the itinerary, with a line that draws itself stop by stop.
+3. **Location** — map, an "Open in Google Maps" button, and how to get there.
+4. **RSVP** — a QR code and a link, both generated from `rsvp.url`.
+5. **Dress code** — the colour swatches, and a note from you.
+6. **Contact** — two family contacts and your social links.
 
 ## Customising your own wedding
 
-**Everything** — names, date, venue, schedule, RSVP details, colours, photo
-paths, music — lives in `js/config.js` as one plain object. Nothing else in
-the codebase needs to change for day-to-day edits. Open it and edit the
-`WEDDING` object; the site re-renders those values on load via `render.js`.
+**Everything** — names, date, venue, schedule, RSVP link, contacts, dress code,
+colours, music — lives in `js/config.js` as one plain object. Nothing else needs
+to change for day-to-day edits; `render.js` fills the page from it on load.
+Anything marked `PLACEHOLDER` in that file is sample content from the layout
+design and should be replaced.
 
-To swap photos: drop your files into `assets/images/` and update the
-corresponding `src` paths in `config.js` (`heroPhoto`, `gallery.photos`).
-The placeholder images were generated purely so the layout never shows
-broken-image icons before you add real photos — replace them freely.
+**The date drives everything.** Set `isoDate` once. The weekday, day number,
+month and year on the invitation and on the envelope card are all worked out
+from it, so they can never disagree (a hand-typed "Sunday 24 March" that is
+really a Tuesday is the classic way an invitation goes wrong).
+
+**Itinerary icons** are chosen per stop with `icon:` — `mosque`, `cutlery`,
+`camera`, `toast` or `music`. Transport icons are `car`, `train` or `bus`.
+
+**RSVP.** Change `rsvp.url` and both the QR code and the button follow it.
+
+**Social links.** Fill in `contact.follow.instagram` / `facebook` / `tiktok`.
+Any left empty is shown but not clickable.
 
 To add music: place an mp3 in `assets/audio/` and set `music.src` in
 `config.js`. The toggle button in the top-right corner appears automatically
@@ -59,6 +78,22 @@ would undercut the quiet tone of the piece).
 To change the map: `venue.mapEmbedUrl` accepts either a key-free
 `https://maps.google.com/maps?q=<address>&output=embed` URL (default) or a
 full "Share → Embed a map" URL copied from Google Maps for more control.
+
+### Adding the florals
+
+The sheets are designed to carry floral corners, but ship without them. When
+you have the artwork, export it as **transparent PNGs** (about 1200px wide is
+plenty for a phone), put them in `assets/florals/`, and set the paths:
+
+```js
+florals: {
+  topLeft: "assets/florals/top-left.png",
+  bottomRight: "assets/florals/bottom-right.png",
+},
+```
+
+The same two images are placed on every sheet, behind the text. Leaving them
+empty keeps a clean sheet.
 
 ## The opening sequence — design notes
 
@@ -129,8 +164,9 @@ narrative beats without the spatial motion.
 ## Why GSAP is vendored rather than loaded from a CDN
 
 `js/vendor/gsap.min.js` and `ScrollTrigger.min.js` are the real, unmodified
-GSAP 3.12.5 distribution files (installed via `npm pack gsap`), committed
-directly into the project. This avoids a runtime dependency on a third-party
+GSAP 3.12.5 distribution files (installed via `npm pack gsap`), and
+`qrcode.js` is Kazuhiko Arase's MIT-licensed QR generator (`qrcode-generator`
+2.0.4), all committed directly into the project. This avoids a runtime dependency on a third-party
 CDN being reachable — relevant for guests opening the invitation over
 patchy venue wifi — and pins the exact version the animations were tuned
 against. If you'd rather load from a CDN, swap the two `<script>` tags near

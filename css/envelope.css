@@ -345,7 +345,7 @@
 /* ---- Printed copy on the flap ------------------------------------------------ */
 .envelope__flap-copy {
   position: absolute;
-  top: 13%;
+  top: 10.5%;
   left: 50%;
   transform: translateX(-50%);
   width: 78%;
@@ -380,12 +380,12 @@
    flat gold wherever background-clip:text is unavailable. */
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
   .envelope__name {
-    /* Both ends sit at flat gold so the resting state is plain foil;
-       only the band travelling through the middle reads as a highlight. */
+    /* The travelling band is a lighter gold, never near-white: the
+       letters have to stay readable against the paper as it passes. */
     background-image: linear-gradient(100deg,
-      var(--color-gold) 0%, var(--color-gold-deep) 22%, var(--color-gold) 40%,
-      var(--color-gold-light) 47%, #fdf1d2 50%, var(--color-gold-light) 53%,
-      var(--color-gold) 60%, var(--color-gold-deep) 78%, var(--color-gold) 100%);
+      var(--color-gold-deep) 0%, var(--color-gold) 22%, var(--color-gold-deep) 40%,
+      #c9ab6b 43%, #dcc088 50%, #c9ab6b 57%,
+      var(--color-gold-deep) 60%, var(--color-gold) 78%, var(--color-gold-deep) 100%);
     background-size: 300% 100%;
     background-position: 130% 0;
     -webkit-background-clip: text;
@@ -408,9 +408,9 @@
 .envelope__and em {
   font-family: var(--font-script);
   font-style: normal;
-  font-size: clamp(0.62rem, 2.7vw, 0.95rem);
+  font-size: clamp(0.95rem, 4.3vw, 1.4rem);
   line-height: 1;
-  color: var(--color-gold);
+  color: var(--color-gold-deep);
 }
 
 .envelope__sprig {

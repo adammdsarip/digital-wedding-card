@@ -184,6 +184,9 @@
     if (scene.dataset.state !== "opened") return;
     scene.dataset.state = "done";
 
+    // The sheet underneath starts arriving as the envelope starts to fade.
+    window.dispatchEvent(new CustomEvent("invitation:opening"));
+
     gsap.to(scene, {
       autoAlpha: 0,
       scale: 1.03,

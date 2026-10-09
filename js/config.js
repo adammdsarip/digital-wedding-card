@@ -2,174 +2,153 @@
  * ============================================================
  * WEDDING CONFIGURATION
  * ------------------------------------------------------------
- * Every piece of copy, every date, every photo and colour that
- * appears on the invitation is driven from this single file.
- * Nothing below is referenced by literal text anywhere else in
- * the codebase — edit this object and the whole site updates.
+ * Every piece of copy, date, link and colour that appears on the
+ * invitation lives in this one file. Nothing is hard-coded in the
+ * HTML — edit this object and the whole site updates.
+ *
+ * Anything marked PLACEHOLDER is sample content taken from the
+ * layout design; replace it with your real details.
  * ============================================================
  */
 
 const WEDDING = {
 
   // ---- The couple -------------------------------------------------
-  // Names appear in this order everywhere: envelope, hero, sign-offs.
+  // Names appear in this order everywhere: envelope, card, invitation.
   partnerOne: "Isz",
-  partnerOneFull: "Isz",
   partnerTwo: "Khaty",
-  partnerTwoFull: "Khaty",
 
-  // The word between the two names. "and" (set in the script face) matches
-  // the printed envelope; "&" also works.
+  // The word set between the two names ("and", or "&").
   connector: "and",
 
-  // Envelope copy. The seal monogram is derived from the two initials.
+  // Social hashtag. Leave empty to derive it from the names.
+  hashtag: "",
+
+  // ---- The envelope -------------------------------------------------
+  // The seal monogram is struck from the two initials above.
   envelopeEyebrow: "The Wedding Of",
   tagline: "A Beautiful Journey Together",
 
-  // ---- The date -----------------------------------------------------
-  // isoDate powers the countdown; the rest are for display.
-  isoDate: "2027-05-15T16:00:00",
-  weekday: "Saturday",
-  day: "15",
-  month: "May",
-  year: "2027",
-  displayDate: "15 May 2027",
+  // ---- The day (PLACEHOLDER date) -------------------------------------
+  // One date drives everything. The weekday, day number, month and year
+  // are all worked out from it, so they can never disagree with each other.
+  isoDate: "2027-03-14T11:00:00",
+  timeText: "11.00 AM",
 
-  // ---- Invitation message ------------------------------------------
+  // ---- Panel 1: the invitation ------------------------------------------
   invitation: {
-    eyebrow: "Together with their families",
-    message:
-      "we joyfully invite you to share in the celebration of our marriage — an evening of love, laughter, and the beginning of forever.",
-    signoff: "With love, Isz and Khaty",
+    eyebrow: ["Together", "with our families"],
+    invite: "We cordially invite you to the wedding of",
+    blessing: ["Two hearts • One journey", "In the name of love"],
+    reception: "Reception to follow",
+    closing: ["We look forward to", "celebrating with you"],
   },
 
-  // ---- Hero / couple photograph --------------------------------------
-  heroPhoto: {
-    src: "assets/images/couple-hero.jpg",
-    alt: "Isz and Khaty",
-  },
-
-  // ---- Our story ------------------------------------------------------
-  story: {
-    heading: "Our Story",
-    intro: "A brief history of us, told in moments.",
-    milestones: [
-      {
-        year: "2019",
-        title: "How We Met",
-        text: "A chance introduction at a mutual friend's dinner party turned into a conversation that lasted until sunrise.",
-      },
-      {
-        year: "2021",
-        title: "First Adventure",
-        text: "A spontaneous trip to the coast confirmed what we already suspected — this was the beginning of something lasting.",
-      },
-      {
-        year: "2023",
-        title: "Moving In Together",
-        text: "We found a small home to call our own, and with it, a quiet, steady kind of happiness.",
-      },
-      {
-        year: "2026",
-        title: "The Proposal",
-        text: "On a walk beneath the autumn trees, with no fanfare at all, the question was asked — and answered without hesitation.",
-      },
-    ],
-  },
-
-  // ---- Ceremony ---------------------------------------------------------
-  ceremony: {
-    heading: "Wedding Ceremony",
-    time: "4:00 PM",
-    venueName: "St. Augustine's Chapel",
-    address: "12 Laurel Hill Road, Hartford",
-    note: "A brief exchange of vows beneath the chapel's original stone archway.",
-  },
-
-  // ---- Reception ----------------------------------------------------------
-  reception: {
-    heading: "Reception",
-    time: "6:30 PM",
-    venueName: "The Willowmere Estate",
-    address: "4 Willowmere Lane, Hartford",
-    note: "Dinner, dancing, and a night to remember beneath the garden lights.",
-  },
-
-  // ---- Venue / map --------------------------------------------------------
+  // ---- Venue (PLACEHOLDER) -----------------------------------------------
   venue: {
-    heading: "Venue",
-    name: "The Willowmere Estate",
-    address: "4 Willowmere Lane, Hartford, CT 06103",
-    // A key-free embed: swap the query for your own venue, or paste a
-    // full "Share > Embed a map" URL from Google Maps for more control.
+    name: "Venue Name",
+    address: ["123 Street Name", "Singapore 123456"],
+    // A key-free embed: change the q= search to your venue, or paste a full
+    // "Share > Embed a map" URL from Google Maps for finer control.
     mapEmbedUrl:
-      "https://maps.google.com/maps?q=Willowmere+Estate%2C+4+Willowmere+Lane%2C+Hartford%2C+CT&t=&z=15&ie=UTF8&iwloc=&output=embed",
-    mapLinkUrl: "https://maps.google.com/?q=Willowmere+Estate+Hartford",
+      "https://maps.google.com/maps?q=Somerset+MRT+Station+Singapore&z=16&ie=UTF8&iwloc=&output=embed",
+    mapLinkUrl: "https://maps.google.com/?q=Somerset+MRT+Station+Singapore",
+    mapButton: "Open in Google Maps",
   },
 
-  // ---- Timeline (day-of schedule) -----------------------------------------
-  timeline: {
-    heading: "Wedding Timeline",
+  // ---- Panel 2: the itinerary (PLACEHOLDER times) --------------------------
+  // icon: mosque | cutlery | camera | toast | music
+  itinerary: {
+    eyebrow: "The",
+    title: "Big Day",
+    subtitle: "Itinerary",
     items: [
-      { time: "3:30 PM", label: "Guest Arrival", detail: "Doors open, welcome drinks served." },
-      { time: "4:00 PM", label: "Ceremony", detail: "Exchange of vows." },
-      { time: "5:00 PM", label: "Cocktail Hour", detail: "Canapés and refreshments on the terrace." },
-      { time: "6:30 PM", label: "Reception & Dinner", detail: "Seated dinner and toasts." },
-      { time: "8:30 PM", label: "First Dance", detail: "Followed by open dancing." },
-      { time: "11:30 PM", label: "Send-Off", detail: "A warm farewell beneath the fairy lights." },
+      { time: "11.00 AM", title: "Nikah Ceremony", detail: "A sacred moment as we say I do", icon: "mosque" },
+      { time: "12.30 PM", title: "Lunch Reception", detail: "Join us for a meal and celebration", icon: "cutlery" },
+      { time: "2.00 PM", title: "Photo Session", detail: "Capture the moments with us", icon: "camera" },
+      { time: "3.30 PM", title: "Toast & Speeches", detail: "Heartfelt words, love and blessings", icon: "toast" },
+      { time: "4.00 PM", title: "Celebration", detail: "Let's dine, mingle and celebrate together", icon: "music" },
     ],
   },
 
-  // ---- Gallery ------------------------------------------------------------
-  gallery: {
-    heading: "Photo Gallery",
-    intro: "A few of our favourite moments together.",
-    photos: [
-      { src: "assets/images/gallery-1.jpg", alt: "Isz and Khaty, moment one" },
-      { src: "assets/images/gallery-2.jpg", alt: "Isz and Khaty, moment two" },
-      { src: "assets/images/gallery-3.jpg", alt: "Isz and Khaty, moment three" },
-      { src: "assets/images/gallery-4.jpg", alt: "Isz and Khaty, moment four" },
-      { src: "assets/images/gallery-5.jpg", alt: "Isz and Khaty, moment five" },
-      { src: "assets/images/gallery-6.jpg", alt: "Isz and Khaty, moment six" },
-    ],
+  // ---- Panel 3: location --------------------------------------------------
+  // icon: car | train | bus
+  location: {
+    title: "Location",
+    gettingHere: {
+      title: "Getting here",
+      items: [
+        { icon: "car", label: "By Car", detail: ["Parking available", "at venue"] },
+        { icon: "train", label: "By MRT", detail: ["Somerset MRT", "(5 mins walk)"] },
+        { icon: "bus", label: "By Bus", detail: ["Multiple bus", "services nearby"] },
+      ],
+    },
   },
 
-  // ---- RSVP -----------------------------------------------------------------
+  // ---- Panel 4: RSVP (PLACEHOLDER link) -----------------------------------
+  // The QR code is generated from `url`, so changing the link updates both
+  // the QR code and the button.
   rsvp: {
-    heading: "RSVP",
-    intro: "We would be honoured to have you join us. Kindly respond by 1 April 2027.",
-    deadline: "1 April 2027",
-    // Set a `formEndpoint` (e.g. a Formspree URL) to receive real submissions.
-    formEndpoint: "",
-    email: "isz.and.khaty@example.com",
-    phone: "+1 (555) 019-2847",
+    eyebrow: "Kindly",
+    title: "RSVP",
+    deadline: "By 21 February 2027",
+    url: "https://rsvp.iszandkhaty.com",
+    scanLabel: "Scan QR code to RSVP",
+    orLabel: "or",
+    accepts: ["Accepts", "with pleasure"],
+    declines: ["Regretfully", "declines"],
   },
 
-  // ---- Closing ----------------------------------------------------------------
-  closing: {
-    heading: "We Can't Wait to Celebrate With You",
-    message:
-      "Your presence is the greatest gift of all. Thank you for being part of our story, and for the one that begins next.",
-    signoff: "Isz and Khaty",
+  // ---- Panel 5: dress code and a note -------------------------------------
+  dressCode: {
+    title: "Dress Code",
+    style: "Semi Formal",
+    caption: "We would love to see you in these colours",
+    colors: [
+      { name: "Forest", hex: "#2f3b33" },
+      { name: "Sand", hex: "#b9a283" },
+      { name: "Ivory", hex: "#eee6d6" },
+    ],
   },
 
-  // ---- Music ---------------------------------------------------------------------
+  note: {
+    title: "A Note From Us",
+    text:
+      "Your presence means the world to us. No gifts are necessary, but your prayers, blessings and well wishes are the greatest gift we could ever ask for.",
+  },
+
+  // ---- Panel 6: contact and socials (PLACEHOLDER numbers) -------------------
+  contact: {
+    title: "Contact",
+    intro: "For any enquiries, please reach out to:",
+    people: [
+      { role: "Bride's Family", phone: "+65 9123 4567", name: "(Puan Aisyah)" },
+      { role: "Groom's Family", phone: "+65 8765 4321", name: "(Encik Rahman)" },
+    ],
+    follow: {
+      title: "Follow our journey",
+      text: "Share your photos with us",
+      // Leave a link empty and that icon is shown but not clickable.
+      instagram: "",
+      facebook: "",
+      tiktok: "",
+    },
+  },
+
+  // ---- Floral artwork ----------------------------------------------------
+  // Leave empty for a clean sheet. When you have the artwork, drop the
+  // transparent PNGs into assets/florals/ and set the paths, e.g.
+  //   topLeft: "assets/florals/top-left.png"
+  florals: {
+    topLeft: "",
+    bottomRight: "",
+  },
+
+  // ---- Music -----------------------------------------------------------------
   music: {
-    // Point this at a hosted mp3/ogg to enable the toggle in the corner.
+    // Point this at an mp3/ogg to enable the toggle in the corner.
     src: "assets/audio/wedding-theme.mp3",
     title: "Our Song",
-  },
-
-  // ---- Colour palette (mirrored in css/variables.css — kept here for
-  //      reference / for any JS-driven theming) --------------------------------
-  palette: {
-    ivory: "#FDFAF4",
-    cream: "#F4EAD9",
-    champagne: "#ECDCC0",
-    blush: "#F3E3DA",
-    gold: "#B08B4F",
-    goldWax: "#C2A263",
-    charcoal: "#3A302A",
   },
 };
 
