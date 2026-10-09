@@ -104,8 +104,12 @@ but it is not a picture: a flat image can't open on a real hinge. Every part
 is its own HTML/CSS layer, so each can move on its own with genuine 3D
 transforms:
 
-1. **Background** — warm stone (an SVG texture in `assets/images/stone.svg`),
-   two soft bands of sun, and gypsophila drawn as SVG.
+1. **Background** — your photograph, `assets/images/wedding-background.webp`
+   (853 × 1844), used as it is: nothing is drawn over it. On a phone it fills
+   the screen; on wider screens two more crops of the same photograph, one
+   from its top and one from its bottom, keep the flowers framing both corners.
+   To change it, replace that file (a tall portrait works best, with the
+   centre kept clear for the envelope).
 2. **Envelope back** and 3. **lining** — the taupe liner inside, inset from
    the paper's edges, darker toward the pocket.
 4. **The card** — lives in a slot that clips only at the envelope's bottom
