@@ -206,6 +206,30 @@
   const joiner = /^[a-z]+$/i.test(W.connector) ? cap(W.connector) : "And";
   set("fl-hashtag", W.hashtag || `#${cap(W.partnerOne)}${joiner}${cap(W.partnerTwo)}`);
 
+  // ---- Sheet 7: the guest wall (the words only; the behaviour is in wall.js) -------------------
+  const wl = W.wall;
+  if (wl) {
+    const wlab = wl.labels;
+    set("wall-eyebrow", wl.eyebrow);
+    set("wall-title", wl.title);
+    set("wall-intro", wl.intro);
+    set("wall-add-label", wl.add);
+    set("wall-empty", wl.empty);
+    set("wall-more", wl.more);
+    set("wd-title", wlab.dialog);
+    set("wd-take-label", wlab.take);
+    set("wd-pick-label", wlab.pick);
+    set("wd-name-label", wlab.name);
+    set("wd-wish-label", wlab.wish);
+    set("wd-wish-opt", `(${wlab.optional})`);
+    set("wd-emoji-label", wlab.emoji);
+    set("wd-submit-label", wlab.post);
+    set("wd-busy", wlab.preparing);
+    set("wd-done-title", wl.done.title);
+    set("wd-done-text", wl.done.text);
+    set("wd-see-label", wlab.seeWall);
+  }
+
   // ---- Floral artwork: only drawn once you supply it -----------------------------------------
   const fl = W.florals || {};
   document.querySelectorAll("[data-florals]").forEach((sheet) => {

@@ -166,6 +166,58 @@ const WEDDING = {
     },
   },
 
+  // ---- Panel 7: the guest wall ----------------------------------------------
+  // Guests take a selfie, add a name, a wish and a sticker, and it joins the wall
+  // for everyone to see. It is open to anyone with the link, with no approval step.
+  // `backend` is where the posts will live once it is connected (next step); until
+  // then the wall shows the sample posts below and new posts last only until the
+  // page is reloaded.
+  wall: {
+    backend: "",
+    eyebrow: "The",
+    title: "Guest Wall",
+    intro: "Take a selfie and leave a wish for Isz and Khaty.",
+    add: "Add your photo",
+    count: ["No wishes yet", "1 wish so far", "wishes so far"],
+    empty: "Be the first to leave a wish.",
+    more: "Show more",
+    pageSize: 12,
+    emojis: ["❤️", "🥰", "🎉", "🥂", "💐", "✨", "🙏", "😍", "🤍", "🌸"],
+    maxEmojis: 3,
+    labels: {
+      dialog: "Add to the wall",
+      take: "Take a selfie",
+      pick: "Choose a photo",
+      retake: "Take another",
+      name: "Your name",
+      wish: "Your wish",
+      optional: "Optional",
+      emoji: "Add a sticker",
+      post: "Post to the wall",
+      posting: "Posting…",
+      preparing: "Getting your photo ready…",
+      seeWall: "See the wall",
+      love: "Love this",
+    },
+    errors: {
+      photo: "Please add a photo.",
+      name: "Please tell us your name.",
+      read: "Sorry, that photo could not be read. Please try another.",
+      send: "Sorry, that did not post. Please try again.",
+    },
+    done: { title: "Thank you!", text: "Your photo is on the wall." },
+    // PREVIEW ONLY: shown until the wall is connected. Names, wishes and
+    // photos here are made up; they disappear when `backend` is set.
+    samples: [
+      { name: "Aisyah", wish: "So happy for you both! May your love grow stronger every day.", emojis: ["❤️", "🥰"], photo: "assets/wall/sample-1.webp", hearts: 12, minutesAgo: 6 },
+      { name: "Hakim & Sarah", wish: "Barakallahu lakuma! Can't wait to celebrate with you.", emojis: ["🎉"], photo: "assets/wall/sample-2.webp", hearts: 8, minutesAgo: 22 },
+      { name: "Auntie Rose", wish: "Two beautiful hearts becoming one. God bless you always.", emojis: ["🙏", "💐"], photo: "assets/wall/sample-3.webp", hearts: 15, minutesAgo: 51 },
+      { name: "Daniel", wish: "Congratulations, bro! Wishing you a lifetime of happiness.", emojis: ["🥂"], photo: "assets/wall/sample-4.webp", hearts: 5, minutesAgo: 95 },
+      { name: "Nur", wish: "You two are the cutest! Cheers to forever.", emojis: ["😍", "✨", "🤍"], photo: "assets/wall/sample-5.webp", hearts: 9, minutesAgo: 180 },
+      { name: "Mak Long", wish: "Semoga bahagia hingga ke syurga.", emojis: ["🌸"], photo: "assets/wall/sample-6.webp", hearts: 21, minutesAgo: 1500 },
+    ],
+  },
+
   // ---- Floral artwork ----------------------------------------------------
   // The four corners of the floral frame, set behind the type on every sheet.
   // They are cut from your artwork by tools/make_florals.py. Leave a path empty

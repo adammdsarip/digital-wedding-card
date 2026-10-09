@@ -464,7 +464,85 @@
     <p class="hashtag" id="fl-hashtag" data-reveal="fade"></p>
   </section>
 
+  <!-- 7 — The guest wall -->
+  <section class="paper-grain sheet sheet--framed" id="wall" data-florals aria-labelledby="wall-title">
+    <header class="sheet__head" data-reveal="fade">
+      <p class="sheet__kicker" id="wall-eyebrow"></p>
+      <h2 class="sheet__title" id="wall-title"></h2>
+      <div class="divider" aria-hidden="true"><i></i><svg><use href="#ornament"/></svg><i></i></div>
+    </header>
+
+    <p class="rsvp__intro" id="wall-intro" data-reveal="fade"></p>
+    <button class="pill pill--dark wall__add" type="button" id="wall-add" data-reveal="fade">
+      <svg aria-hidden="true"><use href="#i-camera"/></svg><span id="wall-add-label"></span>
+    </button>
+
+    <p class="wall__count" id="wall-count" role="status" aria-live="polite"></p>
+    <div class="wall__grid" id="wall-grid" role="list"></div>
+    <p class="wall__empty" id="wall-empty" hidden></p>
+    <button class="wall__more" type="button" id="wall-more" hidden></button>
+  </section>
+
 </main>
+
+<!-- Posting to the wall: a sheet that slides up on a phone, a centred card on a large screen -->
+<dialog class="wallpost" id="wall-dialog" aria-labelledby="wd-title">
+  <div class="wallpost__sheet">
+    <button class="wallpost__close" type="button" id="wd-close" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+
+    <form class="wallpost__form" id="wd-form" novalidate>
+      <h3 class="wallpost__title" id="wd-title"></h3>
+
+      <div class="wallpost__photo" id="wd-photo">
+        <img id="wd-preview" alt="" hidden>
+        <div class="wallpost__empty" id="wd-photo-empty">
+          <svg aria-hidden="true"><use href="#i-camera"/></svg>
+        </div>
+        <p class="wallpost__busy" id="wd-busy" hidden></p>
+      </div>
+      <div class="wallpost__pick">
+        <label class="pill pill--dark" id="wd-take">
+          <input type="file" accept="image/*" capture="user" id="wd-file-take" hidden>
+          <span id="wd-take-label"></span>
+        </label>
+        <label class="pill pill--ghost" id="wd-pick">
+          <input type="file" accept="image/*" id="wd-file-pick" hidden>
+          <span id="wd-pick-label"></span>
+        </label>
+      </div>
+      <p class="field__error" id="wd-photo-error" role="alert" hidden></p>
+
+      <div class="field">
+        <label class="field__label" for="wd-name" id="wd-name-label"></label>
+        <input class="field__input" id="wd-name" name="name" type="text" autocomplete="name" autocapitalize="words" enterkeyhint="next" maxlength="40" aria-describedby="wd-name-error">
+        <p class="field__error" id="wd-name-error" hidden></p>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="wd-wish"><span id="wd-wish-label"></span> <small class="field__opt" id="wd-wish-opt"></small></label>
+        <textarea class="field__input field__input--area" id="wd-wish" name="wish" rows="3" maxlength="140" autocomplete="off"></textarea>
+        <p class="field__hint wallpost__count" id="wd-count" aria-hidden="true"></p>
+      </div>
+
+      <div class="field">
+        <span class="field__label" id="wd-emoji-label"></span>
+        <div class="emojis" id="wd-emojis" role="group" aria-labelledby="wd-emoji-label"></div>
+      </div>
+
+      <div class="rsvp__hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+      <p class="field__error rsvp__fail" id="wd-fail" role="alert" hidden></p>
+      <button class="pill pill--dark wallpost__submit" type="submit" id="wd-submit"><span id="wd-submit-label"></span></button>
+    </form>
+
+    <div class="wallpost__done" id="wd-done" role="status" aria-live="polite" hidden>
+      <svg class="rsvp__done-icon" aria-hidden="true"><use href="#i-check"/></svg>
+      <h3 class="rsvp__done-title" id="wd-done-title"></h3>
+      <p class="rsvp__done-text" id="wd-done-text"></p>
+      <button class="pill pill--dark" type="button" id="wd-see"><span id="wd-see-label"></span></button>
+    </div>
+  </div>
+</dialog>
 
 <script src="js/vendor/gsap.min.js"></script>
 <script src="js/vendor/ScrollTrigger.min.js"></script>
@@ -472,6 +550,7 @@
 <script src="js/config.js"></script>
 <script src="js/render.js"></script>
 <script src="js/rsvp.js"></script>
+<script src="js/wall.js"></script>
 <script src="js/envelope.js"></script>
 <script src="js/scroll-reveals.js"></script>
 <script src="js/audio.js"></script>

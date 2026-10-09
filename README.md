@@ -30,6 +30,7 @@ js/
   config.js              *** Single source of truth for all wedding content ***
   render.js              Fills the page from config.js
   rsvp.js                The RSVP form: what shows when, checking it, sending it
+  wall.js                The guest wall: the cards, adding a photo, hearts
   envelope.js            The opening-sequence state machine + GSAP timeline
   scroll-reveals.js      Entrance animations for the sheets
   audio.js               Optional background-music toggle
@@ -38,10 +39,11 @@ js/
 assets/
   images/                Background photograph, cotton-paper and wax-seal images, card paper
   florals/               The four floral corners used on every sheet
+  wall/                  Sample photos for the guest wall's preview (removed once it is connected)
   audio/                 Put an mp3/ogg here and point js/config.js at it
 ```
 
-## The six sheets
+## The seven sheets
 
 1. **The invitation** — arched gold frame, the names, the date, the venue. Set in
    `em` from one size that follows the screen's width *and* height, so on a phone the
@@ -52,6 +54,8 @@ assets/
    and a note. (See "The RSVP form" below.)
 5. **Dress code** — the colour swatches, and a note from you.
 6. **Contact** — two family contacts and your social links.
+7. **Guest Wall** — guests add a selfie, a wish and stickers, and see everyone's.
+   (See "The guest wall" below.)
 
 ## Customising your own wedding
 
@@ -98,6 +102,21 @@ form-filling bots.
 one place that talks to the outside: for now it only logs what would be sent
 (`{ name, attending, guests, dietary, message }`) to the browser console. The
 Tally form connects there.
+
+### The guest wall
+
+Open to anyone with the link: no approval step, no code. A guest taps **Add your
+photo**, takes a selfie (or picks a photo), adds a name, an optional wish (140
+characters) and up to three stickers, and posts. Their card goes to the top of the
+wall straight away; guests can tap a heart on any card. Photos are cropped square
+and shrunk to 900px on the guest's own phone before they are sent. Everything a
+guest types is put on the page as plain text, never as HTML.
+
+**Not connected yet.** Until a backend is set in `wall.backend` (`js/config.js`),
+the wall shows six made-up sample posts (`wall.samples`, photos in
+`assets/wall/`) and anything added lasts only until the page is reloaded.
+`createStore()` in `js/wall.js` is the one place that changes when it is
+connected: `list()`, `add()` and `heart()`. Remove the samples at the same time.
 
 ### The florals
 

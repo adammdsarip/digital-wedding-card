@@ -5,6 +5,11 @@
    large display name. Florals are optional and sit behind the type.
    ============================================================ */
 
+:root {
+  --field-line: rgba(143, 111, 57, 0.5);
+  --error: #9a4a3a;
+}
+
 /* focused by script when the envelope hands over, so keyboard and screen-reader
    users land on the invitation rather than on nothing */
 #site:focus { outline: none; }
@@ -483,6 +488,13 @@
 }
 .pill--dark:hover { background: var(--color-forest-soft); }
 
+.pill--ghost {
+  border: 1px solid var(--color-forest);
+  color: var(--color-forest);
+  background: transparent;
+}
+.pill--ghost:hover { background: rgba(47, 59, 51, 0.06); }
+
 .getting {
   list-style: none;
   margin: 1.1rem 0 0;
@@ -527,7 +539,8 @@
   color: var(--color-ink);
 }
 
-.rsvp__intro {
+.rsvp__intro,
+.wall__intro {
   margin: 1.4rem 0 0;
   max-width: 17rem;
   font-size: 1.05rem;
@@ -544,8 +557,6 @@
 .field__error[hidden] { display: none; }
 
 .rsvp__form {
-  --field-line: rgba(143, 111, 57, 0.5);
-  --error: #9a4a3a;
   position: relative;
   width: 100%;
   max-width: 22rem;
@@ -894,4 +905,273 @@
 @keyframes waveBounce {
   0%, 100% { height: 4px; }
   50% { height: 14px; }
+}
+
+/* ============================================================
+   7 — THE GUEST WALL
+   ============================================================ */
+.wall__add { margin-top: 1.3rem; cursor: pointer; font-family: inherit; border: 0; }
+.wall__count {
+  margin: 1.5rem 0 0;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold-ink);
+}
+
+/* two columns of polaroids (balanced in wall.js: a wall, not a table) */
+.wall__grid {
+  width: 100%;
+  margin: 1.1rem 0 0;
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  text-align: left;
+}
+.wall__col { flex: 1 1 0; min-width: 0; }
+.wall__card {
+  position: relative;
+  margin: 0 0 1rem;
+  padding: 0.5rem 0.5rem 0.55rem;
+  background: #fffdf9;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(74, 58, 44, 0.12), 0 10px 22px -10px rgba(74, 58, 44, 0.35);
+  transform: rotate(var(--tilt, 0deg));
+  transform-origin: 50% 40%;
+}
+.wall__card.is-new { animation: wallIn 0.7s var(--ease-silk) both; }
+@keyframes wallIn {
+  from { opacity: 0; transform: rotate(var(--tilt, 0deg)) translateY(18px) scale(0.94); }
+  to   { opacity: 1; transform: rotate(var(--tilt, 0deg)); }
+}
+.wall__photo {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #efe5d6;
+  box-shadow: inset 0 0 0 1px rgba(74, 58, 44, 0.08);
+}
+.wall__photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.wall__name {
+  margin: 0.55rem 0.1rem 0;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  color: var(--color-gold-name);
+  overflow-wrap: anywhere;
+}
+.wall__wish {
+  margin: 0.3rem 0.1rem 0;
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--color-charcoal-soft);
+  overflow-wrap: anywhere;
+}
+.wall__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.4rem;
+  margin: 0.5rem 0.1rem 0;
+}
+.wall__time { font-size: 0.7rem; letter-spacing: 0.04em; color: rgba(92, 78, 68, 0.75); }
+.wall__emojis { font-size: 0.95rem; letter-spacing: 0.1em; }
+.wall__heart {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;           /* a finger-sized target around a small heart */
+  margin-block: -0.7rem -0.6rem;
+  padding: 0 0.25rem 0 0.5rem;
+  justify-content: flex-end;
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--color-charcoal-soft);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.wall__heart svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--color-gold-ink);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  transition: fill var(--dur-fast), stroke var(--dur-fast), transform var(--dur-fast) var(--ease-silk);
+}
+.wall__heart[aria-pressed="true"] svg { fill: #b9625a; stroke: #b9625a; transform: scale(1.12); }
+.wall__heart:focus-visible { outline: 2px solid var(--color-forest); outline-offset: 1px; border-radius: 8px; }
+
+.wall__empty {
+  margin: 1.4rem 0 0;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--color-charcoal-soft);
+}
+.wall__empty[hidden], .wall__more[hidden] { display: none; }
+.wall__more {
+  margin-top: 0.4rem;
+  padding: 0.8rem 1.6rem;
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-forest);
+  background: none;
+  border: 1px solid var(--color-forest);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.wall__more:hover { background: rgba(47, 59, 51, 0.06); }
+.wall__more:focus-visible { outline: 2px solid var(--color-forest); outline-offset: 3px; }
+
+/* ---- the sheet guests add their photo on --------------------------------- */
+.wallpost {
+  position: fixed;
+  inset: auto 0 0 0;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: var(--color-ink);
+  overflow: visible;
+}
+.wallpost::backdrop { background: rgba(40, 30, 20, 0.5); }
+.wallpost__sheet {
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+  max-height: 92vh;
+  max-height: 92dvh;
+  margin-inline: auto;
+  padding: 1.6rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  background: linear-gradient(180deg, #f9f1e8 0%, #f2e8da 100%);
+  border-radius: 22px 22px 0 0;
+  box-shadow: 0 -12px 40px rgba(40, 30, 20, 0.28);
+}
+.wallpost[open] .wallpost__sheet { animation: sheetUp 0.45s var(--ease-silk) both; }
+@keyframes sheetUp { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.wallpost__close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 1;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--color-ink);
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.wallpost__close svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+.wallpost__close:focus-visible { outline: 2px solid var(--color-forest); outline-offset: 1px; }
+
+.wallpost__form { display: flex; flex-direction: column; gap: 1.1rem; text-align: left; }
+.wallpost__form[hidden], .wallpost__done[hidden] { display: none; }
+.wallpost__title {
+  margin: 0 2.5rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--color-gold-name);
+}
+
+.wallpost__photo {
+  position: relative;
+  aspect-ratio: 1;
+  width: min(64%, 15rem);        /* a smaller preview keeps the fields in reach without scrolling */
+  margin-inline: auto;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: rgba(255, 252, 247, 0.7);
+  border: 1px dashed var(--field-line);
+  border-radius: 14px;
+}
+.wallpost__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.wallpost__photo img[hidden] { display: none; }
+.wallpost__empty[hidden] { display: none; }
+.wallpost__empty svg {
+  width: 56px;
+  height: 56px;
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.wallpost__busy {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  text-align: center;
+  font-style: italic;
+  color: var(--color-charcoal-soft);
+  background: rgba(249, 241, 232, 0.88);
+}
+.wallpost__busy[hidden] { display: none; }
+.wallpost__pick { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: -0.2rem; }
+.wallpost__pick .pill { margin: 0; padding-inline: 0.6rem; cursor: pointer; text-align: center; }
+.wallpost__pick .pill:focus-within { outline: 2px solid var(--color-forest); outline-offset: 3px; }
+.wallpost__count { text-align: right; margin-top: 0.3rem; }
+.wallpost__submit { align-self: center; width: min(100%, 17rem); margin-top: 0.3rem; border: 0; font-family: inherit; cursor: pointer; }
+.wallpost__submit:disabled { opacity: 0.6; cursor: progress; }
+
+.emojis { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.emojis__btn {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-size: 1.35rem;
+  line-height: 1;
+  background: rgba(255, 252, 247, 0.74);
+  border: 1px solid var(--field-line);
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: background var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast) var(--ease-silk);
+}
+.emojis__btn[aria-pressed="true"] { background: #fff; border-color: var(--color-forest); box-shadow: 0 0 0 2px var(--color-forest); transform: scale(1.06); }
+.emojis__btn:disabled { opacity: 0.35; cursor: default; }
+.emojis__btn:focus-visible { outline: 2px solid var(--color-forest); outline-offset: 2px; }
+
+.wallpost__done { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1.5rem 0 0.5rem; }
+.wallpost__done .pill { margin-top: 1.4rem; border: 0; font-family: inherit; cursor: pointer; }
+
+/* on a larger screen the sheet becomes a centred card */
+@media (min-width: 600px) {
+  .wallpost { inset: 0; margin: auto; height: fit-content; max-width: 30rem; }
+  .wallpost__sheet { border-radius: 22px; max-height: 90vh; }
 }
