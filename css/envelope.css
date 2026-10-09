@@ -11,8 +11,7 @@
        3  card slot
        5  front pocket
        6  shadows thrown by the flap
-       7  flap, while it is closed or lifting
-       8  wax seal
+       7  flap, while it is closed or lifting — with the wax seal on its tip
 
    Everything is sized from one unit, --W (the envelope's width),
    so the whole object scales as one piece of stationery.
@@ -303,14 +302,16 @@
   pointer-events: none;
 }
 
-/* Rotates on rotateX about its top edge. Its two faces are flattened
-   into its plane and swapped by envelope.js at 90°, which renders the
+/* Rotates on rotateX about its top edge. Its two faces are each flattened
+   by their clip-path and swapped by envelope.js at 90°, which renders the
    same on every engine (backface-visibility is unreliable on Safari
-   inside clipped layers). */
+   inside clipped layers). preserve-3d keeps the wax seal — a child of the
+   flap — standing off the paper, so it turns with the flap as a solid. */
 .env__flap {
   position: absolute;
   inset: 0;
   transform-origin: 50% 0;
+  transform-style: preserve-3d;
   will-change: transform;
 }
 
@@ -647,68 +648,75 @@
 .pocket__edge-light { stroke: rgba(255, 255, 255, 0.75); stroke-width: 1; }
 
 /* ---- 7 · the wax seal ---------------------------------------------------- */
+/* The supplied seal photograph (assets/images/wax-seal.webp, 512 × 485).
+   It lives inside the flap, centred on the flap's tip, and everything
+   the sequence does to it — press, lift, glint, shade — is applied to
+   layers that share its silhouette through a CSS mask of the same image. */
+.scene { --seal: calc(var(--W) * 0.235); }
+
 .seal {
   position: absolute;
-  z-index: 8;
-  width: calc(var(--W) * 0.21);
-  height: calc(var(--W) * 0.21);
-  left: calc(50% - var(--W) * 0.105);
-  top: calc(var(--H) * 0.6 - var(--W) * 0.105);
+  width: var(--seal);
+  height: calc(var(--seal) * 0.947);
+  left: calc(50% - var(--seal) / 2);
+  top: calc(var(--H) * 0.6 - var(--seal) * 0.4735);
+  transform-style: preserve-3d;
   pointer-events: none;
 }
 
+/* Its shadow on the paper: the seal's own silhouette, blurred, cast away
+   from the sun. Sits in the flap's plane while the seal stands off it, so
+   the two slide apart a little as the flap tilts. */
 .seal__shadow {
   position: absolute;
-  inset: 4% 0 -6% 6%;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(60, 40, 14, 0.5), rgba(60, 40, 14, 0.18) 72%, rgba(60, 40, 14, 0));
+  left: calc(var(--W) * 0.012);
+  top: calc(var(--W) * 0.02);
+  width: 100%;
+  height: 100%;
+  filter: brightness(0) blur(calc(var(--W) * 0.007)) opacity(0.5);
 }
 
-/* Poured wax never sets to a perfect circle */
+/* The seal's thickness: lifted off the paper along the flap's own normal */
+.seal__lift {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(calc(var(--W) * 0.012));
+}
+
 .seal__wax {
   position: absolute;
   inset: 0;
-  overflow: hidden;
-  border-radius: 49% 51% 47% 53% / 53% 47% 52% 48%;
-  background: radial-gradient(circle at 34% 28%,
-    #f7e7bd 0%, #dfc184 16%, #c6a35f 42%, #a8853f 70%, #7c5d28 100%);
-  box-shadow:
-    inset 0 0 0 calc(var(--W) * 0.003) rgba(255, 236, 190, 0.3),
-    inset calc(var(--W) * -0.006) calc(var(--W) * -0.008) calc(var(--W) * 0.012) rgba(86, 60, 20, 0.45),
-    inset calc(var(--W) * 0.006) calc(var(--W) * 0.006) calc(var(--W) * 0.012) rgba(255, 242, 208, 0.55);
 }
 
-/* The recessed face the stamp was pressed into */
-.seal__wax::before {
-  content: "";
+.seal__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-user-drag: none;
+}
+
+/* Layers that must take the seal's exact outline */
+.seal__shade,
+.seal__shine {
   position: absolute;
-  inset: 15%;
-  border-radius: 50%;
-  background: radial-gradient(circle at 62% 66%, #dcbd80, #bb9752 72%, #a6833f);
-  box-shadow:
-    inset calc(var(--W) * 0.005) calc(var(--W) * 0.007) calc(var(--W) * 0.01) rgba(86, 60, 20, 0.5),
-    inset calc(var(--W) * -0.003) calc(var(--W) * -0.004) calc(var(--W) * 0.007) rgba(255, 242, 208, 0.45);
+  inset: 0;
+  -webkit-mask: url("../assets/images/wax-seal.webp") center / 100% 100% no-repeat;
+  mask: url("../assets/images/wax-seal.webp") center / 100% 100% no-repeat;
 }
 
-.seal__emblem {
-  position: absolute;
-  inset: 13%;
-  width: 74%;
-  height: 74%;
-  color: #6c5021;
-  filter: drop-shadow(0 0.6px 0 rgba(255, 238, 200, 0.6));
-}
-.seal-initial {
-  font-family: var(--font-body);
-  font-weight: 500;
+/* Darkens the wax as the flap turns it away from the light */
+.seal__shade {
+  background: linear-gradient(160deg, rgba(48, 30, 6, 0.55), rgba(48, 30, 6, 0.9));
+  opacity: 0;
 }
 
+/* A band of light that sweeps over the metal */
 .seal__glint {
   position: absolute;
   inset: -30%;
   background: linear-gradient(105deg,
     rgba(255, 249, 226, 0) 40%,
-    rgba(255, 249, 226, 0.55) 50%,
+    rgba(255, 249, 226, 0.5) 50%,
     rgba(255, 249, 226, 0) 60%);
   transform: translateX(-100%);
 }

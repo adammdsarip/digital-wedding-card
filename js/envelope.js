@@ -110,7 +110,9 @@
   const card = $("envelope-card");
   const cardShadow = $("card-shadow");
   const sheen = $("card-sheen");
+  const seal = $("wax-seal");
   const sealWax = $("seal-wax");
+  const sealShade = $("seal-shade");
   const sealShadow = $("seal-shadow");
   const glint = $("seal-glint");
 
@@ -158,10 +160,13 @@
 
   // At 90° the flap is edge-on to the viewer: the moment to turn it over
   // (swap faces) and send it behind the card, where it now physically is.
+  // The wax seal rides on the flap's outer face, so it goes with it: edge-on
+  // at this instant, it is already a hairline, and from here it faces away.
   function turnFlapOver() {
     gsap.set(hinge, { zIndex: 2 });
     gsap.set(flapOuter, { autoAlpha: 0 });
     gsap.set(flapInner, { autoAlpha: 1 });
+    gsap.set(seal, { autoAlpha: 0 });
   }
 
   function setRevealedPose() {
@@ -294,6 +299,11 @@
       .to(contact, { autoAlpha: 0, duration: 0.3, ease: "power1.out" }, "flap")
       .to(flap, { rotationX: 90, duration: D.flapUp, ease: C.flapUp }, "flap")
       .to(shadeOut, { opacity: 0.45, duration: D.flapUp, ease: C.flapUp }, "flap")
+      // the seal turns away from the light along with the paper it sits on
+      .to(sealShade, { opacity: 0.5, duration: D.flapUp, ease: C.flapUp }, "flap")
+      // by the last few degrees it is only a hairline; let that thin edge go
+      // out gently rather than blink off at the swap
+      .to(seal, { opacity: 0, duration: 0.1, ease: "power1.in" }, `flap+=${D.flapUp - 0.1}`)
       // its shadow darkens the mouth beneath it, then thins as it stands up
       .fromTo(cast, { autoAlpha: 0, scaleY: 1 },
         { autoAlpha: 1, scaleY: 0.75, duration: D.flapUp * 0.55, ease: "sine.out" }, "flap")
@@ -305,6 +315,7 @@
       .set(hinge, { zIndex: 2 }, "upright")
       .set(flapOuter, { autoAlpha: 0 }, "upright")
       .set(flapInner, { autoAlpha: 1 }, "upright")
+      .set(seal, { autoAlpha: 0 }, "upright")
       .to(flap, { rotationX: 180, duration: D.flapOver, ease: C.flapOver }, "upright")
       // the inside starts in its own shadow and comes into the light as it lies back
       .fromTo(shadeIn, { opacity: 1 }, { opacity: 0.12, duration: D.flapOver, ease: C.flapOver }, "upright")

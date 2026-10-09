@@ -114,7 +114,12 @@ transforms:
 6. **Flap** — rotates on `rotateX` about its top edge inside a `perspective`
    wrapper. At 90° (edge-on, so the swap can't be seen) it turns over to show
    its lined inside and drops behind the card.
-7. **Wax seal** — pressed onto the pocket; the flap peels out from under it.
+7. **Wax seal** — your supplied seal photograph (`assets/images/wax-seal.webp`),
+   set on the tip of the flap as a child of it, so it turns with the flap. It
+   stands a few pixels off the paper with its own shadow on the flap, and
+   darkens as it turns away from the light. To swap the seal, replace that
+   file (transparent background; keep the 512 × 485 proportions, or adjust
+   `.seal` in `css/envelope.css`).
 8. **Light and shadow** — paper texture (`assets/images/paper.svg`), leaf
    shadows overhead, the flap's shadow on the mouth of the envelope, and the
    card's shadow, which grows as the card lifts toward you.
@@ -127,7 +132,7 @@ recreated.
 - **Closed** — the envelope rests on the stone, drifting very slightly; the
   leaf shadows move; with a mouse, it turns a few degrees under the pointer.
 - **Opening** (one tap) — the seal is pressed and lets go, the flap gathers
-  pace up to vertical and eases down past it, the view drifts down, and the
+  pace up to vertical carrying the seal with it, and eases down past it, the view drifts down, and the
   card slides up out of the pocket, straightening and coming toward you, then
   settles.
 - **Revealed** — the card rests above the envelope. One more tap fades into

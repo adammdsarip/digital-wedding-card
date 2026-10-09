@@ -50,9 +50,9 @@
   const initialOne = W.partnerOne.charAt(0).toUpperCase();
   const initialTwo = W.partnerTwo.charAt(0).toUpperCase();
 
-  // The monogram above the envelope, on the card, and struck into the wax.
-  ["mono-one", "card-mono-one", "seal-initial-one"].forEach((id) => set(id, initialOne));
-  ["mono-two", "card-mono-two", "seal-initial-two"].forEach((id) => set(id, initialTwo));
+  // The monogram above the envelope and on the card.
+  ["mono-one", "card-mono-one"].forEach((id) => set(id, initialOne));
+  ["mono-two", "card-mono-two"].forEach((id) => set(id, initialTwo));
 
   setLines("scene-eyebrow", env.eyebrow);
   set("scene-hint", env.hint);
