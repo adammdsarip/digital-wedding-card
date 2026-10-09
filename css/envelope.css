@@ -464,15 +464,6 @@
   border: 0.5px solid rgba(176, 139, 79, 0.4);
 }
 
-.card__spray {
-  position: absolute;
-  top: calc(var(--W) * 0.006);
-  width: calc(var(--W) * 0.27);
-  height: calc(var(--W) * 0.27);
-}
-.card__spray--l { left: calc(var(--W) * 0.006); }
-.card__spray--r { right: calc(var(--W) * 0.006); transform: scaleX(-1); }
-
 .card__body {
   position: absolute;
   left: 0;
