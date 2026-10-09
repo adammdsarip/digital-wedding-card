@@ -26,13 +26,10 @@
   --flap-h: calc(var(--H) * 0.62);     /* flap depth, hinge to tip */
 
   --paper: #f8f3ea;
-  --paper-warm: #f1e8d8;
   --lining: #b5a289;
   --lining-deep: #96836a;
   --card-ink: #2a2420;
-  --stone-light: #eee5d7;
   --stone: #e3d1b7;
-  --stone-deep: #c7b59b;
 
   position: fixed;
   inset: 0;
@@ -121,28 +118,6 @@
     -webkit-mask-image: linear-gradient(0deg, #000 0, #000 28%, transparent 62%);
     mask-image: linear-gradient(0deg, #000 0, #000 28%, transparent 62%);
   }
-}
-
-/* ============================================================
-   8 · LIGHT — leaf shadows from a tree overhead, over everything
-   ============================================================ */
-/* Retired with the old drawn background: the photograph carries its own leaf
-   shadows, and a second, moving set on top of them would fight it. The element
-   stays so the sequence's timeline needs no changes. */
-.scene__light {
-  display: none;
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  overflow: hidden;
-}
-.scene__leaves {
-  position: absolute;
-  inset: -14%;
-  background: url("../assets/images/leaf-shadow.svg") center / cover no-repeat;
-  opacity: 0.1;
-  will-change: transform;
 }
 
 /* ============================================================

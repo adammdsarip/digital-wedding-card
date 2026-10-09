@@ -3,8 +3,8 @@
  * ------------------------------------------------------------
  * The opening sequence, as three states:
  *
- *   closed   — sealed and resting on the stone, gently alive: an idle
- *              drift, a breathing shadow, leaf shadows moving overhead.
+ *   closed   — sealed and resting on the wall, gently alive: an idle
+ *              drift and a breathing shadow.
  *   opening  — the seal lets go, the flap swings up over its hinge
  *              (gathering pace to upright, easing down past it), and
  *              the card slides up out of the pocket toward the viewer.
@@ -24,6 +24,8 @@
   const finish = () => {
     scene.style.display = "none";
     document.body.classList.remove("is-locked");
+    const site = document.getElementById("site");
+    if (site) site.focus({ preventScroll: true });
     window.dispatchEvent(new CustomEvent("invitation:opened"));
   };
 
@@ -72,7 +74,9 @@
     },
     idle: { period: 4.8, drift: 0.006, tilt: 1.5 },
     pointerTilt: 5,       // degrees, mouse only
-    skipSpeed: 2.4,       // a tap mid-sequence speeds it up rather than being lost
+    skipSpeed: 2.4,       // a tap mid-sequence speeds it up rather than being lost…
+    graceOpening: 0.9,    // …but not in the first moments: a nervous double-tap isn't a skip
+    graceRevealed: 0.7,   // and a tap right as the card lands doesn't carry straight through
     // space kept clear around the revealed composition, in px
     frame: { top: 18, bottom: 64 },
   };
@@ -92,7 +96,6 @@
   const cue = $("scene-cue");
   const cueLine = cue.querySelector(".scene__cue-line");
   const next = $("scene-next");
-  const leaves = $("scene-leaves");
   const rig = $("env-rig");
   const tilt = $("env-tilt");
   const float = $("env-float");
@@ -119,10 +122,12 @@
   const W = () => envelope.offsetWidth;
 
   const copy = (window.WEDDING && window.WEDDING.envelope) || {};
+  const cardEl = document.getElementById("envelope-card");
+  const cardSummary = (cardEl && cardEl.getAttribute("aria-label")) || "";
   const LABELS = {
     closed: "Tap to open your wedding invitation",
     opening: "Opening your invitation",
-    revealed: copy.revealHint || "Tap to view the invitation",
+    revealed: (cardSummary ? cardSummary + " " : "") + (copy.revealHint || "Tap to view the invitation"),
     leaving: "Opening your invitation",
   };
 
@@ -182,15 +187,6 @@
 
   // ---- Ambient life ----------------------------------------------------------------
   let idle = [];
-  let leavesTween = null;
-
-  function startLeaves() {
-    if (reduce || leavesTween) return;
-    leavesTween = gsap.to(leaves, {
-      xPercent: 2.4, yPercent: -1.4, rotation: 0.8,
-      duration: 9, ease: "sine.inOut", yoyo: true, repeat: -1,
-    });
-  }
 
   function startIdle() {
     stopIdle(false);
@@ -255,7 +251,6 @@
   function toClosed() {
     setState("closed");
     gsap.from(stage, { autoAlpha: 0, y: reduce ? 0 : 14, duration: reduce ? 0.4 : 1.4, ease: "power2.out" });
-    startLeaves();
     startIdle();
   }
 
@@ -263,10 +258,15 @@
   // STATE 2 · OPENING
   // ==================================================================================
   let openTl = null;
+  let builtFor = { w: 0, h: 0 };     // the viewport the opening's distances were measured in
+  let acceptAt = 0;                  // taps before this moment are ignored (see MOTION.grace*)
+  const now = () => performance.now();
 
   function toOpening() {
     if (state !== "closed") return;
     setState("opening");
+    acceptAt = now() + MOTION.graceOpening * 1000;
+    builtFor = { w: window.innerWidth, h: window.innerHeight };
     stopIdle();
     openTl = reduce ? buildOpeningReduced() : buildOpening();
   }
@@ -331,7 +331,6 @@
         `card+=${D.cardRise - D.cardToward}`)
       // the further it lifts off the lining, the softer and wider its shadow
       .to(cardShadow, { opacity: 1, duration: D.cardRise, ease: "sine.inOut" }, "card")
-      .to(leaves, { opacity: 0.08, duration: D.cardRise, ease: "sine.inOut" }, "card")
 
     // ---- settle: let down onto its resting place ----------------------------------------
       .addLabel("settle", `card+=${D.cardRise}`)
@@ -362,6 +361,10 @@
   function toRevealed() {
     setState("revealed");
     openTl = null;
+    acceptAt = now() + MOTION.graceRevealed * 1000;
+    // The screen changed size while it was opening (a rotation, a keyboard): the
+    // distances it travelled were measured for the old one, so frame it for this one.
+    if (window.innerWidth !== builtFor.w || window.innerHeight !== builtFor.h) setRevealedPose();
     startIdle();
   }
 
@@ -375,10 +378,7 @@
     window.dispatchEvent(new CustomEvent("invitation:opening"));
 
     const tl = gsap.timeline({
-      onComplete: () => {
-        if (leavesTween) leavesTween.kill();
-        finish();
-      },
+      onComplete: finish,
     });
     tl.to(next, { autoAlpha: 0, duration: 0.4 }, 0);
     if (!reduce) {
@@ -392,6 +392,7 @@
 
   // ---- Input ------------------------------------------------------------------------
   function advance() {
+    if (now() < acceptAt) return;
     if (state === "closed") return toOpening();
     if (state === "opening") {
       if (openTl) openTl.timeScale(MOTION.skipSpeed);
@@ -404,6 +405,7 @@
   scene.addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
     e.preventDefault();
+    if (e.repeat) return;              // a held key is one press, not several
     advance();
   });
 
@@ -416,6 +418,16 @@
         stopIdle(false);
         setRevealedPose();
         startIdle();
+      } else if (state === "opening" && openTl) {
+        // Rotated mid-opening: the tweens in flight carry the old screen's distances.
+        // For a real change of shape, land on the finished pose rather than finish wrongly.
+        const turned = window.innerWidth !== builtFor.w || Math.abs(window.innerHeight - builtFor.h) > 100;
+        if (!turned) return;
+        openTl.kill();
+        setRevealedPose();
+        gsap.set(next, { autoAlpha: 1, y: 0 });
+        gsap.set(sheen, { autoAlpha: 0 });
+        toRevealed();
       }
     }, 150);
   });
@@ -423,13 +435,8 @@
   // The OS setting can change while the page is open.
   const onReduceChange = (e) => {
     reduce = e.matches;
-    if (reduce) {
-      stopIdle();
-      if (leavesTween) { leavesTween.kill(); leavesTween = null; }
-    } else if (state === "closed" || state === "revealed") {
-      startLeaves();
-      startIdle();
-    }
+    if (reduce) stopIdle();
+    else if (state === "closed" || state === "revealed") startIdle();
   };
   if (reducedQuery.addEventListener) reducedQuery.addEventListener("change", onReduceChange);
 

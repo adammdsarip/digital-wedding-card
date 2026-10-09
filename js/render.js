@@ -46,7 +46,9 @@
   const year = String(when.getFullYear());
 
   // ---- The envelope scene ----------------------------------------------------
-  const env = W.envelope;
+  const env = W.envelope || {};
+  const envCard = env.card || {};
+  const lines = (v) => [].concat(v == null ? [] : v);
   const initialOne = W.partnerOne.charAt(0).toUpperCase();
   const initialTwo = W.partnerTwo.charAt(0).toUpperCase();
 
@@ -54,25 +56,26 @@
   ["mono-one", "card-mono-one"].forEach((id) => set(id, initialOne));
   ["mono-two", "card-mono-two"].forEach((id) => set(id, initialTwo));
 
-  setLines("scene-eyebrow", env.eyebrow);
-  set("scene-hint", env.hint);
-  set("scene-next", env.revealHint);
+  setLines("scene-eyebrow", lines(env.eyebrow));
+  if (env.hint) set("scene-hint", env.hint);
+  if (env.revealHint) set("scene-next", env.revealHint);
 
   // ---- The card that rises from the envelope ----------------------------------
-  set("card-eyebrow", env.card.eyebrow);
+  set("card-eyebrow", envCard.eyebrow || "");
   set("card-name-one", W.partnerOne);
-  set("card-connector", env.card.connector);
+  set("card-connector", envCard.connector || W.connector);
   set("card-name-two", W.partnerTwo);
-  setLines("card-invite", env.card.invite);
+  setLines("card-invite", lines(envCard.invite));
   set("card-weekday", weekday.slice(0, 3));
   set("card-day", dayNum);
   set("card-month", `${monthName.slice(0, 3)} ${year}`);
-  set("card-place", env.card.place);
+  set("card-place", envCard.place || "");
   const card = $("envelope-card");
   if (card) {
     card.setAttribute("aria-label",
-      `${env.card.eyebrow}, ${W.partnerOne} ${env.card.connector} ${W.partnerTwo} ` +
-      `${env.card.invite.join(" ").toLowerCase()} on ${weekday} ${dayNum} ${monthName} ${year}, ${env.card.place}.`);
+      `${envCard.eyebrow || ""}, ${W.partnerOne} ${envCard.connector || W.connector} ${W.partnerTwo} ` +
+      `${lines(envCard.invite).join(" ").toLowerCase()} on ${weekday} ${dayNum} ${monthName} ${year}` +
+      `${envCard.place ? ", " + envCard.place : ""}.`);
   }
 
   // ---- Page title and description -----------------------------------------------

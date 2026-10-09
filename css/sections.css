@@ -5,6 +5,10 @@
    large display name. Florals are optional and sit behind the type.
    ============================================================ */
 
+/* focused by script when the envelope hands over, so keyboard and screen-reader
+   users land on the invitation rather than on nothing */
+#site:focus { outline: none; }
+
 #site {
   position: relative;
   background: var(--color-ground);

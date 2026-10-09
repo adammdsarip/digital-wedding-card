@@ -35,7 +35,7 @@ js/
   main.js                Keeps ScrollTrigger's measurements honest
   vendor/                GSAP, ScrollTrigger and a QR generator, vendored (see note below)
 assets/
-  images/                Stone, paper and leaf-shadow textures (SVG)
+  images/                Background photograph, cotton-paper and wax-seal images, card paper
   florals/               Drop floral artwork here (see "Adding the florals")
   audio/                 Put an mp3/ogg here and point js/config.js at it
 ```
@@ -124,9 +124,9 @@ transforms:
    darkens as it turns away from the light. To swap the seal, replace that
    file (transparent background; keep the 512 × 485 proportions, or adjust
    `.seal` in `css/envelope.css`).
-8. **Light and shadow** — paper texture (`assets/images/paper.svg`), leaf
-   shadows overhead, the flap's shadow on the mouth of the envelope, and the
-   card's shadow, which grows as the card lifts toward you.
+8. **Light and shadow** — the cotton texture, the flap's shadow on the mouth of
+   the envelope, and the card's shadow, which grows as the card lifts toward
+   you. (The sunlight and leaf shadows are in the background photograph.)
 
 The ribbon and gold dishes in the reference photograph are props and are not
 recreated.
@@ -153,8 +153,8 @@ of the "layers" section.
 
 ### The three states
 
-- **Closed** — the envelope rests on the stone, drifting very slightly; the
-  leaf shadows move; with a mouse, it turns a few degrees under the pointer.
+- **Closed** — the envelope rests on the wall, drifting very slightly; with a
+  mouse, it turns a few degrees under the pointer.
 - **Opening** (one tap) — the seal is pressed and lets go, the flap gathers
   pace up to vertical carrying the seal with it, and eases down past it, the view drifts down, and the
   card slides up out of the pocket, straightening and coming toward you, then
@@ -166,7 +166,11 @@ Each state is a function in `js/envelope.js` (`toClosed`, `toOpening`,
 `toRevealed`, then `toSite`), and every duration, curve and distance is in
 the `MOTION` object at the top of that file. The curves are custom
 cubic-béziers (via GSAP's CustomEase); nothing bounces and nothing is linear.
-A tap during the opening speeds it up rather than being lost.
+A tap during the opening (after its first 0.9s) speeds it up rather than being
+lost; earlier taps, key auto-repeat, and a tap in the first 0.7s of the reveal
+are ignored, so a nervous double-tap or a held key can't skip the sequence.
+If the screen is rotated mid-opening, it lands on the pose framed for the new
+size. When it hands over, keyboard focus moves to the invitation.
 
 `prefers-reduced-motion` is respected: instead of the 3D choreography, the
 scene dims and comes back with the envelope already open and the card out.

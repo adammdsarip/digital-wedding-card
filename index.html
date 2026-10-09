@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -16,6 +16,7 @@
 />
 
 <link rel="preload" as="image" href="assets/images/wedding-background.webp" type="image/webp" />
+<link rel="preload" as="image" href="assets/images/cotton-paper.webp" type="image/webp" />
 <link rel="preload" as="image" href="assets/images/wax-seal.webp" type="image/webp" />
 <link rel="stylesheet" href="css/variables.css" />
 <link rel="stylesheet" href="css/base.css" />
@@ -28,7 +29,7 @@
 <!-- ============================================================
      AUDIO TOGGLE — persistent, small, corner-mounted
      ============================================================ -->
-<button id="audio-toggle" class="audio-toggle" aria-label="Toggle wedding music" aria-pressed="false">
+<button id="audio-toggle" class="audio-toggle" type="button" aria-label="Toggle wedding music" aria-pressed="false">
   <span class="audio-toggle__wave" aria-hidden="true">
     <i></i><i></i><i></i>
   </span>
@@ -120,11 +121,11 @@
                       <span class="monogram__one" id="card-mono-one">I</span><i></i><span class="monogram__two" id="card-mono-two">K</span>
                     </p>
                     <p class="card__eyebrow" id="card-eyebrow">Together with our families</p>
-                    <h1 class="card__names">
+                    <div class="card__names">
                       <span class="card__name" id="card-name-one">Isz</span>
                       <span class="card__amp"><i></i><em id="card-connector">&amp;</em><i></i></span>
                       <span class="card__name" id="card-name-two">Khaty</span>
-                    </h1>
+                    </div>
                     <p class="card__invite" id="card-invite">Invite you to celebrate<br>our wedding</p>
                     <p class="card__date">
                       <span id="card-weekday">Sat</span><i></i><span class="card__day" id="card-day">14</span><i></i><span id="card-month">Nov 2026</span>
@@ -166,11 +167,6 @@
   </div>
 
   <p class="scene__next" id="scene-next">Tap to view the invitation</p>
-
-  <!-- 8 · light: leaf shadows from a tree overhead fall across everything -->
-  <div class="scene__light" aria-hidden="true">
-    <div class="scene__leaves" id="scene-leaves"></div>
-  </div>
 </div>
 
 <!-- Shared SVG defs, referenced by <use> above (kept out of layout) -->
@@ -290,7 +286,7 @@
      THE INVITATION — vertically scrolling experience
      Populated at runtime from js/config.js by js/render.js
      ============================================================ -->
-<main id="site">
+<main id="site" tabindex="-1">
 
   <!-- 1 — The invitation -->
   <section class="paper-grain sheet sheet--invite" id="invitation" data-florals aria-label="The invitation">
