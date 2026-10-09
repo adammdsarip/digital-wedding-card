@@ -71,7 +71,7 @@
             <div class="env__floor" id="env-floor"></div>
 
             <!-- 2 + 3 · back of the envelope, and the lining printed inside it -->
-            <div class="env__back paper">
+            <div class="env__back cotton">
               <div class="env__lining"></div>
             </div>
 
@@ -79,13 +79,18 @@
                  while closed; drops behind the card once it passes upright. -->
             <div class="env__hinge" id="env-hinge">
               <div class="env__flap" id="env-flap">
-                <div class="flap__face flap__face--outer paper" id="flap-outer">
+                <div class="flap__face flap__face--outer cotton" id="flap-outer">
                   <svg class="flap__foil" viewBox="0 0 1000 441" preserveAspectRatio="none" aria-hidden="true">
                     <path d="M12 0 L494 426 Q500 431 506 426 L988 0"/>
                   </svg>
+                  <svg class="flap__rim" viewBox="0 0 1000 441" preserveAspectRatio="none" aria-hidden="true">
+                    <path class="rim-lit" d="M0 1.5 H1000"/>
+                    <path class="rim-soft" d="M2 0 L485 429"/>
+                    <path class="rim-dark" d="M998 0 L515 429"/>
+                  </svg>
                   <div class="flap__shade" id="flap-shade-out"></div>
                 </div>
-                <div class="flap__face flap__face--inner paper" id="flap-inner">
+                <div class="flap__face flap__face--inner cotton" id="flap-inner">
                   <div class="flap__lining"></div>
                   <div class="flap__shade" id="flap-shade-in"></div>
                 </div>
@@ -138,11 +143,14 @@
 
             <!-- 5 · the front pocket: two side flaps under a bottom flap -->
             <div class="env__pocket">
-              <div class="pocket__sides paper"></div>
-              <div class="pocket__bottom paper"></div>
+              <div class="pocket__sides cotton"></div>
+              <svg class="pocket__fold" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true">
+                <defs><filter id="fold-blur" filterUnits="userSpaceOnUse" x="-60" y="250" width="1120" height="520"><feGaussianBlur stdDeviation="9"/></filter></defs>
+                <path d="M0 585 L490 432.4 Q500 429 510 432.4 L1000 585" filter="url(#fold-blur)"/>
+              </svg>
+              <div class="pocket__bottom cotton"></div>
               <svg class="pocket__edges" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true">
-                <path class="pocket__edge-shade" d="M0 584 L490 430 Q500 426 510 430 L1000 584"/>
-                <path class="pocket__edge-light" d="M0 590 L490 436 Q500 432 510 436 L1000 590"/>
+                <path class="pocket__edge-light" d="M0 590 L490 437.6 Q500 434 510 437.6 L1000 590"/>
               </svg>
             </div>
 

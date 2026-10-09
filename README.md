@@ -127,6 +127,26 @@ transforms:
 The ribbon and gold dishes in the reference photograph are props and are not
 recreated.
 
+### The paper
+
+The envelope is meant to read as luxury cotton stationery, not a flat colour.
+`assets/images/cotton-paper.webp` is one seamless 768px tile: warm ivory, a soft
+cloud of variation, felted grain, short curly fibres, a few flecks, all lit from
+the top-left. Each piece of the envelope (back, flap outside, flap inside,
+pocket sides, bottom flap, lining) lays it as its own background at its own
+offset, so the texture belongs to the paper and turns and foreshortens with it
+through the whole 3D opening. Matte throughout; nothing is glossy.
+
+On top of the texture: edge faces that give the sheet its thickness (bright on
+the sides that face the light, shaded on the others), a soft key light across the
+flap and pocket, a contact and an ambient shadow under the flap's edges, and a
+shadow thrown by the raised bottom flap onto the side flaps behind it. The card
+keeps its own smoother stock (`paper.svg`).
+
+To adjust or regenerate the tile, `tools/make_cotton.py` is a short seeded Python script
+(numpy + Pillow); its amplitudes (grain, fibres, warmth) are the first few lines
+of the "layers" section.
+
 ### The three states
 
 - **Closed** — the envelope rests on the stone, drifting very slightly; the
