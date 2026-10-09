@@ -25,14 +25,24 @@ const WEDDING = {
   hashtag: "",
 
   // ---- The envelope -------------------------------------------------
-  // The seal monogram is struck from the two initials above.
-  envelopeEyebrow: "The Wedding Of",
-  tagline: "A Beautiful Journey Together",
+  // The monogram and the wax seal are struck from the two initials above;
+  // the card's date row is worked out from isoDate below.
+  envelope: {
+    eyebrow: ["A special invitation", "awaits"],
+    hint: "Tap to open",
+    revealHint: "Tap to view the invitation",
+    card: {
+      eyebrow: "Together with our families",
+      connector: "&",
+      invite: ["Invite you to celebrate", "our wedding"],
+      place: "Singapore",
+    },
+  },
 
-  // ---- The day (PLACEHOLDER date) -------------------------------------
+  // ---- The day (PLACEHOLDER date, taken from the envelope design) ------
   // One date drives everything. The weekday, day number, month and year
   // are all worked out from it, so they can never disagree with each other.
-  isoDate: "2027-03-14T11:00:00",
+  isoDate: "2026-11-14T11:00:00",
   timeText: "11.00 AM",
 
   // ---- Panel 1: the invitation ------------------------------------------
@@ -91,7 +101,7 @@ const WEDDING = {
   rsvp: {
     eyebrow: "Kindly",
     title: "RSVP",
-    deadline: "By 21 February 2027",
+    deadline: "By 31 October 2026",   // PLACEHOLDER
     url: "https://rsvp.iszandkhaty.com",
     scanLabel: "Scan QR code to RSVP",
     orLabel: "or",

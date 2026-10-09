@@ -1,7 +1,7 @@
 /**
  * render.js
  * ------------------------------------------------------------
- * Fills the envelope, the invitation card and all six sheets from
+ * Fills the envelope scene, its card and all six sheets from
  * window.WEDDING. No wedding copy lives in the HTML itself — the
  * text there is only a fallback until this runs.
  * ------------------------------------------------------------
@@ -45,23 +45,35 @@
   const monthName = MONTHS[when.getMonth()];
   const year = String(when.getFullYear());
 
-  // ---- The printed envelope ------------------------------------------------
-  set("env-eyebrow", W.envelopeEyebrow);
-  set("env-name-one", W.partnerOne);
-  set("env-connector", W.connector);
-  set("env-name-two", W.partnerTwo);
-  set("env-tagline", W.tagline);
+  // ---- The envelope scene ----------------------------------------------------
+  const env = W.envelope;
+  const initialOne = W.partnerOne.charAt(0).toUpperCase();
+  const initialTwo = W.partnerTwo.charAt(0).toUpperCase();
 
-  // The wax seal is struck with the two initials.
-  set("seal-initial-one", W.partnerOne.charAt(0).toUpperCase());
-  set("seal-initial-two", W.partnerTwo.charAt(0).toUpperCase());
+  // The monogram above the envelope, on the card, and struck into the wax.
+  ["mono-one", "card-mono-one", "seal-initial-one"].forEach((id) => set(id, initialOne));
+  ["mono-two", "card-mono-two", "seal-initial-two"].forEach((id) => set(id, initialTwo));
+
+  setLines("scene-eyebrow", env.eyebrow);
+  set("scene-hint", env.hint);
+  set("scene-next", env.revealHint);
 
   // ---- The card that rises from the envelope ----------------------------------
-  set("title-eyebrow", W.envelopeEyebrow);
-  set("title-name-one", W.partnerOne);
-  set("title-connector", W.connector);
-  set("title-name-two", W.partnerTwo);
-  set("title-date", `${dayNum} · ${monthName} · ${year}`);
+  set("card-eyebrow", env.card.eyebrow);
+  set("card-name-one", W.partnerOne);
+  set("card-connector", env.card.connector);
+  set("card-name-two", W.partnerTwo);
+  setLines("card-invite", env.card.invite);
+  set("card-weekday", weekday.slice(0, 3));
+  set("card-day", dayNum);
+  set("card-month", `${monthName.slice(0, 3)} ${year}`);
+  set("card-place", env.card.place);
+  const card = $("envelope-card");
+  if (card) {
+    card.setAttribute("aria-label",
+      `${env.card.eyebrow}, ${W.partnerOne} ${env.card.connector} ${W.partnerTwo} ` +
+      `${env.card.invite.join(" ").toLowerCase()} on ${weekday} ${dayNum} ${monthName} ${year}, ${env.card.place}.`);
+  }
 
   // ---- Page title and description -----------------------------------------------
   const dateLine = `${dayNum} ${monthName} ${year}`;

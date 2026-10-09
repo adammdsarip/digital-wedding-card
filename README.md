@@ -23,7 +23,7 @@ index.html              The opening sequence + the six sheets, and the icon spri
 css/
   variables.css          Design tokens — palette, type, motion, shadows
   base.css               Reset, lining figures, shared paper-grain texture
-  envelope.css           The envelope, seal, flap, card and title reveal
+  envelope.css           The opening scene: envelope layers, seal, card
   sections.css           The six sheets
   responsive.css         Breakpoint overrides (the base is mobile-first, sized with clamp())
 js/
@@ -35,7 +35,7 @@ js/
   main.js                Keeps ScrollTrigger's measurements honest
   vendor/                GSAP, ScrollTrigger and a QR generator, vendored (see note below)
 assets/
-  images/                The art-direction reference for the envelope
+  images/                Stone, paper and leaf-shadow textures (SVG)
   florals/               Drop floral artwork here (see "Adding the florals")
   audio/                 Put an mp3/ogg here and point js/config.js at it
 ```
@@ -97,79 +97,60 @@ empty keeps a clean sheet.
 
 ## The opening sequence — design notes
 
-### Why the envelope is built from CSS/SVG, not a photo crop
+### Built in layers, not from a photo
 
-The original art-direction photo is kept at `assets/images/envelope-reference.jpg`
-for context; it isn't loaded by the site itself. The supplied envelope
-photograph is beautiful as **art direction reference** — it set the palette
-(ivory paper, gold foil, gold sealing wax, blush silk), the proportions, the
-flap geometry, and the overall stationery-photography mood — but a flat photo
-can't be convincingly cracked open, folded back, or lifted with real
-perspective; masking and animating pieces cut from a single raster image
-always reads as "a photo with things fading in and out," which the brief
-explicitly asked to avoid.
+The envelope follows the three-panel reference (closed → opening → revealed),
+but it is not a picture: a flat image can't open on a real hinge. Every part
+is its own HTML/CSS layer, so each can move on its own with genuine 3D
+transforms:
 
-So the envelope, its flap, its pocket, and the wax seal are all real layered
-DOM elements styled to match the reference photo's materiality (paper-grain
-noise filter, layered soft shadows, gold-line accents, an embossed wax
-gradient), which means every one of them can be independently animated with
-genuine 3D transforms:
+1. **Background** — warm stone (an SVG texture in `assets/images/stone.svg`),
+   two soft bands of sun, and gypsophila drawn as SVG.
+2. **Envelope back** and 3. **lining** — the taupe liner inside, inset from
+   the paper's edges, darker toward the pocket.
+4. **The card** — lives in a slot that clips only at the envelope's bottom
+   edge, so it can rise freely above the envelope with its foot still tucked in.
+5. **Front pocket** — two side flaps under a folded-up bottom flap.
+6. **Flap** — rotates on `rotateX` about its top edge inside a `perspective`
+   wrapper. At 90° (edge-on, so the swap can't be seen) it turns over to show
+   its lined inside and drops behind the card.
+7. **Wax seal** — pressed onto the pocket; the flap peels out from under it.
+8. **Light and shadow** — paper texture (`assets/images/paper.svg`), leaf
+   shadows overhead, the flap's shadow on the mouth of the envelope, and the
+   card's shadow, which grows as the card lifts toward you.
 
-- **`.envelope__flap`** is a clipped triangle that rotates on `rotateX` around
-  its top edge inside a perspective wrapper, with a separate, pre-rotated
-  "inner face" (a standard flip-card technique) so the underside is a
-  believable warm interior tone once it swings past 90°, not a mirrored front.
-  Its printed copy — eyebrow, both names, the script connector between two
-  rules, the sprig — is live text, so it re-renders for any couple, and the
-  gold hairline along the folded edges is an SVG path with
-  `vector-effect: non-scaling-stroke` so it stays a crisp foil line at every
-  envelope size instead of anti-aliasing to grey.
-- **`.wax-seal`** is a gold gradient with a deliberately irregular
-  `border-radius` (poured wax never sets to a perfect circle) and a recessed
-  inner face holding the monogram — two initials taken straight from
-  `config.js`, split by a struck rule. On tap it presses, jitters, then
-  reveals two clipped half-copies of itself that rotate apart and fall while
-  wax fragments scatter — no sprite sheet or video required.
-- **`.invitation-card`** (the invitation itself) deliberately lives outside
-  the small envelope footprint, centred on the viewport from the start, so
-  it can grow from "tucked inside the envelope" to "full readable card" as
-  one continuous GSAP tween without ever needing to clip real typography to
-  a business-card-sized box.
+The ribbon and gold dishes in the reference photograph are props and are not
+recreated.
 
-If you want to art-direct your own envelope photo into this system later,
-the pieces you'd need as separate assets are: a flat back panel, a flap
-(front + a plausible "inner" tone), a pocket-front shape, and the wax seal —
-i.e. exactly the layers already modelled in `envelope.css`.
+### The three states
 
-### The sequence
+- **Closed** — the envelope rests on the stone, drifting very slightly; the
+  leaf shadows move; with a mouse, it turns a few degrees under the pointer.
+- **Opening** (one tap) — the seal is pressed and lets go, the flap gathers
+  pace up to vertical and eases down past it, the view drifts down, and the
+  card slides up out of the pocket, straightening and coming toward you, then
+  settles.
+- **Revealed** — the card rests above the envelope. One more tap fades into
+  the invitation site.
 
-0. **Load** — the envelope settles onto the table rather than appearing.
-1. **Idle** — ambient light drift, breathing floor shadow, a shimmer
-   travelling through the gold foil every few seconds, and (with a mouse) a
-   few degrees of parallax turn driven by `gsap.quickTo`.
-2. **Tap** → envelope lifts slightly, a soft glow highlights the seal.
-3. **Tap the seal** → press, crack, split, and scatter — one continuous
-   GSAP timeline carries this straight into:
-4. **The flap opens** on a real hinge (3D `rotateX`, not a fade).
-5. **The invitation rises** out of the pocket, growing to full size.
-6. **The title reveals** — names, connector, rule line, date — staggered.
-7. **A crossfade** hands off to the scrollable site, which opens on the
-   same names/date treatment so the transition reads as continuous rather
-   than "cinematic intro, then a different website."
+Each state is a function in `js/envelope.js` (`toClosed`, `toOpening`,
+`toRevealed`, then `toSite`), and every duration, curve and distance is in
+the `MOTION` object at the top of that file. The curves are custom
+cubic-béziers (via GSAP's CustomEase); nothing bounces and nothing is linear.
+A tap during the opening speeds it up rather than being lost.
 
-`prefers-reduced-motion` is respected throughout: a much simpler
-opacity/settle sequence replaces the 3D choreography, hitting the same
-narrative beats without the spatial motion.
+`prefers-reduced-motion` is respected: instead of the 3D choreography, the
+scene dims and comes back with the envelope already open and the card out.
 
 ## Why GSAP is vendored rather than loaded from a CDN
 
-`js/vendor/gsap.min.js` and `ScrollTrigger.min.js` are the real, unmodified
+`js/vendor/gsap.min.js`, `ScrollTrigger.min.js` and `CustomEase.min.js` are the real, unmodified
 GSAP 3.12.5 distribution files (installed via `npm pack gsap`), and
 `qrcode.js` is Kazuhiko Arase's MIT-licensed QR generator (`qrcode-generator`
 2.0.4), all committed directly into the project. This avoids a runtime dependency on a third-party
 CDN being reachable — relevant for guests opening the invitation over
 patchy venue wifi — and pins the exact version the animations were tuned
-against. If you'd rather load from a CDN, swap the two `<script>` tags near
+against. If you'd rather load from a CDN, swap the three GSAP `<script>` tags near
 the bottom of `index.html`.
 
 ## Browser support / performance notes

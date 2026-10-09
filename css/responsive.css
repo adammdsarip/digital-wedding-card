@@ -9,9 +9,6 @@
   #site { padding: 10px; gap: 10px; }
   .sheet { padding-inline: 1.25rem; }
   .sheet--invite { padding-inline: 1.25rem; }
-  .envelope-scene__stage { gap: 1.1rem; }
-  .reveal-title__continue span { display: none; }
-  .reveal-title__continue::before { content: "Enter"; }
   .itinerary__body { padding-left: 0.6rem; }
   .getting__detail { font-size: 0.72rem; }
   .contact__role { font-size: 0.94rem; }
@@ -25,14 +22,18 @@
 
 /* Desktop */
 @media (min-width: 1024px) {
-  .envelope-scene__stage { gap: 3rem; }
   #site { padding-top: 56px; }
 }
 
-/* Short viewports (landscape phones): keep the opening sequence from
-   overflowing vertically. */
-@media (max-height: 560px) {
-  :root { --env-w: clamp(240px, 46vh, 380px); }
-  .envelope-scene__stage { gap: 0.75rem; }
-  .envelope-scene__hint { display: none; }
+/* Short viewports (landscape phones): the envelope is sized from the
+   height already; drop the words around it so it can be as large as possible. */
+@media (max-height: 520px) {
+  .scene { --W: min(86vw, 440px, calc((100vh - 48px) / 1.5)); }
+  .scene__title,
+  .scene__cue { display: none; }
+}
+@supports (height: 100svh) {
+  @media (max-height: 520px) {
+    .scene { --W: min(86vw, 440px, calc((100svh - 48px) / 1.5)); }
+  }
 }
