@@ -28,12 +28,12 @@
 /* Short viewports (landscape phones): the envelope is sized from the
    height already; drop the words around it so it can be as large as possible. */
 @media (max-height: 520px) {
-  .scene { --W: min(86vw, 440px, calc((100vh - 48px) / 1.5)); }
+  .scene { --W: min(86vw, 440px, calc((100vh - 48px) / 1.62)); }
   .scene__title,
   .scene__cue { display: none; }
 }
 @supports (height: 100svh) {
   @media (max-height: 520px) {
-    .scene { --W: min(86vw, 440px, calc((100svh - 48px) / 1.5)); }
+    .scene { --W: min(86vw, 440px, calc((100svh - 48px) / 1.62)); }
   }
 }

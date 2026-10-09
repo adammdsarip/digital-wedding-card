@@ -65,7 +65,7 @@
     // the card starts rising this long after the flap passes upright
     cardAfterUpright: 0.1,
     card: {
-      rise: 0.76,       // × W: from tucked in to resting above the envelope
+      rise: 0.86,       // × W: from tucked in to resting above the envelope
       overshoot: 0.016, // × W: drawn a touch too far, then let down onto it
       scale: 1.035,     // toward the viewer
       tiltFrom: 9,      // degrees it leans back while still inside
