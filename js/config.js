@@ -95,18 +95,39 @@ const WEDDING = {
     },
   },
 
-  // ---- Panel 4: RSVP (PLACEHOLDER link) -----------------------------------
-  // The QR code is generated from `url`, so changing the link updates both
-  // the QR code and the button.
+  // ---- Panel 4: RSVP ---------------------------------------------------------
+  // A short form: name, coming or not, how many, any dietary needs, a message.
+  // Every word on it is here. `endpoint` is where it will be sent once the Tally
+  // form is connected (next step); until then it only previews.
   rsvp: {
     eyebrow: "Kindly",
     title: "RSVP",
     deadline: "By 31 October 2026",   // PLACEHOLDER
-    url: "https://rsvp.iszandkhaty.com",
-    scanLabel: "Scan QR code to RSVP",
-    orLabel: "or",
-    accepts: ["Accepts", "with pleasure"],
-    declines: ["Regretfully", "declines"],
+    intro: "Please let us know if you can join us.",
+    endpoint: "",
+    labels: {
+      name: "Your name",
+      attending: "Will you be joining us?",
+      yes: ["Accepts", "with pleasure"],
+      no: ["Regretfully", "declines"],
+      guests: "Number of guests",
+      guestsHint: "Including yourself",
+      dietary: "Dietary requirements",
+      message: "A note for us",
+      optional: "Optional",
+      submit: "Send RSVP",
+      sending: "Sending…",
+    },
+    maxGuests: 6,
+    errors: {
+      name: "Please tell us your name.",
+      attending: "Please let us know if you can come.",
+      send: "Sorry, that did not send. Please try again.",
+    },
+    done: {
+      yes: { title: "Thank you", text: "We are so happy you will be joining us. We cannot wait to celebrate with you." },
+      no: { title: "Thank you for letting us know", text: "You will be missed. We will be thinking of you on the day." },
+    },
   },
 
   // ---- Panel 5: dress code and a note -------------------------------------

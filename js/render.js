@@ -144,46 +144,23 @@
       </li>`).join("");
   }
 
-  // ---- Sheet 4: RSVP -----------------------------------------------------------------
+  // ---- Sheet 4: RSVP (the words only; the behaviour is in rsvp.js) -----------------------
   const r = W.rsvp;
+  const rl = r.labels;
   set("rsvp-eyebrow", r.eyebrow);
   set("rsvp-title", r.title);
   set("rsvp-deadline", r.deadline);
-  set("rsvp-scan", r.scanLabel);
-  set("rsvp-or", r.orLabel);
-  setLines("rsvp-accepts", r.accepts);
-  setLines("rsvp-declines", r.declines);
-
-  const rsvpLink = $("rsvp-link");
-  if (rsvpLink) {
-    rsvpLink.href = r.url;
-    rsvpLink.textContent = r.url.replace(/^https?:\/\//, "").replace(/\/$/, "");
-  }
-
-  // The QR code is drawn from the same link, as one crisp SVG path.
-  const qrBox = $("rsvp-qr");
-  if (qrBox && typeof qrcode === "function") {
-    try {
-      const qr = qrcode(0, "M");
-      qr.addData(r.url);
-      qr.make();
-      const n = qr.getModuleCount();
-      let d = "";
-      for (let row = 0; row < n; row++) {
-        for (let col = 0; col < n; col++) {
-          if (qr.isDark(row, col)) d += `M${col} ${row}h1v1h-1z`;
-        }
-      }
-      qrBox.innerHTML =
-        `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges" aria-hidden="true">` +
-        `<path d="${d}" fill="currentColor"/></svg>`;
-      qrBox.setAttribute("aria-label", `QR code that opens ${r.url}`);
-    } catch (err) {
-      qrBox.hidden = true;
-    }
-  } else if (qrBox) {
-    qrBox.hidden = true;
-  }
+  set("rsvp-intro", r.intro);
+  set("rsvp-name-label", rl.name);
+  set("rsvp-attending-label", rl.attending);
+  setLines("rsvp-yes", rl.yes);
+  setLines("rsvp-no", rl.no);
+  set("rsvp-guests-label", rl.guests);
+  set("rsvp-guests-hint", rl.guestsHint);
+  set("rsvp-dietary-label", rl.dietary);
+  set("rsvp-message-label", rl.message);
+  document.querySelectorAll("#rsvp .field__opt").forEach((el) => { el.textContent = `(${rl.optional})`; });
+  set("rsvp-submit", rl.submit);
 
   // ---- Sheet 5: dress code and a note -------------------------------------------------
   const dc = W.dressCode;

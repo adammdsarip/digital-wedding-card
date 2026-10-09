@@ -358,15 +358,69 @@
       <p class="rsvp__deadline" id="rsvp-deadline"></p>
     </header>
 
-    <div class="rsvp__qr" id="rsvp-qr" data-reveal="scale" role="img"></div>
-    <p class="rsvp__scan" id="rsvp-scan" data-reveal="fade"></p>
-    <p class="rsvp__or" id="rsvp-or" data-reveal="fade"></p>
-    <a class="pill pill--line" id="rsvp-link" target="_blank" rel="noopener" data-reveal="fade"></a>
+    <p class="rsvp__intro" id="rsvp-intro" data-reveal="fade"></p>
 
-    <ul class="rsvp__legend" data-reveal="fade">
-      <li><svg aria-hidden="true"><use href="#i-check"/></svg><span id="rsvp-accepts"></span></li>
-      <li><svg aria-hidden="true"><use href="#i-cross"/></svg><span id="rsvp-declines"></span></li>
-    </ul>
+    <form class="rsvp__form" id="rsvp-form" novalidate data-reveal="fade">
+
+      <div class="field">
+        <label class="field__label" for="rsvp-name" id="rsvp-name-label"></label>
+        <input class="field__input" id="rsvp-name" name="name" type="text" autocomplete="name" autocapitalize="words" enterkeyhint="next" required aria-describedby="rsvp-name-error">
+        <p class="field__error" id="rsvp-name-error" hidden></p>
+      </div>
+
+      <fieldset class="field choice" aria-describedby="rsvp-attending-error">
+        <legend class="field__label" id="rsvp-attending-label"></legend>
+        <div class="choice__row">
+          <label class="choice__opt">
+            <input type="radio" name="attending" value="yes" required>
+            <span class="choice__card"><svg aria-hidden="true"><use href="#i-check"/></svg><span id="rsvp-yes"></span></span>
+          </label>
+          <label class="choice__opt">
+            <input type="radio" name="attending" value="no" required>
+            <span class="choice__card"><svg aria-hidden="true"><use href="#i-cross"/></svg><span id="rsvp-no"></span></span>
+          </label>
+        </div>
+        <p class="field__error" id="rsvp-attending-error" hidden></p>
+      </fieldset>
+
+      <!-- only for guests who are coming; collapsed (and inert, so it is neither tabbed to nor sent) otherwise -->
+      <div class="rsvp__more" id="rsvp-more" data-open="false" inert>
+        <div class="rsvp__more-inner">
+          <div class="field stepper">
+            <span class="field__label" id="rsvp-guests-label"></span>
+            <div class="stepper__ctrl" role="group" aria-labelledby="rsvp-guests-label">
+              <button class="stepper__btn" type="button" id="rsvp-minus" aria-controls="rsvp-guests-out"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10"/></svg></button>
+              <output class="stepper__val" id="rsvp-guests-out" for="rsvp-minus rsvp-plus">1</output>
+              <button class="stepper__btn" type="button" id="rsvp-plus" aria-controls="rsvp-guests-out"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3v10"/></svg></button>
+              <input type="hidden" name="guests" id="rsvp-guests" value="1">
+            </div>
+            <p class="field__hint" id="rsvp-guests-hint"></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="rsvp-dietary"><span id="rsvp-dietary-label"></span> <small class="field__opt"></small></label>
+            <input class="field__input" id="rsvp-dietary" name="dietary" type="text" autocomplete="off" enterkeyhint="next">
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="rsvp-message"><span id="rsvp-message-label"></span> <small class="field__opt"></small></label>
+        <textarea class="field__input field__input--area" id="rsvp-message" name="message" rows="3" autocomplete="off"></textarea>
+      </div>
+
+      <!-- a trap for form-filling bots: people never see it, bots fill it in -->
+      <div class="rsvp__hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+      <p class="field__error rsvp__fail" id="rsvp-fail" role="alert" hidden></p>
+      <button class="pill pill--dark rsvp__submit" type="submit" id="rsvp-submit-btn"><span id="rsvp-submit"></span></button>
+    </form>
+
+    <div class="rsvp__done" id="rsvp-done" role="status" aria-live="polite" hidden>
+      <svg class="rsvp__done-icon" aria-hidden="true"><use href="#i-check"/></svg>
+      <h3 class="rsvp__done-title" id="rsvp-done-title"></h3>
+      <p class="rsvp__done-text" id="rsvp-done-text"></p>
+    </div>
   </section>
 
   <!-- 5 — Dress code and a note -->
@@ -415,9 +469,9 @@
 <script src="js/vendor/gsap.min.js"></script>
 <script src="js/vendor/ScrollTrigger.min.js"></script>
 <script src="js/vendor/CustomEase.min.js"></script>
-<script src="js/vendor/qrcode.js"></script>
 <script src="js/config.js"></script>
 <script src="js/render.js"></script>
+<script src="js/rsvp.js"></script>
 <script src="js/envelope.js"></script>
 <script src="js/scroll-reveals.js"></script>
 <script src="js/audio.js"></script>

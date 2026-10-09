@@ -28,12 +28,13 @@ css/
   responsive.css         Breakpoint overrides (the base is mobile-first, sized with clamp())
 js/
   config.js              *** Single source of truth for all wedding content ***
-  render.js              Fills the page from config.js; draws the QR code
+  render.js              Fills the page from config.js
+  rsvp.js                The RSVP form: what shows when, checking it, sending it
   envelope.js            The opening-sequence state machine + GSAP timeline
   scroll-reveals.js      Entrance animations for the sheets
   audio.js               Optional background-music toggle
   main.js                Keeps ScrollTrigger's measurements honest
-  vendor/                GSAP, ScrollTrigger and a QR generator, vendored (see note below)
+  vendor/                GSAP, ScrollTrigger and CustomEase, vendored (see note below)
 assets/
   images/                Background photograph, cotton-paper and wax-seal images, card paper
   florals/               The four floral corners used on every sheet
@@ -47,7 +48,8 @@ assets/
    whole sheet fits one screen (down to 320 × 568) and is centred on taller ones.
 2. **The Big Day** — the itinerary, with a line that draws itself stop by stop.
 3. **Location** — map, an "Open in Google Maps" button, and how to get there.
-4. **RSVP** — a QR code and a link, both generated from `rsvp.url`.
+4. **RSVP** — a short form: name, coming or not, number of guests, dietary needs,
+   and a note. (See "The RSVP form" below.)
 5. **Dress code** — the colour swatches, and a note from you.
 6. **Contact** — two family contacts and your social links.
 
@@ -67,7 +69,8 @@ really a Tuesday is the classic way an invitation goes wrong).
 **Itinerary icons** are chosen per stop with `icon:` — `mosque`, `cutlery`,
 `camera`, `toast` or `music`. Transport icons are `car`, `train` or `bus`.
 
-**RSVP.** Change `rsvp.url` and both the QR code and the button follow it.
+**RSVP.** Every word on the form, the most guests one reply can name, and the
+thank-you messages are under `rsvp` in `config.js`.
 
 **Social links.** Fill in `contact.follow.instagram` / `facebook` / `tiktok`.
 Any left empty is shown but not clickable.
@@ -80,6 +83,21 @@ would undercut the quiet tone of the piece).
 To change the map: `venue.mapEmbedUrl` accepts either a key-free
 `https://maps.google.com/maps?q=<address>&output=embed` URL (default) or a
 full "Share → Embed a map" URL copied from Google Maps for more control.
+
+### The RSVP form
+
+Name, coming or not (two large choices), then — only for guests who are coming —
+the number of guests and any dietary needs, and finally an optional note. It
+checks the name and the choice, shows what is missing next to the field, and then
+swaps itself for a thank-you whose wording depends on the answer. Fields are 16px
+or more so iPhones do not zoom in on them, the choices and the guest counter are
+thumb-sized, and it works from the keyboard alone. A hidden field catches
+form-filling bots.
+
+**Sending is not connected yet.** `send()` at the bottom of `js/rsvp.js` is the
+one place that talks to the outside: for now it only logs what would be sent
+(`{ name, attending, guests, dietary, message }`) to the browser console. The
+Tally form connects there.
 
 ### The florals
 
@@ -182,9 +200,8 @@ scene dims and comes back with the envelope already open and the card out.
 ## Why GSAP is vendored rather than loaded from a CDN
 
 `js/vendor/gsap.min.js`, `ScrollTrigger.min.js` and `CustomEase.min.js` are the real, unmodified
-GSAP 3.12.5 distribution files (installed via `npm pack gsap`), and
-`qrcode.js` is Kazuhiko Arase's MIT-licensed QR generator (`qrcode-generator`
-2.0.4), all committed directly into the project. This avoids a runtime dependency on a third-party
+GSAP 3.12.5 distribution files (installed via `npm pack gsap`), committed
+directly into the project. This avoids a runtime dependency on a third-party
 CDN being reachable — relevant for guests opening the invitation over
 patchy venue wifi — and pins the exact version the animations were tuned
 against. If you'd rather load from a CDN, swap the three GSAP `<script>` tags near
