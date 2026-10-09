@@ -13,10 +13,10 @@ const WEDDING = {
 
   // ---- The couple -------------------------------------------------
   // Names appear in this order everywhere: envelope, hero, sign-offs.
-  partnerOne: "Adam",
-  partnerOneFull: "Adam Mohd Sarip",
-  partnerTwo: "Nurin",
-  partnerTwoFull: "Nurin Batrisyia",
+  partnerOne: "Isz",
+  partnerOneFull: "Isz",
+  partnerTwo: "Khaty",
+  partnerTwoFull: "Khaty",
 
   // The word between the two names. "and" (set in the script face) matches
   // the printed envelope; "&" also works.
@@ -40,13 +40,13 @@ const WEDDING = {
     eyebrow: "Together with their families",
     message:
       "we joyfully invite you to share in the celebration of our marriage — an evening of love, laughter, and the beginning of forever.",
-    signoff: "With love, Adam and Nurin",
+    signoff: "With love, Isz and Khaty",
   },
 
   // ---- Hero / couple photograph --------------------------------------
   heroPhoto: {
     src: "assets/images/couple-hero.jpg",
-    alt: "Adam and Nurin",
+    alt: "Isz and Khaty",
   },
 
   // ---- Our story ------------------------------------------------------
@@ -125,12 +125,12 @@ const WEDDING = {
     heading: "Photo Gallery",
     intro: "A few of our favourite moments together.",
     photos: [
-      { src: "assets/images/gallery-1.jpg", alt: "Adam and Nurin, moment one" },
-      { src: "assets/images/gallery-2.jpg", alt: "Adam and Nurin, moment two" },
-      { src: "assets/images/gallery-3.jpg", alt: "Adam and Nurin, moment three" },
-      { src: "assets/images/gallery-4.jpg", alt: "Adam and Nurin, moment four" },
-      { src: "assets/images/gallery-5.jpg", alt: "Adam and Nurin, moment five" },
-      { src: "assets/images/gallery-6.jpg", alt: "Adam and Nurin, moment six" },
+      { src: "assets/images/gallery-1.jpg", alt: "Isz and Khaty, moment one" },
+      { src: "assets/images/gallery-2.jpg", alt: "Isz and Khaty, moment two" },
+      { src: "assets/images/gallery-3.jpg", alt: "Isz and Khaty, moment three" },
+      { src: "assets/images/gallery-4.jpg", alt: "Isz and Khaty, moment four" },
+      { src: "assets/images/gallery-5.jpg", alt: "Isz and Khaty, moment five" },
+      { src: "assets/images/gallery-6.jpg", alt: "Isz and Khaty, moment six" },
     ],
   },
 
@@ -141,7 +141,7 @@ const WEDDING = {
     deadline: "1 April 2027",
     // Set a `formEndpoint` (e.g. a Formspree URL) to receive real submissions.
     formEndpoint: "",
-    email: "adam.and.nurin@example.com",
+    email: "isz.and.khaty@example.com",
     phone: "+1 (555) 019-2847",
   },
 
@@ -150,7 +150,7 @@ const WEDDING = {
     heading: "We Can't Wait to Celebrate With You",
     message:
       "Your presence is the greatest gift of all. Thank you for being part of our story, and for the one that begins next.",
-    signoff: "Adam and Nurin",
+    signoff: "Isz and Khaty",
   },
 
   // ---- Music ---------------------------------------------------------------------

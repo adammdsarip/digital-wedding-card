@@ -1,4 +1,4 @@
-# Adam & Nurin — Digital Wedding Invitation
+# Isz & Khaty — Digital Wedding Invitation
 
 A cinematic, editorial-stationery wedding invitation: a tap-to-open wax-seal
 envelope sequence that dissolves into a vertically scrolling invitation site.
