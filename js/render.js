@@ -206,7 +206,7 @@
   const joiner = /^[a-z]+$/i.test(W.connector) ? cap(W.connector) : "And";
   set("fl-hashtag", W.hashtag || `#${cap(W.partnerOne)}${joiner}${cap(W.partnerTwo)}`);
 
-  // ---- Sheet 7: the guest wall (the words only; the behaviour is in wall.js) -------------------
+  // ---- Sheet 7: the guest wall and the photo booth (the words only; behaviour is in wall.js / booth.js) --------
   const wl = W.wall;
   if (wl) {
     const wlab = wl.labels;
@@ -217,17 +217,39 @@
     set("wall-empty", wl.empty);
     set("wall-more", wl.more);
     set("wd-title", wlab.dialog);
-    set("wd-take-label", wlab.take);
-    set("wd-pick-label", wlab.pick);
+    set("wd-edit-label", wlab.edit);
     set("wd-name-label", wlab.name);
     set("wd-wish-label", wlab.wish);
     set("wd-wish-opt", `(${wlab.optional})`);
-    set("wd-emoji-label", wlab.emoji);
     set("wd-submit-label", wlab.post);
-    set("wd-busy", wlab.preparing);
     set("wd-done-title", wl.done.title);
     set("wd-done-text", wl.done.text);
     set("wd-see-label", wlab.seeWall);
+  }
+  const bo = W.booth;
+  if (bo) {
+    const bl = bo.labels;
+    set("bo-title", bo.title);
+    set("bo-mode-photo", bl.modePhoto);
+    set("bo-mode-strip", bl.modeStrip);
+    set("bo-native-label", bl.phoneCamera);
+    set("bo-tab-filters", bl.tabFilters);
+    set("bo-tab-frames", bl.tabFrames);
+    set("bo-tab-stickers", bl.tabStickers);
+    set("bo-tab-caption", bl.tabCaption);
+    set("bo-flip-label", bl.flip);
+    set("bo-st-smaller-label", bl.smaller);
+    set("bo-st-bigger-label", bl.bigger);
+    set("bo-st-rotate-label", bl.rotate);
+    set("bo-st-remove-label", bl.remove);
+    set("bo-st-hint", bl.stickerHint);
+    set("bo-caption-label", bl.captionLabel);
+    set("bo-download-label", bl.download);
+    set("bo-post-label", bl.post);
+    [["bo-back", bl.back], ["bo-close", bl.close], ["bo-flipcam", bl.flipCamera], ["bo-shutter", bl.shutter], ["bo-upload", bl.upload]].forEach(([id, label]) => {
+      const n = $(id);
+      if (n) n.setAttribute("aria-label", label);
+    });
   }
 
   // ---- Floral artwork: only drawn once you supply it -----------------------------------------

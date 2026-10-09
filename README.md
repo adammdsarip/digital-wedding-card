@@ -30,7 +30,8 @@ js/
   config.js              *** Single source of truth for all wedding content ***
   render.js              Fills the page from config.js
   rsvp.js                The RSVP form: what shows when, checking it, sending it
-  wall.js                The guest wall: the cards, adding a photo, hearts
+  booth.js               The photo booth: camera, filters, frames, stickers, download
+  wall.js                The guest wall: the cards, posting the booth photo, hearts
   envelope.js            The opening-sequence state machine + GSAP timeline
   scroll-reveals.js      Entrance animations for the sheets
   audio.js               Optional background-music toggle
@@ -54,8 +55,8 @@ assets/
    and a note. (See "The RSVP form" below.)
 5. **Dress code** — the colour swatches, and a note from you.
 6. **Contact** — two family contacts and your social links.
-7. **Guest Wall** — guests add a selfie, a wish and stickers, and see everyone's.
-   (See "The guest wall" below.)
+7. **Guest Wall** — guests take a photo in the photo booth, leave a wish, and see everyone's.
+   (See "The photo booth" and "The guest wall" below.)
 
 ## Customising your own wedding
 
@@ -103,14 +104,31 @@ one place that talks to the outside: for now it only logs what would be sent
 (`{ name, attending, guests, dietary, message }`) to the browser console. The
 Tally form connects there.
 
+### The photo booth
+
+**Open the photo booth** (on the guest wall) opens a full-screen booth:
+
+1. **Shoot** — live camera with a 3-second countdown, as a single **Photo** or a
+   **Strip** of four. Guests without camera permission can choose a photo
+   instead (and, on phones, use their camera app).
+2. **Edit** — seven filters, four frames (None, Polaroid, Gold, Floral), emoji
+   stickers (drag to move, pinch to resize and turn), a caption, and Flip.
+3. **Keep it** — **Download** saves a full-size JPEG (on iPhone it opens the share
+   sheet, where "Save Image" puts it in Photos), and/or **Post to the wall**.
+
+Everything is made on the guest's own phone, with no upload until they tap Post.
+Words, counts and the sticker set are in `booth` in `js/config.js`; the filters
+are in `FILTERS` at the top of `js/booth.js`. Camera access needs HTTPS (Netlify
+has it) and cannot be tested on a plain `http://` address except localhost.
+
 ### The guest wall
 
-Open to anyone with the link: no approval step, no code. A guest taps **Add your
-photo**, takes a selfie (or picks a photo), adds a name, an optional wish (140
-characters) and up to three stickers, and posts. Their card goes to the top of the
-wall straight away; guests can tap a heart on any card. Photos are cropped square
-and shrunk to 900px on the guest's own phone before they are sent. Everything a
-guest types is put on the page as plain text, never as HTML.
+Open to anyone with the link: no approval step, no code. After the booth, a guest
+adds a name and an optional wish (140 characters) and posts. Their card goes to
+the top of the wall straight away; guests can tap a heart on any card. Posted
+pictures are shrunk on the guest's own phone first (a photo is a 900px square, a
+strip is kept whole). Everything a guest types is put on the page as plain text,
+never as HTML.
 
 **Not connected yet.** Until a backend is set in `wall.backend` (`js/config.js`),
 the wall shows six made-up sample posts (`wall.samples`, photos in

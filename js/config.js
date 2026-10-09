@@ -166,6 +166,52 @@ const WEDDING = {
     },
   },
 
+  // ---- The photo booth --------------------------------------------------------
+  // Opens from the guest wall: a live camera with a countdown (a single photo or a
+  // strip of four), then filters, frames, stickers and a caption, and then the guest
+  // can download the picture and/or post it to the wall. Everything happens on the
+  // guest's own phone; nothing is sent anywhere until they tap "Post to the wall".
+  booth: {
+    title: "Photo Booth",
+    caption: "Isz & Khaty",          // the line printed on frames; guests can change it
+    stripShots: 4,
+    countdown: 3,
+    maxCaption: 28,
+    labels: {
+      modePhoto: "Photo",
+      modeStrip: "Strip",
+      shutter: "Take photo",
+      flipCamera: "Switch camera",
+      upload: "Choose a photo",
+      phoneCamera: "Use your phone's camera app",
+      hintPhoto: "Smile! A 3-second countdown starts when you tap.",
+      hintStrip: "Four poses, one strip. A countdown before each.",
+      starting: "Starting the camera…",
+      denied: "The camera is blocked. You can allow it in your browser's settings, or choose a photo instead.",
+      unavailable: "The camera is not available here. You can choose a photo instead.",
+      back: "Retake",
+      close: "Close",
+      tabFilters: "Filters",
+      tabFrames: "Frames",
+      tabStickers: "Stickers",
+      tabCaption: "Caption",
+      flip: "Flip",
+      smaller: "Smaller",
+      bigger: "Bigger",
+      rotate: "Rotate",
+      remove: "Remove",
+      stickerHint: "Tap a sticker to add it, then drag it. Pinch to resize.",
+      captionLabel: "Caption",
+      download: "Download",
+      saving: "Saving…",
+      post: "Post to the wall",
+      readError: "Sorry, that photo could not be read. Please try another.",
+    },
+    filters: { original: "Original", golden: "Golden", rose: "Rosé", soft: "Soft", film: "Film", mono: "Mono", bright: "Bright" },
+    frames: { none: "None", polaroid: "Polaroid", gold: "Gold", floral: "Floral" },
+    stickers: ["❤️", "🥰", "😍", "🎉", "🥂", "💍", "💐", "🌸", "✨", "🤍", "👰", "🤵", "💒", "🎊"],
+  },
+
   // ---- Panel 7: the guest wall ----------------------------------------------
   // Guests take a selfie, add a name, a wish and a sticker, and it joins the wall
   // for everyone to see. It is open to anyone with the link, with no approval step.
@@ -176,45 +222,37 @@ const WEDDING = {
     backend: "",
     eyebrow: "The",
     title: "Guest Wall",
-    intro: "Take a selfie and leave a wish for Isz and Khaty.",
-    add: "Add your photo",
+    intro: "Strike a pose in our photo booth, then leave a wish for Isz and Khaty.",
+    add: "Open the photo booth",
     count: ["No wishes yet", "1 wish so far", "wishes so far"],
     empty: "Be the first to leave a wish.",
     more: "Show more",
     pageSize: 12,
-    emojis: ["❤️", "🥰", "🎉", "🥂", "💐", "✨", "🙏", "😍", "🤍", "🌸"],
-    maxEmojis: 3,
     labels: {
       dialog: "Add to the wall",
-      take: "Take a selfie",
-      pick: "Choose a photo",
-      retake: "Take another",
+      edit: "Edit photo",
       name: "Your name",
       wish: "Your wish",
       optional: "Optional",
-      emoji: "Add a sticker",
       post: "Post to the wall",
       posting: "Posting…",
-      preparing: "Getting your photo ready…",
       seeWall: "See the wall",
       love: "Love this",
     },
     errors: {
-      photo: "Please add a photo.",
       name: "Please tell us your name.",
-      read: "Sorry, that photo could not be read. Please try another.",
       send: "Sorry, that did not post. Please try again.",
     },
     done: { title: "Thank you!", text: "Your photo is on the wall." },
     // PREVIEW ONLY: shown until the wall is connected. Names, wishes and
     // photos here are made up; they disappear when `backend` is set.
     samples: [
-      { name: "Aisyah", wish: "So happy for you both! May your love grow stronger every day.", emojis: ["❤️", "🥰"], photo: "assets/wall/sample-1.webp", hearts: 12, minutesAgo: 6 },
-      { name: "Hakim & Sarah", wish: "Barakallahu lakuma! Can't wait to celebrate with you.", emojis: ["🎉"], photo: "assets/wall/sample-2.webp", hearts: 8, minutesAgo: 22 },
-      { name: "Auntie Rose", wish: "Two beautiful hearts becoming one. God bless you always.", emojis: ["🙏", "💐"], photo: "assets/wall/sample-3.webp", hearts: 15, minutesAgo: 51 },
-      { name: "Daniel", wish: "Congratulations, bro! Wishing you a lifetime of happiness.", emojis: ["🥂"], photo: "assets/wall/sample-4.webp", hearts: 5, minutesAgo: 95 },
-      { name: "Nur", wish: "You two are the cutest! Cheers to forever.", emojis: ["😍", "✨", "🤍"], photo: "assets/wall/sample-5.webp", hearts: 9, minutesAgo: 180 },
-      { name: "Mak Long", wish: "Semoga bahagia hingga ke syurga.", emojis: ["🌸"], photo: "assets/wall/sample-6.webp", hearts: 21, minutesAgo: 1500 },
+      { name: "Aisyah", wish: "So happy for you both! May your love grow stronger every day.", photo: "assets/wall/sample-1.webp", hearts: 12, minutesAgo: 6 },
+      { name: "Hakim & Sarah", wish: "Barakallahu lakuma! Can't wait to celebrate with you.", photo: "assets/wall/sample-2.webp", hearts: 8, minutesAgo: 22 },
+      { name: "Auntie Rose", wish: "Two beautiful hearts becoming one. God bless you always.", photo: "assets/wall/sample-3.webp", hearts: 15, minutesAgo: 51 },
+      { name: "Daniel", wish: "Congratulations, bro! Wishing you a lifetime of happiness.", photo: "assets/wall/sample-4.webp", hearts: 5, minutesAgo: 95 },
+      { name: "Nur", wish: "You two are the cutest! Cheers to forever.", photo: "assets/wall/sample-5.webp", hearts: 9, minutesAgo: 180 },
+      { name: "Mak Long", wish: "Semoga bahagia hingga ke syurga.", photo: "assets/wall/sample-6.webp", hearts: 21, minutesAgo: 1500 },
     ],
   },
 

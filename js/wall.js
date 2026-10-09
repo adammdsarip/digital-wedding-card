@@ -2,7 +2,7 @@
  * wall.js
  * ------------------------------------------------------------
  * The guest wall: the grid of photo cards, the sheet guests use to add
- * theirs (selfie, name, wish, stickers), and hearts.
+ * their booth photo (name, wish), and hearts.
  *
  * Guests' words are untrusted. Everything below puts them on the page with
  * textContent, never as HTML, so nothing a guest types can run as code.
@@ -26,7 +26,7 @@
 
   // ==========================================================================
   // The store: where posts live. A post is
-  //   { id, name, wish, emojis: [], photo: <url>, created: <ms>, hearts: <n> }
+  //   { id, name, wish, photo: <url>, ratio: <width / height>, created: <ms>, hearts: <n> }
   // ==========================================================================
   function createStore() {
     // PREVIEW. Connect the real thing here (next step): list() returns the
@@ -34,15 +34,15 @@
     // it, heart() saves a heart (or takes it back) and returns the new count.
     const now = Date.now();
     const posts = (cfg.samples || []).map((s, i) => ({
-      id: "sample-" + i, name: s.name, wish: s.wish, emojis: s.emojis || [], photo: s.photo,
+      id: "sample-" + i, name: s.name, wish: s.wish, photo: s.photo, ratio: 1,
       created: now - s.minutesAgo * 60000, hearts: s.hearts || 0,
     }));
     return {
       preview: true,
       async list() { return posts.slice().sort((a, b) => b.created - a.created); },
-      async add({ name, wish, emojis, blob }) {
+      async add({ name, wish, blob, ratio }) {
         const post = {
-          id: "new-" + now + "-" + posts.length, name, wish, emojis,
+          id: "new-" + now + "-" + posts.length, name, wish, ratio,
           photo: URL.createObjectURL(blob), created: Date.now(), hearts: 0,
         };
         posts.push(post);
@@ -114,6 +114,7 @@
     li.style.setProperty("--tilt", tilt(p.id).toFixed(2) + "deg");
 
     const photo = el("div", "wall__photo");
+    if (p.ratio && p.ratio !== 1) photo.style.aspectRatio = String(p.ratio);   // a strip is tall
     const img = new Image();
     img.src = p.photo;
     img.alt = "Photo from " + p.name;
@@ -127,11 +128,6 @@
 
     const foot = el("div", "wall__foot");
     foot.append(el("span", "wall__time", ago(p.created)));
-    if (p.emojis.length) {
-      const e = el("span", "wall__emojis", p.emojis.join(" "));
-      e.setAttribute("aria-hidden", "true");
-      foot.append(e);
-    }
     const heart = el("button", "wall__heart");
     heart.type = "button";
     heart.innerHTML = HEART;
@@ -181,18 +177,14 @@
   }
 
   // ==========================================================================
-  // Adding a photo
+  // Adding a photo: the booth makes the picture, this sheet takes the name and the wish
   // ==========================================================================
   const form = $("wd-form");
   const preview = $("wd-preview");
-  const photoBox = $("wd-photo");
-  const busy = $("wd-busy");
   const nameInput = $("wd-name");
   const wishInput = $("wd-wish");
   const submit = $("wd-submit");
-  const emojiBox = $("wd-emojis");
-  let photoBlob = null;
-  let chosen = [];
+  let photo = null;              // { blob, ratio } from the booth
   let sending = false;
 
   function showError(id, msg, field) {
@@ -206,93 +198,27 @@
     if (field) field.removeAttribute("aria-invalid");
   }
 
-  // sticker buttons
-  cfg.emojis.forEach((emoji) => {
-    const b = el("button", "emojis__btn", emoji);
-    b.type = "button";
-    b.setAttribute("aria-pressed", "false");
-    b.addEventListener("click", () => {
-      const i = chosen.indexOf(emoji);
-      if (i >= 0) chosen.splice(i, 1); else if (chosen.length < cfg.maxEmojis) chosen.push(emoji);
-      syncEmojis();
-    });
-    emojiBox.append(b);
-  });
-  function syncEmojis() {
-    emojiBox.querySelectorAll(".emojis__btn").forEach((b) => {
-      const on = chosen.includes(b.textContent);
-      b.setAttribute("aria-pressed", on ? "true" : "false");
-      b.disabled = !on && chosen.length >= cfg.maxEmojis;
-    });
-  }
-
   function syncCount() {
     $("wd-count").textContent = wishInput.value.length + " / " + wishInput.maxLength;
   }
   wishInput.addEventListener("input", syncCount);
   nameInput.addEventListener("input", () => clearError("wd-name-error", nameInput));
 
-  // A guest's photo is cropped to a square and shrunk to 900px on their own
-  // phone, so it uploads quickly and the wall stays light.
-  function prepare(file) {
-    return new Promise((resolve, reject) => {
-      const url = URL.createObjectURL(file);
-      const img = new Image();
-      img.onload = () => {
-        try {
-          const side = Math.min(img.naturalWidth, img.naturalHeight);
-          const out = Math.min(900, side);
-          const canvas = document.createElement("canvas");
-          canvas.width = canvas.height = out;
-          canvas.getContext("2d").drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, out, out);
-          canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error("no blob"))), "image/jpeg", 0.82);
-        } catch (e) { reject(e); } finally { URL.revokeObjectURL(url); }
-      };
-      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("unreadable")); };
-      img.src = url;
-    });
+  function setPhoto(p) {
+    photo = p;
+    if (preview.dataset.url) URL.revokeObjectURL(preview.dataset.url);
+    const url = URL.createObjectURL(p.blob);
+    preview.dataset.url = url;
+    preview.src = url;
+    $("wd-photo").style.setProperty("--ratio", String(p.ratio || 1));
   }
-
-  async function onFile(input) {
-    const file = input.files && input.files[0];
-    input.value = "";                       // so choosing the same photo again still fires
-    if (!file) return;
-    clearError("wd-photo-error");
-    busy.hidden = false;
-    try {
-      const blob = await prepare(file);
-      photoBlob = blob;
-      if (preview.dataset.url) URL.revokeObjectURL(preview.dataset.url);
-      const url = URL.createObjectURL(blob);
-      preview.dataset.url = url;
-      preview.src = url;
-      preview.hidden = false;
-      $("wd-photo-empty").hidden = true;
-      $("wd-take-label").textContent = L.retake;
-    } catch (e) {
-      showError("wd-photo-error", cfg.errors.read);
-    } finally {
-      busy.hidden = true;
-    }
-  }
-  $("wd-file-take").addEventListener("change", (e) => onFile(e.target));
-  $("wd-file-pick").addEventListener("change", (e) => onFile(e.target));
 
   function reset() {
     form.reset();
     form.hidden = false;
     $("wd-done").hidden = true;
-    photoBlob = null;
-    chosen = [];
-    syncEmojis();
     syncCount();
-    if (preview.dataset.url) { URL.revokeObjectURL(preview.dataset.url); delete preview.dataset.url; }
-    preview.removeAttribute("src");
-    preview.hidden = true;
-    $("wd-photo-empty").hidden = false;
-    busy.hidden = true;
-    $("wd-take-label").textContent = L.take;
-    ["wd-photo-error", "wd-name-error", "wd-fail"].forEach((id) => { $(id).hidden = true; });
+    ["wd-name-error", "wd-fail"].forEach((id) => { $(id).hidden = true; });
     nameInput.removeAttribute("aria-invalid");
     submit.disabled = false;
     $("wd-submit-label").textContent = L.post;
@@ -302,8 +228,7 @@
   // ---- the sheet: open, close ---------------------------------------------------------
   let lastFocus = null;
   function open() {
-    lastFocus = document.activeElement;
-    reset();
+    lastFocus = lastFocus || document.activeElement;
     document.body.style.overflow = "hidden";
     if (dialog.showModal) dialog.showModal(); else dialog.setAttribute("open", "");
   }
@@ -311,10 +236,27 @@
     if (dialog.close) dialog.close(); else dialog.removeAttribute("open");
   }
   dialog.addEventListener("close", () => {
-    document.body.style.overflow = "";
-    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    if (!document.querySelector("dialog[open]")) document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus && !window.__wallHandoff) lastFocus.focus({ preventScroll: true });
+    if (!window.__wallHandoff) lastFocus = null;
+    window.__wallHandoff = false;
   });
-  $("wall-add").addEventListener("click", open);
+
+  // the button opens the photo booth; the booth hands its picture back through this event
+  $("wall-add").addEventListener("click", () => {
+    lastFocus = document.activeElement;
+    if (window.PhotoBooth) window.PhotoBooth.open();
+  });
+  window.addEventListener("booth:post", (e) => {
+    reset();
+    setPhoto(e.detail);
+    open();
+  });
+  $("wd-edit").addEventListener("click", () => {
+    window.__wallHandoff = true;
+    close();
+    if (window.PhotoBooth) window.PhotoBooth.open({ resume: true });
+  });
   $("wd-close").addEventListener("click", close);
   // a tap on the dimmed area outside the sheet closes it
   dialog.addEventListener("click", (e) => { if (e.target === dialog) close(); });
@@ -322,14 +264,11 @@
   // ---- sending -----------------------------------------------------------------------
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (sending) return;
+    if (sending || !photo) return;
     $("wd-fail").hidden = true;
-    let firstBad = null;
-    if (!photoBlob) { showError("wd-photo-error", cfg.errors.photo); firstBad = $("wd-take"); }
-    if (!nameInput.value.trim()) { showError("wd-name-error", cfg.errors.name, nameInput); firstBad = firstBad || nameInput; }
-    if (firstBad) {
-      (firstBad === nameInput ? nameInput : photoBox).scrollIntoView({ block: "center", behavior: reduced() ? "auto" : "smooth" });
-      if (firstBad === nameInput) nameInput.focus({ preventScroll: true });
+    if (!nameInput.value.trim()) {
+      showError("wd-name-error", cfg.errors.name, nameInput);
+      nameInput.focus({ preventScroll: false });
       return;
     }
     // a bot filled the hidden field: look done, post nothing
@@ -342,8 +281,8 @@
       const post = await store.add({
         name: nameInput.value.trim(),
         wish: wishInput.value.trim(),
-        emojis: chosen.slice(),
-        blob: photoBlob,
+        blob: photo.blob,
+        ratio: photo.ratio,
       });
       finish(post);
     } catch (err) {
