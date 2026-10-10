@@ -242,8 +242,31 @@
     window.__wallHandoff = false;
   });
 
+  // ---- the booth is closed until the wedding day (booth-lock.js) --------------------------------
+  const lockCfg = (W.booth && W.booth.lock) || {};
+  const addBtn = $("wall-add");
+  function syncLock() {
+    const st = window.BoothLock ? window.BoothLock.status() : { locked: false, preview: false };
+    addBtn.disabled = st.locked;
+    addBtn.classList.toggle("is-locked", st.locked);
+    $("wall-add-icon").setAttribute("href", st.locked ? "#i-lock" : "#i-camera");
+    $("wall-add-label").textContent = st.locked ? lockCfg.button : cfg.add;
+    $("wall-lock").hidden = !st.locked;
+    $("wall-test").hidden = !st.preview;
+    if (st.locked) {
+      $("wall-lock-note").textContent = String(lockCfg.note || "").replace("{date}", window.BoothLock.dateText());
+      const when = window.BoothLock.whenText(st.ms);
+      $("wall-lock-when").textContent = when ? String(lockCfg.opensIn).replace("{when}", when) : lockCfg.opensSoon;
+    }
+    if (st.preview) { $("wall-test-text").textContent = lockCfg.test; $("wall-test-undo").textContent = lockCfg.relock; }
+  }
+  $("wall-test-undo").addEventListener("click", () => { if (window.BoothLock) window.BoothLock.clearPreview(); });
+  window.addEventListener("booth:lockchange", syncLock);
+  syncLock();
+
   // the button opens the photo booth; the booth hands its picture back through this event
-  $("wall-add").addEventListener("click", () => {
+  addBtn.addEventListener("click", () => {
+    if (addBtn.disabled) return;
     lastFocus = document.activeElement;
     if (window.PhotoBooth) window.PhotoBooth.open();
   });

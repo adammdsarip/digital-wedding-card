@@ -932,6 +932,32 @@
    7 — THE GUEST WALL
    ============================================================ */
 .wall__add { margin-top: 1.3rem; cursor: pointer; font-family: inherit; border: 0; }
+.wall__add:disabled, .wall__add.is-locked { cursor: default; opacity: 0.72; }
+.wall__lock { margin: 1.1rem auto 0; max-width: 22rem; text-align: center; }
+.wall__lock[hidden], .wall__test[hidden] { display: none; }
+.wall__lock p { margin: 0; font-size: 0.98rem; line-height: 1.6; font-style: italic; color: var(--color-charcoal-soft); text-wrap: pretty; }
+.wall__lock .wall__lock-when {
+  margin-top: 0.7rem;
+  font-style: normal;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold-ink);
+}
+.wall__test {
+  margin: 0.9rem auto 0;
+  max-width: 22rem;
+  padding: 0.45rem 0.9rem;
+  text-align: center;
+  font-size: 0.86rem;
+  color: var(--color-gold-ink);
+  border: 1px dashed var(--color-gold-line);
+  border-radius: 999px;
+}
+.wall__test button { padding: 0; font: inherit; text-decoration: underline; text-underline-offset: 0.2em; color: var(--color-forest); background: none; border: 0; cursor: pointer; }
+.wall__test button:focus-visible { outline: 2px solid var(--color-forest); outline-offset: 2px; }
 .wall__count {
   margin: 1.5rem 0 0;
   font-size: 0.74rem;

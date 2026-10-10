@@ -124,6 +124,17 @@ are in `FILTERS` at the top of `js/booth.js`. To add a frame: a row in `FR`, its
 name in `booth.frames` (`js/config.js`), and a branch in `drawFrame()`. Camera access needs HTTPS (Netlify
 has it) and cannot be tested on a plain `http://` address except localhost.
 
+**The booth is locked until the wedding day.** `booth.lock` in `js/config.js` sets when it
+opens (`opens`, read in the venue's time zone) and every word guests see. Until then the
+wall's button is a greyed "Opens on our wedding day" with the date and the days to go, and it
+opens by itself at the moment, even on a page left open. Set `opens` to `""` for no lock.
+
+*Testing while it is locked:* open the site with `?booth=isz-khaty-test` on the end
+(e.g. `https://your-site.netlify.app/?booth=isz-khaty-test`; the key is `booth.lock.previewKey`).
+That phone then has the booth open, with a "Test mode" note and a "Lock it again" link
+(`?booth=lock` does the same). Other phones stay locked. This keeps ordinary guests out; it is
+not a security lock: the time comes from the guest's own phone and the key is in the site's code.
+
 ### The guest wall
 
 Open to anyone with the link: no approval step, no code. After the booth, a guest

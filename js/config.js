@@ -179,6 +179,21 @@ const WEDDING = {
     stripShots: 4,
     countdown: 3,
     maxCaption: 28,
+    // The booth stays closed until the wedding day. `opens` is read in the venue's time zone
+    // (`timezone` above). Leave it empty and the booth is always open.
+    // To try the booth while it is locked, open the site with  ?booth=<previewKey>  on the
+    // end (it is remembered on that phone only). Use  ?booth=lock  to lock it again.
+    lock: {
+      opens: "2026-12-12T00:00:00",
+      previewKey: "isz-khaty-test",
+      button: "Opens on our wedding day",
+      note: "Our photo booth opens on our wedding day, {date}. Come back then to take your photo and leave a wish.",
+      opensIn: "Opens in {when}",
+      opensSoon: "Opens any moment now",
+      units: { day: ["day", "days"], hour: ["hour", "hours"], minute: ["minute", "minutes"] },
+      test: "Test mode: the booth is open on this phone only.",
+      relock: "Lock it again",
+    },
     labels: {
       modePhoto: "Photo",
       modeStrip: "Strip",

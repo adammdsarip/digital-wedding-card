@@ -389,6 +389,7 @@
 
   let lastFocus = null;
   function open(opts) {
+    if (window.BoothLock && window.BoothLock.status().locked) return;   // closed until the wedding day
     lastFocus = document.activeElement;
     if (!(opts && opts.resume && state.shots.length)) resetState();
     document.body.style.overflow = "hidden";
