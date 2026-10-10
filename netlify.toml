@@ -11,3 +11,53 @@
 [build]
   publish = "."
   command = ""
+
+# ---- Headers -------------------------------------------------------------
+# The photo booth needs the camera, so it is allowed for this site (and no
+# one else embedding it). Microphone, location and the rest stay off.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Permissions-Policy = "camera=(self), microphone=(), geolocation=(), payment=()"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+
+# ---- Keep the working files off the public site --------------------------
+# "publish = ." serves the whole repository, so hide what guests should not
+# browse to: the build scripts, notes, and tooling folders.
+[[redirects]]
+  from = "/tools/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.claude/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.agents/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/README.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/skills-lock.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/netlify.toml"
+  to = "/404.html"
+  status = 404
+  force = true
