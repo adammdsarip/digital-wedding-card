@@ -208,7 +208,7 @@ const WEDDING = {
       readError: "Sorry, that photo could not be read. Please try another.",
     },
     filters: { original: "Original", golden: "Golden", rose: "Rosé", soft: "Soft", film: "Film", mono: "Mono", bright: "Bright" },
-    frames: { none: "None", polaroid: "Polaroid", gold: "Gold", floral: "Floral" },
+    frames: { none: "None", polaroid: "Polaroid", gold: "Gold", floral: "Floral", film: "Film", forest: "Forest", blush: "Blush", sparkle: "Sparkle", arch: "Arch" },
     stickers: ["❤️", "🥰", "😍", "🎉", "🥂", "💍", "💐", "🌸", "✨", "🤍", "👰", "🤵", "💒", "🎊"],
   },
 

@@ -111,14 +111,16 @@ Tally form connects there.
 1. **Shoot** — live camera with a 3-second countdown, as a single **Photo** or a
    **Strip** of four. Guests without camera permission can choose a photo
    instead (and, on phones, use their camera app).
-2. **Edit** — seven filters, four frames (None, Polaroid, Gold, Floral), emoji
+2. **Edit** — seven filters, nine frames (None, Polaroid, Gold, Floral, Film, Forest, Blush,
+   Sparkle, Arch), emoji
    stickers (drag to move, pinch to resize and turn), a caption, and Flip.
 3. **Keep it** — **Download** saves a full-size JPEG (on iPhone it opens the share
    sheet, where "Save Image" puts it in Photos), and/or **Post to the wall**.
 
 Everything is made on the guest's own phone, with no upload until they tap Post.
 Words, counts and the sticker set are in `booth` in `js/config.js`; the filters
-are in `FILTERS` at the top of `js/booth.js`. Camera access needs HTTPS (Netlify
+are in `FILTERS` at the top of `js/booth.js`. To add a frame: a row in `FR`, its
+name in `booth.frames` (`js/config.js`), and a branch in `drawFrame()`. Camera access needs HTTPS (Netlify
 has it) and cannot be tested on a plain `http://` address except localhost.
 
 ### The guest wall

@@ -42,6 +42,23 @@
   const MON = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
   const dateText = isNaN(when) ? "" : `${when.getDate()}  ${MON[when.getMonth()]}  ${when.getFullYear()}`;
 
+  // Every frame in one place. inset: the border around a single photo; bg / stripBg: the paper
+  // behind the photo and behind a strip; name / date: the ink for the caption. How a frame is
+  // drawn over the photo is in drawFrame(). To add a frame: a row here, a name in config.js, and
+  // a branch in drawFrame().
+  const FR = {
+    none:     { inset: 0,  bg: "#fff",    stripBg: PAPER,    name: INK,       date: "#6b5d52" },
+    polaroid: { inset: 54, bg: PAPER,     stripBg: PAPER,    name: INK,       date: "#6b5d52" },
+    gold:     { inset: 84, bg: CREAM,     stripBg: CREAM,    name: GOLD_INK,  date: GOLD_INK },
+    floral:   { inset: 70, bg: CREAM,     stripBg: CREAM,    name: GOLD_INK,  date: GOLD_INK },
+    film:     { inset: 96, bg: "#17130f", stripBg: "#17130f", name: "#f3e6cf", date: "#c9ab6e" },
+    forest:   { inset: 80, bg: "#2f3b33", stripBg: "#2f3b33", name: "#f1e4c9", date: "#c9ab6e" },
+    blush:    { inset: 72, bg: "#f4dcd6", stripBg: "#f4dcd6", name: "#8a4b4f", date: "#8a4b4f" },
+    sparkle:  { inset: 76, bg: CREAM,     stripBg: CREAM,    name: GOLD_INK,  date: GOLD_INK },
+    arch:     { inset: 78, bg: "#efe3d0", stripBg: "#efe3d0", name: GOLD_INK,  date: GOLD_INK },
+  };
+  const frameOf = (st) => FR[st.frame] || FR.none;
+
   // ==========================================================================
   // What the picture is made of
   // ==========================================================================
@@ -120,7 +137,7 @@
       const bottom = rects[n - 1].y + ph;
       return { W: Wd, H: Hd, rects, capY: bottom + (Hd - bottom) / 2, strip: true };
     }
-    const inset = { none: 0, polaroid: 54, gold: 84, floral: 70 }[st.frame] || 0;
+    const inset = frameOf(st).inset;
     if (!inset) return { W: 1080, H: 1080, rects: [{ x: 0, y: 0, w: 1080, h: 1080 }], capY: 0 };
     const side = 1080 - 2 * inset;
     const bottom = inset + side;
@@ -170,9 +187,8 @@
     const framed = lay.strip || st.frame !== "none";
     if (!framed) return;
     const W0 = lay.W;
-    const dark = st.frame === "polaroid" || st.frame === "none";
-    const nameColor = dark ? INK : GOLD_INK;
-    const dateColor = dark ? "#6b5d52" : GOLD_INK;
+    const nameColor = frameOf(st).name;
+    const dateColor = frameOf(st).date;
     const hasName = st.caption.trim().length > 0;
     x.textAlign = "left"; x.textBaseline = "alphabetic";
     const nameSize = lay.strip ? 84 : 108;
@@ -194,19 +210,72 @@
     }
   }
 
+  // the opening a photo shows through: square, or for "arch" a round-topped window
+  // (a gently rounded rectangle on a strip)
+  function windowPath(x, r, st, pad) {
+    const rx = r.x - pad, ry = r.y - pad, rw = r.w + 2 * pad, rh = r.h + 2 * pad;
+    x.beginPath();
+    if (st.frame !== "arch") { x.rect(rx, ry, rw, rh); return; }
+    if (st.mode === "strip") {
+      const k = 26;
+      x.moveTo(rx + k, ry); x.arcTo(rx + rw, ry, rx + rw, ry + rh, k); x.arcTo(rx + rw, ry + rh, rx, ry + rh, k);
+      x.arcTo(rx, ry + rh, rx, ry, k); x.arcTo(rx, ry, rx + rw, ry, k); x.closePath();
+      return;
+    }
+    const rad = rw / 2;
+    x.moveTo(rx, ry + rh); x.lineTo(rx, ry + rad); x.arc(rx + rad, ry + rad, rad, Math.PI, 0); x.lineTo(rx + rw, ry + rh); x.closePath();
+  }
+
+  function heart(x, cx, cy, s) {
+    x.beginPath();
+    x.moveTo(cx, cy + s * 0.9);
+    x.bezierCurveTo(cx + s * 1.4, cy + s * 0.1, cx + s * 0.8, cy - s * 0.9, cx, cy - s * 0.3);
+    x.bezierCurveTo(cx - s * 0.8, cy - s * 0.9, cx - s * 1.4, cy + s * 0.1, cx, cy + s * 0.9);
+    x.fill();
+  }
+
+  function sparkle(x, cx, cy, s) {          // a four-pointed twinkle
+    x.beginPath();
+    for (let k = 0; k < 8; k++) {
+      const a = (k * Math.PI) / 4 - Math.PI / 2, rad = k % 2 === 0 ? s : s * 0.24;
+      x[k ? "lineTo" : "moveTo"](cx + Math.cos(a) * rad, cy + Math.sin(a) * rad);
+    }
+    x.closePath(); x.fill();
+  }
+
+  // the same scatter of twinkles every time, kept out of the photos and the caption
+  const sparkleSpots = new Map();
+  function spotsFor(st, lay) {
+    const key = st.mode + "|" + lay.rects.length;
+    if (sparkleSpots.has(key)) return sparkleSpots.get(key);
+    let seed = 20261114;
+    const rnd = () => { seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const want = lay.strip ? 44 : 30, spots = [];
+    for (let tries = 0; tries < 900 && spots.length < want; tries++) {
+      const px = rnd() * lay.W, py = rnd() * lay.H, s = (lay.strip ? 7 : 9) + rnd() * (lay.strip ? 9 : 14);
+      const margin = s + 12;
+      if (px < margin * 0.6 || py < margin * 0.6 || px > lay.W - margin * 0.6 || py > lay.H - margin * 0.6) continue;
+      if (lay.rects.some((r) => px > r.x - margin && px < r.x + r.w + margin && py > r.y - margin && py < r.y + r.h + margin)) continue;
+      if (Math.abs(py - lay.capY) < (lay.strip ? 72 : 96)) continue;
+      if (spots.some((o) => Math.hypot(o.x - px, o.y - py) < (lay.strip ? 50 : 66))) continue;
+      spots.push({ x: px, y: py, s });
+    }
+    sparkleSpots.set(key, spots);
+    return spots;
+  }
+
   function drawFrame(x, st, lay, behind) {
+    const F = frameOf(st);
     if (behind) {
-      x.fillStyle = lay.strip ? (st.frame === "gold" || st.frame === "floral" ? CREAM : PAPER) : st.frame === "polaroid" ? PAPER : st.frame === "none" ? "#fff" : CREAM;
+      x.fillStyle = lay.strip ? F.stripBg : F.bg;
       x.fillRect(0, 0, lay.W, lay.H);
       return;
     }
     // in front of the photos
     const frame = st.frame;
-    if (frame === "polaroid" || frame === "none") {
-      if (frame === "polaroid") {
-        x.strokeStyle = "rgba(60,45,30,0.12)"; x.lineWidth = 2;
-        lay.rects.forEach((r) => x.strokeRect(r.x, r.y, r.w, r.h));
-      }
+    if (frame === "polaroid") {
+      x.strokeStyle = "rgba(60,45,30,0.12)"; x.lineWidth = 2;
+      lay.rects.forEach((r) => x.strokeRect(r.x, r.y, r.w, r.h));
     } else if (frame === "gold") {
       x.strokeStyle = GOLD; x.lineWidth = 4;
       x.strokeRect(26, 26, lay.W - 52, lay.H - 52);
@@ -221,6 +290,45 @@
       });
       x.strokeStyle = "rgba(176,139,79,0.7)"; x.lineWidth = 2;
       lay.rects.forEach((r) => x.strokeRect(r.x, r.y, r.w, r.h));
+    } else if (frame === "film") {
+      // sprocket holes down both edges, like a roll of film
+      const band = lay.strip ? 44 : F.inset;
+      const hw = band * 0.42, hh = band * 0.58, pitch = hh * 1.75, k = hw * 0.28;
+      x.fillStyle = "#eadfca";
+      [band / 2, lay.W - band / 2].forEach((cx) => {
+        for (let y = pitch * 0.45; y + hh < lay.H; y += pitch) {
+          x.beginPath();
+          x.moveTo(cx - hw / 2 + k, y); x.arcTo(cx + hw / 2, y, cx + hw / 2, y + hh, k); x.arcTo(cx + hw / 2, y + hh, cx - hw / 2, y + hh, k);
+          x.arcTo(cx - hw / 2, y + hh, cx - hw / 2, y, k); x.arcTo(cx - hw / 2, y, cx + hw / 2, y, k); x.closePath(); x.fill();
+        }
+      });
+      x.strokeStyle = "rgba(243,230,207,0.45)"; x.lineWidth = 2;
+      lay.rects.forEach((r) => x.strokeRect(r.x, r.y, r.w, r.h));
+    } else if (frame === "forest") {
+      const o = lay.strip ? 6 : 12;            // a strip's photos are close together, and its caption is near the edge
+      x.strokeStyle = GOLD; x.lineWidth = 3;
+      if (!lay.strip) x.strokeRect(22, 22, lay.W - 44, lay.H - 44);
+      x.lineWidth = 2;
+      lay.rects.forEach((r) => x.strokeRect(r.x - o, r.y - o, r.w + 2 * o, r.h + 2 * o));
+    } else if (frame === "blush") {
+      const o = lay.strip ? 5 : 8;
+      x.strokeStyle = "#fff"; x.lineWidth = 4;
+      lay.rects.forEach((r) => x.strokeRect(r.x - o, r.y - o, r.w + 2 * o, r.h + 2 * o));
+      x.fillStyle = "#d98b95";
+      const m = lay.strip ? 22 : 40, hs = lay.strip ? 11 : 20;
+      [[m, m], [lay.W - m, m], [m, lay.H - m], [lay.W - m, lay.H - m]].forEach(([hx, hy]) => heart(x, hx, hy, hs));
+    } else if (frame === "sparkle") {
+      x.fillStyle = GOLD;
+      spotsFor(st, lay).forEach((o) => sparkle(x, o.x, o.y, o.s));
+      const o = lay.strip ? 5 : 8;
+      x.strokeStyle = "rgba(176,139,79,0.8)"; x.lineWidth = 2;
+      lay.rects.forEach((r) => x.strokeRect(r.x - o, r.y - o, r.w + 2 * o, r.h + 2 * o));
+    } else if (frame === "arch") {
+      x.strokeStyle = GOLD;
+      x.lineWidth = 2;
+      lay.rects.forEach((r) => { windowPath(x, r, st, 0); x.stroke(); });
+      x.lineWidth = 3;
+      lay.rects.forEach((r) => { windowPath(x, r, st, 14); x.stroke(); });
     }
   }
 
@@ -233,7 +341,12 @@
     const x = cv.getContext("2d");
     x.setTransform(scale, 0, 0, scale, 0, 0);
     drawFrame(x, st, lay, true);
-    lay.rects.forEach((r, i) => { if (st.shots[i]) x.drawImage(photoCanvas(st, i, r, scale), r.x, r.y, r.w, r.h); });
+    lay.rects.forEach((r, i) => {
+      if (!st.shots[i]) return;
+      if (st.frame === "arch") { x.save(); windowPath(x, r, st, 0); x.clip(); }
+      x.drawImage(photoCanvas(st, i, r, scale), r.x, r.y, r.w, r.h);
+      if (st.frame === "arch") x.restore();
+    });
     drawFrame(x, st, lay, false);
     drawCaption(x, st, lay);
     // stickers go on last, over everything
