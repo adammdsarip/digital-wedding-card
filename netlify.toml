@@ -25,8 +25,7 @@
 
 # ---- Keep the working files off the public site --------------------------
 # "publish = ." serves the whole repository, so hide what guests should not
-# browse to: the build scripts, notes, tooling folders, and the earlier
-# React draft of the invitation that lives in frontend/ and backend/.
+# browse to: the build scripts, notes, and tooling folders.
 [[redirects]]
   from = "/tools/*"
   to = "/404.html"
@@ -64,49 +63,7 @@
   force = true
 
 [[redirects]]
-  from = "/frontend/*"
-  to = "/404.html"
-  status = 404
-  force = true
-
-[[redirects]]
-  from = "/backend/*"
-  to = "/404.html"
-  status = 404
-  force = true
-
-[[redirects]]
-  from = "/memory/*"
-  to = "/404.html"
-  status = 404
-  force = true
-
-[[redirects]]
-  from = "/test_reports/*"
-  to = "/404.html"
-  status = 404
-  force = true
-
-[[redirects]]
-  from = "/.emergent/*"
-  to = "/404.html"
-  status = 404
-  force = true
-
-[[redirects]]
-  from = "/.gitconfig"
-  to = "/404.html"
-  status = 404
-  force = true
-
-[[redirects]]
   from = "/.gitignore"
-  to = "/404.html"
-  status = 404
-  force = true
-
-[[redirects]]
-  from = "/.oxlintrc.json"
   to = "/404.html"
   status = 404
   force = true
