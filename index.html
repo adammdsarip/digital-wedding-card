@@ -126,7 +126,7 @@
                     </div>
                     <p class="card__invite" id="card-invite">Invite you to celebrate<br>our wedding</p>
                     <p class="card__date">
-                      <span id="card-weekday">Sat</span><i></i><span class="card__day" id="card-day">14</span><i></i><span id="card-month">Nov 2026</span>
+                      <span id="card-weekday">Sat</span><i></i><span class="card__day" id="card-day">12</span><i></i><span id="card-month">Dec 2026</span>
                     </p>
                     <p class="card__place" id="card-place">Singapore</p>
                     <div class="card__divider" aria-hidden="true"><i></i><svg><use href="#ornament"/></svg><i></i></div>
@@ -252,28 +252,6 @@
       </g>
     </symbol>
 
-    <!-- Dress-code figures: simplified, drawn in the palette -->
-    <symbol id="fig-man" viewBox="0 0 80 190">
-      <rect x="35" y="8" width="10" height="11" rx="3" fill="#d9cfbb"/>
-      <path d="M22 24c0-2 6-5.500 12-6.500L40 36l6-18.500c6 1 12 4.500 12 6.500l4 58H18z" fill="#56655a"/>
-      <path d="M12 42c1-9 5-15 10-18l1 30-3 30H8z" fill="#4d5b50"/>
-      <path d="M68 42c-1-9-5-15-10-18l-1 30 3 30h12z" fill="#4d5b50"/>
-      <path d="M34 17.500 40 40l6-22.500-3-2h-6z" fill="#efe9dc"/>
-      <path d="M34 17.500 40 41l-10 11-5-27z" fill="#4a574d"/>
-      <path d="M46 17.500 40 41l10 11 5-27z" fill="#4a574d"/>
-      <path d="M38.300 24h3.400l1 20-2.700 4-2.700-4z" fill="#2f3b33"/>
-      <path d="M18 82h44l-1.500 105H43.500L40 104l-3.500 83H19.500z" fill="#4f5d52"/>
-      <path d="M40 104V84" stroke="#3f4b41" stroke-width="1"/>
-    </symbol>
-    <symbol id="fig-woman" viewBox="0 0 80 190">
-      <path d="M40 3C28 3 22 13 22 25c0 11-2 19-6 29 10 5 38 5 48 0-4-10-6-18-6-29C58 13 52 3 40 3z" fill="#898868"/>
-      <ellipse cx="40" cy="25" rx="8" ry="10.500" fill="#e6d6c0"/>
-      <path d="M22 56c8 4 28 4 36 0l4 34 11 98H7L18 90z" fill="#8f8f72"/>
-      <path d="M22 56c-6 4-9 12-10 24l-4 30h10l8-38z" fill="#85856a"/>
-      <path d="M58 56c6 4 9 12 10 24l4 30H62l-8-38z" fill="#85856a"/>
-      <rect x="27" y="86" width="26" height="4.500" rx="1" fill="#6b6a50"/>
-      <path d="M31 58c4 3 14 3 18 0l-2 14c-4 3-10 3-14 0z" fill="#98977a"/>
-    </symbol>
   </defs>
 </svg>
 
@@ -423,22 +401,23 @@
     </div>
   </section>
 
-  <!-- 5 — Dress code and a note -->
-  <section class="paper-grain sheet sheet--framed" id="dresscode" data-florals aria-labelledby="dc-title">
+  <!-- 5 — Countdown and a note -->
+  <section class="paper-grain sheet sheet--framed" id="countdown" data-florals aria-labelledby="cd-title">
     <header class="sheet__head" data-reveal="fade">
-      <h2 class="sheet__title" id="dc-title"></h2>
+      <p class="sheet__kicker" id="cd-eyebrow"></p>
+      <h2 class="sheet__title" id="cd-title"></h2>
       <div class="divider" aria-hidden="true"><i></i><svg><use href="#ornament"/></svg><i></i></div>
-      <p class="sheet__kicker" id="dc-style"></p>
+      <p class="sheet__kicker sheet__kicker--sub" id="cd-date"></p>
     </header>
 
-    <div class="dress" data-reveal="fade">
-      <svg class="dress__figures" viewBox="0 0 200 190" role="img" aria-label="A suited figure and a figure in a long dress and headscarf, in the colours below">
-        <use href="#fig-man" x="8" y="0" width="84" height="190"/>
-        <use href="#fig-woman" x="108" y="0" width="84" height="190"/>
-      </svg>
-      <ul class="dress__swatches" id="dc-swatches"></ul>
+    <div class="count" id="cd-timer" role="timer" data-reveal="fade">
+      <div class="count__unit"><span class="count__num" id="cd-days">0</span><span class="count__label" id="cd-days-l"></span></div>
+      <div class="count__unit"><span class="count__num" id="cd-hours">00</span><span class="count__label" id="cd-hours-l"></span></div>
+      <div class="count__unit"><span class="count__num" id="cd-minutes">00</span><span class="count__label" id="cd-minutes-l"></span></div>
+      <div class="count__unit"><span class="count__num" id="cd-seconds">00</span><span class="count__label" id="cd-seconds-l"></span></div>
     </div>
-    <p class="dress__caption" id="dc-caption" data-reveal="fade"></p>
+    <p class="count__caption" id="cd-caption" data-reveal="fade"></p>
+    <p class="count__done" id="cd-done" hidden></p>
 
     <div class="divider" aria-hidden="true"><i></i><svg><use href="#ornament"/></svg><i></i></div>
 
@@ -607,6 +586,7 @@
 <script src="js/config.js"></script>
 <script src="js/render.js"></script>
 <script src="js/rsvp.js"></script>
+<script src="js/countdown.js"></script>
 <script src="js/booth.js"></script>
 <script src="js/wall.js"></script>
 <script src="js/envelope.js"></script>

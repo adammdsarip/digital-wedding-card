@@ -42,8 +42,11 @@ const WEDDING = {
   // ---- The day (PLACEHOLDER date, taken from the envelope design) ------
   // One date drives everything. The weekday, day number, month and year
   // are all worked out from it, so they can never disagree with each other.
-  isoDate: "2026-11-14T11:00:00",
+  isoDate: "2026-12-12T11:00:00",
   timeText: "11.00 AM",
+  // The venue's time zone (Singapore), so the countdown reaches zero at the same moment
+  // wherever a guest opens the invitation.
+  timezone: "+08:00",
 
   // ---- Panel 1: the invitation ------------------------------------------
   invitation: {
@@ -130,16 +133,15 @@ const WEDDING = {
     },
   },
 
-  // ---- Panel 5: dress code and a note -------------------------------------
-  dressCode: {
-    title: "Dress Code",
-    style: "Semi Formal",
-    caption: "We would love to see you in these colours",
-    colors: [
-      { name: "Forest", hex: "#2f3b33" },
-      { name: "Sand", hex: "#b9a283" },
-      { name: "Ivory", hex: "#eee6d6" },
-    ],
+  // ---- Panel 5: the countdown and a note --------------------------------
+  // Counts down to isoDate (in the venue's time zone) above.
+  countdown: {
+    eyebrow: "Counting down",
+    title: "To Our Big Day",
+    labels: { days: "Days", hours: "Hours", minutes: "Minutes", seconds: "Seconds" },
+    caption: "until we say I do",
+    today: "Today is the day",
+    after: "Thank you for celebrating with us",
   },
 
   note: {

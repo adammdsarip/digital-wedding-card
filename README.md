@@ -53,20 +53,21 @@ assets/
 3. **Location** — map, an "Open in Google Maps" button, and how to get there.
 4. **RSVP** — a short form: name, coming or not, number of guests, dietary needs,
    and a note. (See "The RSVP form" below.)
-5. **Dress code** — the colour swatches, and a note from you.
+5. **Countdown** — days, hours, minutes and seconds to the wedding, and a note from you.
 6. **Contact** — two family contacts and your social links.
 7. **Guest Wall** — guests take a photo in the photo booth, leave a wish, and see everyone's.
    (See "The photo booth" and "The guest wall" below.)
 
 ## Customising your own wedding
 
-**Everything** — names, date, venue, schedule, RSVP link, contacts, dress code,
+**Everything** — names, date, venue, schedule, RSVP link, contacts,
 colours, music — lives in `js/config.js` as one plain object. Nothing else needs
 to change for day-to-day edits; `render.js` fills the page from it on load.
 Anything marked `PLACEHOLDER` in that file is sample content from the layout
 design and should be replaced.
 
-**The date drives everything.** Set `isoDate` once. The weekday, day number,
+**The date drives everything.** Set `isoDate` once (the countdown counts to it, in the venue's
+time zone: `timezone`, Singapore by default). The weekday, day number,
 month and year on the invitation and on the envelope card are all worked out
 from it, so they can never disagree (a hand-typed "Sunday 24 March" that is
 really a Tuesday is the classic way an invitation goes wrong).

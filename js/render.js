@@ -162,16 +162,13 @@
   document.querySelectorAll("#rsvp .field__opt").forEach((el) => { el.textContent = `(${rl.optional})`; });
   set("rsvp-submit", rl.submit);
 
-  // ---- Sheet 5: dress code and a note -------------------------------------------------
-  const dc = W.dressCode;
-  set("dc-title", dc.title);
-  set("dc-style", dc.style);
-  set("dc-caption", dc.caption);
-  const sw = $("dc-swatches");
-  if (sw) {
-    sw.innerHTML = dc.colors.map((c) =>
-      `<li><span style="background:${esc(c.hex)}" role="img" aria-label="${esc(c.name)}"></span></li>`).join("");
-  }
+  // ---- Sheet 5: the countdown (it ticks in countdown.js) and a note ---------------------
+  const cd = W.countdown;
+  set("cd-eyebrow", cd.eyebrow);
+  set("cd-title", cd.title);
+  set("cd-date", `${weekday}, ${dayNum} ${monthName} ${year}`);
+  set("cd-caption", cd.caption);
+  ["days", "hours", "minutes", "seconds"].forEach((k) => set("cd-" + k + "-l", cd.labels[k]));
   set("note-title", W.note.title);
   set("note-text", W.note.text);
 
