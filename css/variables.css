@@ -1,0 +1,85 @@
+/**
+ * Design tokens — the entire visual system in one place.
+ * Change a value here to re-theme the whole invitation.
+ *
+ * Art direction: gold foil on warm ivory paper, set against blush
+ * silk — taken from the printed envelope this site is modelled on.
+ */
+:root {
+  /* ---- Paper & ground ---------------------------------------------- */
+  --color-ivory: #fdfaf4;
+  --color-ivory-deep: #f6eee2;
+  --color-cream: #f4ead9;
+  --color-champagne: #ecdcc0;
+  --color-blush: #f3e3da;
+  --color-blush-deep: #e7d2c6;
+  --color-paper-shadow: #d8c6b6;
+
+  /* ---- Gold foil ----------------------------------------------------- */
+  --color-gold: #b08b4f;
+  --color-gold-deep: #8f6f39;
+  --color-gold-light: #dcc08a;
+  --color-gold-line: rgba(176, 139, 79, 0.42);
+
+  /* ---- Gold sealing wax (richer and more saturated than flat foil) ---- */
+  --color-wax: #c2a263;
+  --color-wax-light: #e2c894;
+  --color-wax-dark: #8a6a33;
+  --color-wax-highlight: #f2e0b4;
+
+  /* Gold for text. The foil gold above is for lines and ornaments; set
+     small type in it and it drops under 3:1 on cream, so text uses these. */
+  --color-gold-ink: #7a5f35;
+  --color-gold-name: #8c6c36;
+
+  /* ---- Ink ------------------------------------------------------------- */
+  --color-charcoal: #3a302a;
+  --color-charcoal-soft: #5c4e44;
+  --color-ink: #46392f;
+
+  /* ---- Interface accents ------------------------------------------------
+     Gold carries the decorative marks; espresso carries the solid,
+     high-contrast elements so the page never reads as "all gold". */
+  --color-accent: #a8834a;
+  --color-accent-strong: #4a3a2c;
+  --color-accent-strong-hover: #5e4a38;
+
+  /* Deep green, taken from the leaves and swatches in the layout design */
+  --color-forest: #2f3b33;
+  --color-forest-soft: #435046;
+
+  /* The ground the printed sheets rest on */
+  --color-ground: #efe3d8;
+
+  --color-bg: var(--color-ivory);
+  --color-text: var(--color-charcoal);
+  --color-text-soft: var(--color-charcoal-soft);
+
+  /* ---- Typography --------------------------------------------------- */
+  --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-body: "Cormorant Garamond", Georgia, serif;
+  --font-script: "Parisienne", "Brush Script MT", cursive;
+
+  --tracking-wide: 0.28em;
+  --tracking-mid: 0.14em;
+
+  /* ---- Motion --------------------------------------------------------- */
+  --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-paper: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-soft-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 0.4s;
+  --dur-mid: 0.9s;
+  --dur-slow: 1.6s;
+
+  /* ---- Layout --------------------------------------------------------- */
+  --section-max-width: 1100px;
+  --content-max-width: 640px;
+  --gutter: clamp(1.5rem, 6vw, 4rem);
+  --radius-soft: 2px;
+
+  /* ---- Shadows (layered, warm, paper-like) ----------------------------- */
+  --shadow-paper-sm: 0 1px 2px rgba(74, 58, 44, 0.08), 0 4px 10px rgba(74, 58, 44, 0.06);
+  --shadow-paper-md: 0 2px 6px rgba(74, 58, 44, 0.1), 0 14px 30px rgba(74, 58, 44, 0.12);
+  --shadow-paper-lg: 0 8px 20px rgba(74, 58, 44, 0.13), 0 30px 60px rgba(74, 58, 44, 0.17);
+  --shadow-envelope: 0 22px 50px rgba(96, 70, 48, 0.22), 0 5px 14px rgba(96, 70, 48, 0.14);
+}

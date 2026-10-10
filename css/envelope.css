@@ -1,0 +1,740 @@
+/* ============================================================
+   THE ENVELOPE — opening sequence
+   ------------------------------------------------------------
+   One fixed overlay, built from separate layers so each can move
+   on its own (see the numbered comments in index.html):
+
+     .envelope stacking order (z-index)
+       0  floor shadow
+       1  back panel + lining
+       2  flap, once it has swung past upright     (set by envelope.js)
+       3  card slot
+       5  front pocket
+       6  shadows thrown by the flap
+       7  flap, while it is closed or lifting — with the wax seal on its tip
+
+   Everything is sized from one unit, --W (the envelope's width),
+   so the whole object scales as one piece of stationery.
+   ============================================================ */
+
+.scene {
+  /* The envelope's width. Capped by the screen's width, and by its
+     height so the fully revealed card (about 1.5 × W tall with the
+     envelope) always fits. svh = the height with Safari's bars shown. */
+  --W: min(86vw, 440px, calc((100vh - 128px) / 1.62));
+  --H: calc(var(--W) * 0.7);           /* envelope height */
+  --flap-h: calc(var(--H) * 0.62);     /* flap depth, hinge to tip */
+
+  --paper: #f8f3ea;
+  --lining: #b5a289;
+  --lining-deep: #96836a;
+  --card-ink: #2a2420;
+  --stone: #e3d1b7;
+
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: var(--stone);
+  color: var(--color-ink);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@supports (height: 100svh) {
+  .scene { --W: min(86vw, 440px, calc((100svh - 128px) / 1.62)); }
+}
+
+.scene:focus-visible { outline: none; }
+.scene:focus-visible .scene__cue span,
+.scene:focus-visible .scene__next {
+  text-decoration: underline;
+  text-underline-offset: 0.5em;
+  text-decoration-thickness: 1px;
+}
+
+/* ---- Cotton stock -----------------------------------------------------------
+   One baked, seamless tile (assets/images/cotton-paper.webp): warm ivory, felted
+   grain, short curly fibres, a few flecks, lit from the top-left. Every piece of
+   the envelope lays it as its own background, at its own offset, so the texture
+   belongs to the paper and turns, tilts and foreshortens with it. Matte: nothing
+   here is glossy. Lighting and edges are layered over it, piece by piece. */
+.cotton {
+  background-color: var(--paper);
+  background-image: url("../assets/images/cotton-paper.webp");
+  background-size: 384px 384px;
+  background-position: var(--tx, 0) var(--ty, 0);
+}
+
+/* The invitation card keeps its own, smoother stock */
+.paper {
+  background-color: var(--paper);
+  background-image: url("../assets/images/paper.svg");
+  background-size: 240px 240px;
+  background-blend-mode: multiply;
+}
+
+/* ============================================================
+   1 · BACKGROUND
+   The supplied photograph (assets/images/wedding-background.webp), used as
+   it is: warm stone wall, gypsophila framing two corners, leaf shadows in
+   natural sun. Nothing is drawn over it. It is a phone-portrait frame
+   (853 × 1844), so on a phone `cover` shows it whole; the centre is left
+   clear for the envelope.
+   ============================================================ */
+.scene__bg {
+  position: absolute;
+  inset: 0;
+  background-color: #e3d1b7;          /* the photo's own average, shown while it loads */
+  background-image: url("../assets/images/wedding-background.webp");
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+/* Wider screens (tablets, desktop, landscape phones). The photograph is a tall
+   portrait, so `cover` on a wide screen keeps only a middle band and loses the
+   flowers at both ends. Two more crops of the same photograph fix that: one
+   anchored to its top (the top-left flowers) and one to its bottom (the
+   bottom-right flowers), each fading into the ordinary crop between them. Same
+   pixels, never stretched, nothing added. Phones keep the single crop above. */
+@media (min-aspect-ratio: 3/5) {
+  .scene__bg::before,
+  .scene__bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../assets/images/wedding-background.webp") 50% 0% / cover no-repeat;
+    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 28%, transparent 62%);
+    mask-image: linear-gradient(180deg, #000 0, #000 28%, transparent 62%);
+  }
+  .scene__bg::after {
+    background-position: 50% 100%;
+    -webkit-mask-image: linear-gradient(0deg, #000 0, #000 28%, transparent 62%);
+    mask-image: linear-gradient(0deg, #000 0, #000 28%, transparent 62%);
+  }
+}
+
+/* ============================================================
+   STAGE — title, envelope and cue, stacked and centred
+   ============================================================ */
+.scene__stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--W) * 0.085);
+}
+
+.scene__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* I | K — the first initial sits high, the second low, either side of a rule */
+.monogram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.55em;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: calc(var(--W) * 0.1);
+  line-height: 1;
+  color: var(--color-gold-ink);
+}
+.monogram i {
+  width: 1px;
+  height: 1.45em;
+  margin: 0 0.24em;
+  background: currentColor;
+  opacity: 0.55;
+}
+.monogram__one { transform: translateY(-0.26em); }
+.monogram__two { transform: translateY(0.26em); }
+
+.scene__eyebrow {
+  margin-top: 0.9em;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: max(10px, calc(var(--W) * 0.029));
+  line-height: 1.9;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  padding-left: 0.34em;          /* balances the trailing tracking */
+  color: var(--color-ink);
+}
+
+.scene__cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9em;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: max(10px, calc(var(--W) * 0.028));
+  letter-spacing: 0.36em;
+  padding-left: 0.36em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+.scene__cue-line {
+  width: 1px;
+  height: calc(var(--W) * 0.1);
+  background: linear-gradient(180deg, rgba(122, 95, 53, 0), var(--color-gold));
+  transform-origin: 50% 0;
+}
+
+/* Shown once the card is out */
+.scene__next {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: max(22px, calc(env(safe-area-inset-bottom) + 12px));
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: max(10px, calc(var(--W) * 0.027));
+  letter-spacing: 0.3em;
+  padding-left: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ============================================================
+   THE ENVELOPE RIG
+   rig   — the "camera" move that re-centres the opened composition
+   tilt  — a few degrees of 3D turn (pointer, or ambient on touch)
+   float — the idle drift
+   ============================================================ */
+.env-rig {
+  perspective: calc(var(--W) * 4.5);
+  will-change: transform;
+}
+.env-tilt,
+.env-float { will-change: transform; }
+
+.envelope {
+  position: relative;
+  width: var(--W);
+  height: var(--H);
+}
+
+/* Soft contact shadow on the stone, offset away from the sun */
+.env__floor {
+  position: absolute;
+  z-index: 0;
+  left: 1%;
+  right: -3%;
+  top: 10%;
+  bottom: -7%;
+  background: radial-gradient(closest-side, rgba(66, 46, 24, 0.34), rgba(66, 46, 24, 0.14) 60%, rgba(66, 46, 24, 0));
+  transform: translate(2%, 3%);
+  pointer-events: none;
+}
+
+/* ---- 2 + 3 · back panel and lining ------------------------------------- */
+.env__back {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 1px;
+  --tx: -140px; --ty: -60px;
+  /* The sheet's thickness: the edges that face the light are a thin bright
+     line, the ones turned away from it a thin shaded one, then the shadow. */
+  box-shadow:
+    -1px 0 0 rgba(255, 252, 245, 0.95),
+    0 -1px 0 rgba(255, 252, 245, 0.9),
+    1.5px 0 0 rgba(170, 142, 104, 0.6),
+    0 1.6px 0 rgba(160, 130, 92, 0.65),
+    0 0.5px 0.5px rgba(70, 50, 28, 0.2),
+    0 calc(var(--W) * 0.012) calc(var(--W) * 0.03) rgba(70, 50, 28, 0.18);
+}
+
+/* The liner runs up to the fold and is inset from the side edges; the
+   inside of the envelope darkens with depth, towards the pocket. */
+.env__lining {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 0;
+  bottom: 9%;
+  background:
+    linear-gradient(180deg, rgba(60, 42, 22, 0) 30%, rgba(60, 42, 22, 0.3) 100%),
+    url("../assets/images/cotton-paper.webp") 60px 30px / 384px 384px,
+    linear-gradient(180deg, var(--lining), var(--lining-deep));
+  background-blend-mode: normal, multiply, normal;
+}
+
+/* ---- 6 · the flap -------------------------------------------------------- */
+.env__hinge {
+  position: absolute;
+  z-index: 7;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: var(--flap-h);
+  perspective: calc(var(--W) * 2.4);
+  perspective-origin: 50% 0;
+  pointer-events: none;
+}
+
+/* Rotates on rotateX about its top edge. Its two faces are each flattened
+   by their clip-path and swapped by envelope.js at 90°, which renders the
+   same on every engine (backface-visibility is unreliable on Safari
+   inside clipped layers). preserve-3d keeps the wax seal — a child of the
+   flap — standing off the paper, so it turns with the flap as a solid. */
+.env__flap {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.flap__face {
+  position: absolute;
+  inset: 0;
+  /* short shoulders down the sides, then a gentle V with a softly rounded tip */
+  clip-path: polygon(0 0, 100% 0, 99% 24.2%, 51.6% 96.4%, 50% 98.9%, 48.4% 96.4%, 1% 24.2%);
+}
+
+.flap__face--outer {
+  /* a broad, soft key light from the top-left; the far end falls away */
+  background-image:
+    radial-gradient(ellipse 70% 60% at 20% 4%, rgba(255, 252, 242, 0.34), rgba(255, 252, 242, 0) 70%),
+    linear-gradient(158deg, rgba(255, 252, 244, 0.22) 0%, rgba(255, 252, 244, 0) 46%, rgba(112, 84, 48, 0.1) 100%),
+    url("../assets/images/cotton-paper.webp");
+  background-size: auto, auto, 384px 384px;
+  background-position: 0 0, 0 0, -90px 40px;
+}
+
+/* The flap's edges. The top and left faces the light, so they carry a fine
+   bright line; the right V edge turns away from it and carries a fine shaded one. */
+.flap__rim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.flap__rim path {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+.rim-lit { stroke: rgba(255, 253, 247, 0.95); stroke-width: 1.2; }
+.rim-soft { stroke: rgba(255, 253, 247, 0.55); stroke-width: 1; }
+.rim-dark { stroke: rgba(126, 98, 62, 0.42); stroke-width: 1.5; }
+
+.flap__foil {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.flap__foil path {
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-width: 1.1;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.9;
+}
+
+/* Inner face. Seen after the flap has turned over, so it reads upside
+   down here: the fold is at the top of this box, the tip at the bottom. */
+.flap__face--inner {
+  visibility: hidden;
+  --tx: 30px; --ty: -120px;
+}
+.flap__lining {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(5% 0, 95% 0, 94.2% 22%, 50% 91%, 5.8% 22%);
+  background:
+    url("../assets/images/cotton-paper.webp") 200px 80px / 384px 384px,
+    linear-gradient(180deg, var(--lining-deep), var(--lining));
+  background-blend-mode: multiply, normal;
+}
+
+/* Darkens each face as it turns away from the light */
+.flap__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(58, 40, 20, 0.25), rgba(58, 40, 20, 0.6));
+  opacity: 0;
+}
+.flap__face--inner .flap__shade {
+  background: linear-gradient(0deg, rgba(58, 40, 20, 0.2), rgba(58, 40, 20, 0.55));
+}
+
+/* ---- shadows thrown by the flap ---------------------------------------- */
+/* Resting: a fine soft line just under the flap's edges */
+.env__flap-contact {
+  position: absolute;
+  z-index: 6;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: calc(var(--flap-h) * 1.06);
+  background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201000%20470'%20preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter%20id='s'%20filterUnits='userSpaceOnUse'%20x='-80'%20y='-80'%20width='1160'%20height='640'%3E%3CfeGaussianBlur%20stdDeviation='15'/%3E%3C/filter%3E%3Cfilter%20id='t'%20filterUnits='userSpaceOnUse'%20x='-80'%20y='-80'%20width='1160'%20height='640'%3E%3CfeGaussianBlur%20stdDeviation='3.2'/%3E%3C/filter%3E%3C/defs%3E%3Cpath%20d='M8%208%20L18%20111%20L506%20452%20L994%20111%20L1004%208'%20fill='none'%20stroke='%233b2a17'%20stroke-width='34'%20stroke-opacity='.15'%20filter='url%28%23s%29'/%3E%3Cpath%20d='M4%204%20L14%20109%20L503%20450%20L992%20109%20L1002%204'%20fill='none'%20stroke='%233b2a17'%20stroke-width='7'%20stroke-opacity='.34'%20filter='url%28%23t%29'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* Lifting: the flap shades the mouth of the envelope beneath it */
+.env__flap-cast {
+  position: absolute;
+  z-index: 6;
+  left: -2%;
+  top: 0;
+  width: 104%;
+  height: calc(var(--flap-h) * 1.1);
+  background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201000%20480'%20preserveAspectRatio='none'%3E%3Cfilter%20id='b'%20x='-10%25'%20y='-10%25'%20width='120%25'%20height='120%25'%3E%3CfeGaussianBlur%20stdDeviation='22'/%3E%3C/filter%3E%3Cpath%20d='M30%200%20L40%20112%20L500%20440%20L960%20112%20L970%200%20Z'%20fill='%233b2a17'%20fill-opacity='.42'%20filter='url%28%23b%29'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  transform-origin: 50% 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- 4 · the card slot and card ---------------------------------------- */
+/* Clips only at the envelope's bottom edge, so the card can be longer
+   than the envelope while inside it, and rise freely above it. */
+.env__slot {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  clip-path: inset(-500% -60% 0 -60%);
+  perspective: calc(var(--W) * 3);
+  perspective-origin: 50% 100%;
+  pointer-events: none;
+}
+
+.card-rig {
+  position: absolute;
+  left: 8%;
+  width: 84%;
+  top: calc(var(--W) * 0.04);
+  height: calc(var(--W) * 1.2);
+  transform-origin: 50% 88%;
+  will-change: transform;
+}
+
+/* Grows as the card lifts off the lining toward the viewer */
+.card__shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  box-shadow:
+    0 calc(var(--W) * 0.006) calc(var(--W) * 0.014) rgba(50, 34, 18, 0.22),
+    calc(var(--W) * 0.01) calc(var(--W) * 0.04) calc(var(--W) * 0.08) rgba(50, 34, 18, 0.3);
+  opacity: 0;
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 2px;
+  background-color: #fbf8f2;
+  box-shadow: 0 0 0 0.5px rgba(120, 94, 58, 0.22);
+  color: var(--card-ink);
+  text-align: center;
+}
+
+.card__frame {
+  position: absolute;
+  inset: calc(var(--W) * 0.032);
+  border: 1px solid rgba(176, 139, 79, 0.62);
+  pointer-events: none;
+}
+.card__frame::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 0.5px solid rgba(176, 139, 79, 0.4);
+}
+
+.card__body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--W) * 0.105);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.monogram--card { font-size: calc(var(--W) * 0.066); }
+
+.card__eyebrow,
+.card__invite,
+.card__place,
+.card__date {
+  font-family: var(--font-body);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.card__eyebrow {
+  margin-top: calc(var(--W) * 0.034);
+  font-size: calc(var(--W) * 0.027);
+  letter-spacing: 0.22em;
+  padding-left: 0.22em;
+  color: #4c4038;
+}
+
+.card__names {
+  margin: calc(var(--W) * 0.04) 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: inherit;
+}
+.card__name {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: calc(var(--W) * 0.096);
+  line-height: 1.04;
+  letter-spacing: 0.2em;
+  padding-left: 0.2em;
+  text-transform: uppercase;
+  color: var(--card-ink);
+}
+.card__amp {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  margin: calc(var(--W) * 0.004) 0 calc(var(--W) * 0.012);
+  font-size: calc(var(--W) * 0.072);
+  line-height: 1;
+  color: var(--color-gold);
+}
+.card__amp em {
+  font-family: var(--font-script);
+  font-style: normal;
+  transform: translateY(0.06em);
+}
+.card__amp i {
+  width: calc(var(--W) * 0.075);
+  height: 1px;
+  background: rgba(176, 139, 79, 0.7);
+}
+
+.card__invite {
+  margin-top: calc(var(--W) * 0.036);
+  font-size: calc(var(--W) * 0.027);
+  line-height: 1.85;
+  letter-spacing: 0.2em;
+  padding-left: 0.2em;
+  color: #4c4038;
+}
+
+.card__date {
+  margin-top: calc(var(--W) * 0.03);
+  display: flex;
+  align-items: center;
+  gap: 0.85em;
+  font-size: calc(var(--W) * 0.03);
+  letter-spacing: 0.16em;
+  color: var(--card-ink);
+}
+.card__date i {
+  width: 1px;
+  height: 1.5em;
+  background: rgba(176, 139, 79, 0.8);
+}
+.card__day {
+  font-size: 1.5em;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.card__place {
+  margin-top: calc(var(--W) * 0.022);
+  font-size: calc(var(--W) * 0.025);
+  letter-spacing: 0.32em;
+  padding-left: 0.32em;
+  color: #4c4038;
+}
+
+.card__divider {
+  margin-top: calc(var(--W) * 0.022);
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--color-gold);
+}
+.card__divider i {
+  width: calc(var(--W) * 0.06);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold));
+}
+.card__divider i:last-child { background: linear-gradient(270deg, transparent, var(--color-gold)); }
+.card__divider svg {
+  width: calc(var(--W) * 0.032);
+  height: calc(var(--W) * 0.032);
+}
+
+/* A single pass of light across the card as it settles */
+.card__sheen {
+  position: absolute;
+  inset: -10% -70%;
+  background: linear-gradient(100deg,
+    rgba(255, 252, 242, 0) 42%,
+    rgba(255, 252, 242, 0.42) 50%,
+    rgba(255, 252, 242, 0) 58%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- 5 · the front pocket ------------------------------------------------ */
+/* A hairline of shadow where the card meets the pocket edge keeps two
+   ivory papers from merging into one. */
+.env__pocket {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  /* a hairline of contact, and a trace of occlusion where the pocket's
+     upper edges stand in front of the card */
+  filter: drop-shadow(0 -0.5px 0.6px rgba(60, 42, 22, 0.3)) drop-shadow(0 -1px 2.5px rgba(60, 42, 22, 0.2));
+  pointer-events: none;
+}
+
+/* the two side flaps, meeting under the seal */
+.pocket__sides {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0, 49.4% 47.4%, 50% 47.8%, 50.6% 47.4%, 100% 0, 100% 100%, 0 100%);
+  background-image:
+    linear-gradient(135deg, rgba(255, 252, 244, 0.26) 0%, rgba(255, 252, 244, 0) 48%, rgba(112, 84, 48, 0.09) 100%),
+    url("../assets/images/cotton-paper.webp");
+  background-size: auto, 384px 384px;
+  background-position: 0 0, 110px 190px;
+  /* edge faces: bright where they meet the light, shaded where they turn from it */
+  box-shadow:
+    inset 1.2px 0 0 rgba(255, 253, 247, 0.9),
+    inset -1.4px 0 0 rgba(140, 112, 76, 0.32);
+}
+
+/* the bottom flap, folded up over them */
+.pocket__bottom {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 100%, 0 93%, 49% 49.6%, 50% 49%, 51% 49.6%, 100% 93%, 100% 100%);
+  background-image:
+    linear-gradient(160deg, rgba(255, 252, 244, 0.34) 0%, rgba(255, 252, 244, 0) 56%, rgba(112, 84, 48, 0.07) 100%),
+    url("../assets/images/cotton-paper.webp");
+  background-size: auto, 384px 384px;
+  background-position: 0 0, 40px 90px;
+  box-shadow:
+    inset 1.2px 0 0 rgba(255, 253, 247, 0.9),
+    inset -1.4px 0 0 rgba(140, 112, 76, 0.32),
+    inset 0 -1.5px 0 rgba(140, 112, 76, 0.34);
+}
+
+/* The bottom flap is a raised layer: it throws a soft shadow up onto the side
+   flaps behind it (drawn beneath it, so none falls on itself), and its top
+   edge catches the light. */
+.pocket__fold,
+.pocket__edges {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.pocket__fold path {
+  fill: none;
+  stroke: #3b2a17;
+  stroke-opacity: 0.3;
+  stroke-width: 7;
+  vector-effect: non-scaling-stroke;
+}
+.pocket__edges path {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+.pocket__edge-light { stroke: rgba(255, 253, 247, 0.9); stroke-width: 1.1; }
+
+/* ---- 7 · the wax seal ---------------------------------------------------- */
+/* The supplied seal photograph (assets/images/wax-seal.webp, 512 × 485).
+   It lives inside the flap, centred on the flap's tip, and everything
+   the sequence does to it — press, lift, glint, shade — is applied to
+   layers that share its silhouette through a CSS mask of the same image. */
+.scene { --seal: calc(var(--W) * 0.215); }
+
+.seal {
+  position: absolute;
+  width: var(--seal);
+  height: calc(var(--seal) * 0.947);
+  left: calc(50% - var(--seal) / 2);
+  top: calc(var(--H) * 0.6 - var(--seal) * 0.4735);
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+/* Its shadow on the paper: the seal's own silhouette, blurred, cast away
+   from the sun. Sits in the flap's plane while the seal stands off it, so
+   the two slide apart a little as the flap tilts. */
+.seal__shadow {
+  position: absolute;
+  left: calc(var(--W) * 0.012);
+  top: calc(var(--W) * 0.02);
+  width: 100%;
+  height: 100%;
+  filter: brightness(0) blur(calc(var(--W) * 0.007)) opacity(0.5);
+}
+
+/* The seal's thickness: lifted off the paper along the flap's own normal */
+.seal__lift {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(calc(var(--W) * 0.012));
+}
+
+.seal__wax {
+  position: absolute;
+  inset: 0;
+}
+
+.seal__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-user-drag: none;
+}
+
+/* Layers that must take the seal's exact outline */
+.seal__shade,
+.seal__shine {
+  position: absolute;
+  inset: 0;
+  -webkit-mask: url("../assets/images/wax-seal.webp") center / 100% 100% no-repeat;
+  mask: url("../assets/images/wax-seal.webp") center / 100% 100% no-repeat;
+}
+
+/* Darkens the wax as the flap turns it away from the light */
+.seal__shade {
+  background: linear-gradient(160deg, rgba(48, 30, 6, 0.55), rgba(48, 30, 6, 0.9));
+  opacity: 0;
+}
+
+/* A band of light that sweeps over the metal */
+.seal__glint {
+  position: absolute;
+  inset: -30%;
+  background: linear-gradient(105deg,
+    rgba(255, 249, 226, 0) 40%,
+    rgba(255, 249, 226, 0.5) 50%,
+    rgba(255, 249, 226, 0) 60%);
+  transform: translateX(-100%);
+}

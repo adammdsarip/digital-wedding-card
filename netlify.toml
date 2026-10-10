@@ -1,9 +1,112 @@
+# Netlify configuration
+#
+# This is a plain static site: no build step, no dependencies to install.
+# GSAP is vendored in js/vendor/, so there is nothing to compile — Netlify
+# just serves the repository root as-is.
+#
+# Caching is deliberately left to Netlify's defaults (revalidated HTML,
+# ETag'd assets). Wedding details get edited late and often; serving a
+# stale config.js to guests is a worse failure than an extra request.
+
 [build]
-base = "frontend"
-command = "npm run build"
-publish = "frontend/build"
+  publish = "."
+  command = ""
+
+# ---- Headers -------------------------------------------------------------
+# The photo booth needs the camera, so it is allowed for this site (and no
+# one else embedding it). Microphone, location and the rest stay off.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Permissions-Policy = "camera=(self), microphone=(), geolocation=(), payment=()"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+
+# ---- Keep the working files off the public site --------------------------
+# "publish = ." serves the whole repository, so hide what guests should not
+# browse to: the build scripts, notes, tooling folders, and the earlier
+# React draft of the invitation that lives in frontend/ and backend/.
+[[redirects]]
+  from = "/tools/*"
+  to = "/404.html"
+  status = 404
+  force = true
 
 [[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
+  from = "/.claude/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.agents/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/README.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/skills-lock.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/netlify.toml"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/frontend/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/backend/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/memory/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/test_reports/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.emergent/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.gitconfig"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.gitignore"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.oxlintrc.json"
+  to = "/404.html"
+  status = 404
+  force = true

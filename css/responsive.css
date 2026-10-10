@@ -1,0 +1,39 @@
+/* ============================================================
+   RESPONSIVE ADJUSTMENTS
+   The base styles are mobile-first and sized with clamp(); these
+   are the few deliberate breakpoint overrides.
+   ============================================================ */
+
+/* Small phones (320–374px): tighten the sheets a touch further */
+@media (max-width: 374px) {
+  #site { padding: 10px; gap: 10px; }
+  .sheet { padding-inline: 1.25rem; }
+  .sheet--invite { padding-inline: 1.25rem; }
+  .itinerary__body { padding-left: 0.6rem; }
+  .getting__detail { font-size: 0.72rem; }
+  .contact__role { font-size: 0.94rem; }
+}
+
+/* Tablet and up: the sheets stay a printed-card width, centred on the ground */
+@media (min-width: 768px) {
+  #site { padding: 40px 24px 56px; gap: 24px; }
+  .sheet { width: 500px; }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  #site { padding-top: 56px; }
+}
+
+/* Short viewports (landscape phones): the envelope is sized from the
+   height already; drop the words around it so it can be as large as possible. */
+@media (max-height: 520px) {
+  .scene { --W: min(86vw, 440px, calc((100vh - 48px) / 1.62)); }
+  .scene__title,
+  .scene__cue { display: none; }
+}
+@supports (height: 100svh) {
+  @media (max-height: 520px) {
+    .scene { --W: min(86vw, 440px, calc((100svh - 48px) / 1.62)); }
+  }
+}
