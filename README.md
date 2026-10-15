@@ -30,8 +30,6 @@ js/
   config.js              *** Single source of truth for all wedding content ***
   render.js              Fills the page from config.js
   rsvp.js                The RSVP form: what shows when, checking it, sending it
-  booth.js               The photo booth: camera, filters, frames, stickers, download
-  wall.js                The guest wall: the cards, posting the booth photo, hearts
   envelope.js            The opening-sequence state machine + GSAP timeline
   scroll-reveals.js      Entrance animations for the sheets
   audio.js               Optional background-music toggle
@@ -40,11 +38,10 @@ js/
 assets/
   images/                Background photograph, cotton-paper and wax-seal images, card paper
   florals/               The four floral corners used on every sheet
-  wall/                  Sample photos for the guest wall's preview (removed once it is connected)
   audio/                 Put an mp3/ogg here and point js/config.js at it
 ```
 
-## The seven sheets
+## The six sheets
 
 1. **The invitation** — arched gold frame, the names, the date, the venue. Set in
    `em` from one size that follows the screen's width *and* height, so on a phone the
@@ -55,8 +52,6 @@ assets/
    and a note. (See "The RSVP form" below.)
 5. **Countdown** — days, hours, minutes and seconds to the wedding, and a note from you.
 6. **Contact** — two family contacts and your social links.
-7. **Guest Wall** — guests take a photo in the photo booth, leave a wish, and see everyone's.
-   (See "The photo booth" and "The guest wall" below.)
 
 ## Customising your own wedding
 
@@ -104,51 +99,6 @@ form-filling bots.
 one place that talks to the outside: for now it only logs what would be sent
 (`{ name, attending, guests, dietary, message }`) to the browser console. The
 Tally form connects there.
-
-### The photo booth
-
-**Open the photo booth** (on the guest wall) opens a full-screen booth:
-
-1. **Shoot** — live camera with a 3-second countdown, as a single **Photo** or a
-   **Strip** of four. Guests without camera permission can choose a photo
-   instead (and, on phones, use their camera app).
-2. **Edit** — seven filters, nine frames (None, Polaroid, Gold, Floral, Film, Forest, Blush,
-   Sparkle, Arch), emoji
-   stickers (drag to move, pinch to resize and turn), a caption, and Flip.
-3. **Keep it** — **Download** saves a full-size JPEG (on iPhone it opens the share
-   sheet, where "Save Image" puts it in Photos), and/or **Post to the wall**.
-
-Everything is made on the guest's own phone, with no upload until they tap Post.
-Words, counts and the sticker set are in `booth` in `js/config.js`; the filters
-are in `FILTERS` at the top of `js/booth.js`. To add a frame: a row in `FR`, its
-name in `booth.frames` (`js/config.js`), and a branch in `drawFrame()`. Camera access needs HTTPS (Netlify
-has it) and cannot be tested on a plain `http://` address except localhost.
-
-**The booth is locked until the wedding day.** `booth.lock` in `js/config.js` sets when it
-opens (`opens`, read in the venue's time zone) and every word guests see. Until then the
-wall's button is a greyed "Opens on our wedding day" with the date and the days to go, and it
-opens by itself at the moment, even on a page left open. Set `opens` to `""` for no lock.
-
-*Testing while it is locked:* open the site with `?booth=isz-khaty-test` on the end
-(e.g. `https://your-site.netlify.app/?booth=isz-khaty-test`; the key is `booth.lock.previewKey`).
-That phone then has the booth open, with a "Test mode" note and a "Lock it again" link
-(`?booth=lock` does the same). Other phones stay locked. This keeps ordinary guests out; it is
-not a security lock: the time comes from the guest's own phone and the key is in the site's code.
-
-### The guest wall
-
-Open to anyone with the link: no approval step, no code. After the booth, a guest
-adds a name and an optional wish (140 characters) and posts. Their card goes to
-the top of the wall straight away; guests can tap a heart on any card. Posted
-pictures are shrunk on the guest's own phone first (a photo is a 900px square, a
-strip is kept whole). Everything a guest types is put on the page as plain text,
-never as HTML.
-
-**Not connected yet.** Until a backend is set in `wall.backend` (`js/config.js`),
-the wall shows six made-up sample posts (`wall.samples`, photos in
-`assets/wall/`) and anything added lasts only until the page is reloaded.
-`createStore()` in `js/wall.js` is the one place that changes when it is
-connected: `list()`, `add()` and `heart()`. Remove the samples at the same time.
 
 ### The florals
 

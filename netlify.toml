@@ -13,12 +13,12 @@
   command = ""
 
 # ---- Headers -------------------------------------------------------------
-# The photo booth needs the camera, so it is allowed for this site (and no
-# one else embedding it). Microphone, location and the rest stay off.
+# Camera, microphone, location and payments are switched off: nothing on the
+# site uses them.
 [[headers]]
   for = "/*"
   [headers.values]
-    Permissions-Policy = "camera=(self), microphone=(), geolocation=(), payment=()"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"

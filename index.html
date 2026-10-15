@@ -222,9 +222,6 @@
     <symbol id="i-pin" viewBox="0 0 32 32">
       <path d="M16 28s-8-7-8-14a8 8 0 0 1 16 0c0 7-8 14-8 14z"/><circle cx="16" cy="14" r="3"/>
     </symbol>
-    <symbol id="i-lock" viewBox="0 0 32 32">
-      <rect x="7" y="14" width="18" height="13" rx="3"/><path d="M11 14v-3a5 5 0 0 1 10 0v3"/>
-    </symbol>
     <symbol id="i-check" viewBox="0 0 32 32">
       <circle cx="16" cy="16" r="12"/><path d="m10.500 16.500 3.800 3.800 7.200-8"/>
     </symbol>
@@ -446,147 +443,7 @@
     <p class="hashtag" id="fl-hashtag" data-reveal="fade"></p>
   </section>
 
-  <!-- 7 — The guest wall -->
-  <section class="paper-grain sheet sheet--framed" id="wall" data-florals aria-labelledby="wall-title">
-    <header class="sheet__head" data-reveal="fade">
-      <p class="sheet__kicker" id="wall-eyebrow"></p>
-      <h2 class="sheet__title" id="wall-title"></h2>
-      <div class="divider" aria-hidden="true"><i></i><svg><use href="#ornament"/></svg><i></i></div>
-    </header>
-
-    <p class="rsvp__intro" id="wall-intro" data-reveal="fade"></p>
-    <button class="pill pill--dark wall__add" type="button" id="wall-add" data-reveal="fade">
-      <svg aria-hidden="true"><use id="wall-add-icon" href="#i-camera"/></svg><span id="wall-add-label"></span>
-    </button>
-    <div class="wall__lock" id="wall-lock" hidden>
-      <p id="wall-lock-note"></p>
-      <p class="wall__lock-when" id="wall-lock-when"></p>
-    </div>
-    <p class="wall__test" id="wall-test" hidden><span id="wall-test-text"></span> <button type="button" id="wall-test-undo"></button></p>
-
-    <p class="wall__count" id="wall-count" role="status" aria-live="polite"></p>
-    <div class="wall__grid" id="wall-grid" role="list"></div>
-    <p class="wall__empty" id="wall-empty" hidden></p>
-    <button class="wall__more" type="button" id="wall-more" hidden></button>
-  </section>
-
 </main>
-
-<!-- The photo booth: camera, then edit. Full height on a phone, a centred card on a large screen -->
-<dialog class="booth" id="booth-dialog" aria-labelledby="bo-title">
-  <div class="booth__sheet">
-    <header class="booth__bar">
-      <button class="booth__icon" type="button" id="bo-back" hidden><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button>
-      <h3 class="booth__title" id="bo-title"></h3>
-      <button class="booth__icon" type="button" id="bo-close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
-    </header>
-
-    <!-- 1 · the camera -->
-    <section class="booth__cam" id="bo-cam">
-      <div class="booth__stage" id="bo-stage" data-mode="photo">
-        <video id="bo-video" playsinline muted autoplay></video>
-        <div class="booth__count" id="bo-count" aria-hidden="true"></div>
-        <div class="booth__flash" id="bo-flash" aria-hidden="true"></div>
-        <p class="booth__msg" id="bo-msg" role="status" hidden></p>
-        <div class="booth__dots" id="bo-dots" aria-hidden="true"></div>
-      </div>
-
-      <div class="booth__modes" role="group" aria-label="Mode">
-        <button type="button" class="booth__mode" id="bo-mode-photo" data-mode="photo" aria-pressed="true"></button>
-        <button type="button" class="booth__mode" id="bo-mode-strip" data-mode="strip" aria-pressed="false"></button>
-      </div>
-
-      <div class="booth__shutter-row">
-        <button class="booth__side" type="button" id="bo-flipcam"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><path d="M9.2 13.6a3 3 0 0 1 5.3-1.6M14.8 13.4a3 3 0 0 1-5.3 1.6M14.6 10.6v1.6h-1.6M9.4 16.4v-1.6h1.6"/></svg></button>
-        <button class="booth__shutter" type="button" id="bo-shutter"><span></span></button>
-        <label class="booth__side" id="bo-upload">
-          <input type="file" accept="image/*" id="bo-file" hidden>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4"/></svg>
-        </label>
-      </div>
-      <p class="booth__hint" id="bo-hint"></p>
-      <label class="booth__link" id="bo-native"><input type="file" accept="image/*" capture="user" id="bo-file-native" hidden><span id="bo-native-label"></span></label>
-    </section>
-
-    <!-- 2 · edit -->
-    <section class="booth__edit" id="bo-edit" hidden>
-      <div class="booth__canvaswrap"><canvas id="bo-canvas"></canvas></div>
-
-      <div class="booth__tabs" role="tablist">
-        <button class="booth__tab" type="button" role="tab" id="bo-tab-filters" data-tab="filters" aria-selected="true"></button>
-        <button class="booth__tab" type="button" role="tab" id="bo-tab-frames" data-tab="frames" aria-selected="false"></button>
-        <button class="booth__tab" type="button" role="tab" id="bo-tab-stickers" data-tab="stickers" aria-selected="false"></button>
-        <button class="booth__tab" type="button" role="tab" id="bo-tab-caption" data-tab="caption" aria-selected="false"></button>
-      </div>
-
-      <div class="booth__panel" id="bo-panel-filters" role="tabpanel" aria-labelledby="bo-tab-filters">
-        <div class="booth__row" id="bo-filters"></div>
-        <button class="booth__small" type="button" id="bo-flip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M8 7L3 17h5zM16 7l5 10h-5z"/></svg><span id="bo-flip-label"></span></button>
-      </div>
-      <div class="booth__panel" id="bo-panel-frames" role="tabpanel" aria-labelledby="bo-tab-frames" hidden>
-        <div class="booth__row" id="bo-frames"></div>
-      </div>
-      <div class="booth__panel" id="bo-panel-stickers" role="tabpanel" aria-labelledby="bo-tab-stickers" hidden>
-        <div class="booth__row booth__row--stickers" id="bo-stickers"></div>
-        <div class="booth__tools" id="bo-tools">
-          <button class="booth__small" type="button" id="bo-st-smaller"><span id="bo-st-smaller-label"></span></button>
-          <button class="booth__small" type="button" id="bo-st-bigger"><span id="bo-st-bigger-label"></span></button>
-          <button class="booth__small" type="button" id="bo-st-rotate"><span id="bo-st-rotate-label"></span></button>
-          <button class="booth__small" type="button" id="bo-st-remove"><span id="bo-st-remove-label"></span></button>
-        </div>
-        <p class="booth__hint" id="bo-st-hint"></p>
-      </div>
-      <div class="booth__panel" id="bo-panel-caption" role="tabpanel" aria-labelledby="bo-tab-caption" hidden>
-        <label class="field__label" for="bo-caption" id="bo-caption-label"></label>
-        <input class="field__input" id="bo-caption" type="text" autocomplete="off" enterkeyhint="done">
-      </div>
-
-      <div class="booth__actions">
-        <button class="pill pill--ghost" type="button" id="bo-download"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 11l4.5 4.5 4.5-4.5M5 19.5h14"/></svg><span id="bo-download-label"></span></button>
-        <button class="pill pill--dark" type="button" id="bo-post"><span id="bo-post-label"></span></button>
-      </div>
-      <p class="field__error booth__error" id="bo-error" role="alert" hidden></p>
-    </section>
-  </div>
-</dialog>
-
-<!-- Posting to the wall: a sheet that slides up on a phone, a centred card on a large screen -->
-<dialog class="wallpost" id="wall-dialog" aria-labelledby="wd-title">
-  <div class="wallpost__sheet">
-    <button class="wallpost__close" type="button" id="wd-close" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
-
-    <form class="wallpost__form" id="wd-form" novalidate>
-      <h3 class="wallpost__title" id="wd-title"></h3>
-
-      <div class="wallpost__photo" id="wd-photo"><img id="wd-preview" alt=""></div>
-      <button class="pill pill--ghost wallpost__edit" type="button" id="wd-edit"><span id="wd-edit-label"></span></button>
-
-      <div class="field">
-        <label class="field__label" for="wd-name" id="wd-name-label"></label>
-        <input class="field__input" id="wd-name" name="name" type="text" autocomplete="name" autocapitalize="words" enterkeyhint="next" maxlength="40" aria-describedby="wd-name-error">
-        <p class="field__error" id="wd-name-error" hidden></p>
-      </div>
-
-      <div class="field">
-        <label class="field__label" for="wd-wish"><span id="wd-wish-label"></span> <small class="field__opt" id="wd-wish-opt"></small></label>
-        <textarea class="field__input field__input--area" id="wd-wish" name="wish" rows="3" maxlength="140" autocomplete="off"></textarea>
-        <p class="field__hint wallpost__count" id="wd-count" aria-hidden="true"></p>
-      </div>
-
-      <div class="rsvp__hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-
-      <p class="field__error rsvp__fail" id="wd-fail" role="alert" hidden></p>
-      <button class="pill pill--dark wallpost__submit" type="submit" id="wd-submit"><span id="wd-submit-label"></span></button>
-    </form>
-
-    <div class="wallpost__done" id="wd-done" role="status" aria-live="polite" hidden>
-      <svg class="rsvp__done-icon" aria-hidden="true"><use href="#i-check"/></svg>
-      <h3 class="rsvp__done-title" id="wd-done-title"></h3>
-      <p class="rsvp__done-text" id="wd-done-text"></p>
-      <button class="pill pill--dark" type="button" id="wd-see"><span id="wd-see-label"></span></button>
-    </div>
-  </div>
-</dialog>
 
 <script src="js/vendor/gsap.min.js"></script>
 <script src="js/vendor/ScrollTrigger.min.js"></script>
@@ -595,9 +452,6 @@
 <script src="js/render.js"></script>
 <script src="js/rsvp.js"></script>
 <script src="js/countdown.js"></script>
-<script src="js/booth-lock.js"></script>
-<script src="js/booth.js"></script>
-<script src="js/wall.js"></script>
 <script src="js/envelope.js"></script>
 <script src="js/scroll-reveals.js"></script>
 <script src="js/audio.js"></script>
