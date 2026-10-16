@@ -52,6 +52,21 @@ assets/
 5. **Countdown** — days, hours, minutes and seconds to the wedding, and a note from you.
 6. **Contact** — two family contacts, each with a Call button, and a doa.
 
+## The look: jewel-glam
+
+Emerald green and ruby red, with gold foil, on a cream base. The colours are tokens in
+`css/variables.css`, so changing one changes it everywhere:
+
+- **Emerald** (`--color-emerald`): headings, the names, the venue, the main buttons, links.
+- **Ruby** (`--color-ruby`): the small accents: section labels, the ampersand, the date number,
+  itinerary times, the countdown numbers, the little ornaments.
+- **Gold foil** (`--color-gold…`, and `--gold-foil` for the metallic sheen): the frame around each
+  sheet, the rules and the icon rings.
+
+The envelope's own paper, the wax seal and the photograph behind it are left as they were; only
+the type on the card inside it takes the emerald and ruby. Text colours are all at least 5:1
+against the cream.
+
 ## Customising your own wedding
 
 **Everything** — names, date, venue, schedule, RSVP link, contacts, doa,

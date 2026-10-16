@@ -28,7 +28,7 @@
   --paper: #f8f3ea;
   --lining: #b5a289;
   --lining-deep: #96836a;
-  --card-ink: #2a2420;
+  --card-ink: #0a3f2f;                  /* the card's names and date: deep emerald */
   --stone: #e3d1b7;
 
   position: fixed;
@@ -149,7 +149,7 @@
   font-weight: 400;
   font-size: calc(var(--W) * 0.1);
   line-height: 1;
-  color: var(--color-gold-ink);
+  color: var(--color-emerald);
 }
 .monogram i {
   width: 1px;
@@ -454,14 +454,14 @@
 .card__frame {
   position: absolute;
   inset: calc(var(--W) * 0.032);
-  border: 1px solid rgba(176, 139, 79, 0.62);
+  border: 1px solid rgba(184, 145, 63, 0.62);
   pointer-events: none;
 }
 .card__frame::after {
   content: "";
   position: absolute;
   inset: 3px;
-  border: 0.5px solid rgba(176, 139, 79, 0.4);
+  border: 0.5px solid rgba(184, 145, 63, 0.4);
 }
 
 .card__body {
@@ -547,7 +547,7 @@
   margin: calc(var(--W) * 0.004) 0 calc(var(--W) * 0.012);
   font-size: calc(var(--W) * 0.072);
   line-height: 1;
-  color: var(--color-gold);
+  color: var(--color-ruby);
 }
 .card__amp em {
   font-family: var(--font-script);
@@ -557,7 +557,7 @@
 .card__amp i {
   width: calc(var(--W) * 0.075);
   height: 1px;
-  background: rgba(176, 139, 79, 0.7);
+  background: rgba(184, 145, 63, 0.7);
 }
 
 .card__invite {
@@ -581,12 +581,13 @@
 .card__date i {
   width: 1px;
   height: 1.5em;
-  background: rgba(176, 139, 79, 0.8);
+  background: rgba(184, 145, 63, 0.8);
 }
 .card__day {
   font-size: 1.5em;
   letter-spacing: 0.04em;
   line-height: 1;
+  color: var(--color-ruby);
 }
 
 .card__place {

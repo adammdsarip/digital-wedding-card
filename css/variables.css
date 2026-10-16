@@ -2,8 +2,11 @@
  * Design tokens — the entire visual system in one place.
  * Change a value here to re-theme the whole invitation.
  *
- * Art direction: gold foil on warm ivory paper, set against blush
- * silk — taken from the printed envelope this site is modelled on.
+ * Art direction: jewel-glam. Emerald green and ruby red, with gold foil,
+ * on a cream base. Emerald carries headings and buttons, ruby the small
+ * accents (the ampersand, the date, times, numbers), and gold foil the
+ * frames, rules and ornaments. The envelope's own paper and wax seal are
+ * left as they were.
  */
 :root {
   /* ---- Paper & ground ---------------------------------------------- */
@@ -15,11 +18,20 @@
   --color-blush-deep: #e7d2c6;
   --color-paper-shadow: #d8c6b6;
 
+  /* ---- Jewel colours ---------------------------------------------------- */
+  --color-emerald: #0d5c45;
+  --color-emerald-deep: #08402f;
+  --color-emerald-soft: #1b765b;
+  --color-ruby: #a01c33;
+  --color-ruby-deep: #7e1428;
+
   /* ---- Gold foil ----------------------------------------------------- */
-  --color-gold: #b08b4f;
-  --color-gold-deep: #8f6f39;
-  --color-gold-light: #dcc08a;
-  --color-gold-line: rgba(176, 139, 79, 0.42);
+  --color-gold: #b8913f;
+  --color-gold-deep: #8f6a22;
+  --color-gold-light: #e2c06c;
+  --color-gold-line: rgba(184, 145, 63, 0.58);
+  /* the metallic sheen used on the frames: dark gold, bright, dark again */
+  --gold-foil: linear-gradient(135deg, #8f6a22 0%, #d8b457 24%, #f4dd94 46%, #c39a3d 64%, #8f6a22 100%);
 
   /* ---- Gold sealing wax (richer and more saturated than flat foil) ---- */
   --color-wax: #c2a263;
@@ -29,8 +41,8 @@
 
   /* Gold for text. The foil gold above is for lines and ornaments; set
      small type in it and it drops under 3:1 on cream, so text uses these. */
-  --color-gold-ink: #7a5f35;
-  --color-gold-name: #8c6c36;
+  --color-gold-ink: #7d5a1c;
+  --color-gold-name: #8f6a22;
 
   /* ---- Ink ------------------------------------------------------------- */
   --color-charcoal: #3a302a;
@@ -44,9 +56,9 @@
   --color-accent-strong: #4a3a2c;
   --color-accent-strong-hover: #5e4a38;
 
-  /* Deep green, taken from the leaves and swatches in the layout design */
-  --color-forest: #2f3b33;
-  --color-forest-soft: #435046;
+  /* The solid interface colour (buttons, links, focus rings) is the emerald */
+  --color-forest: var(--color-emerald);
+  --color-forest-soft: var(--color-emerald-soft);
 
   /* The ground the printed sheets rest on */
   --color-ground: #efe3d8;
