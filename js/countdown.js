@@ -44,7 +44,8 @@
     out.minutes.textContent = pad(m);
     out.seconds.textContent = pad(sec);
     // a screen reader hears it once a minute, not every second
-    const label = `${d} ${cd.labels.days}, ${h} ${cd.labels.hours}, ${m} ${cd.labels.minutes} ${cd.caption}`;
+    const unit = (n, word) => `${n} ${n === 1 ? word.replace(/s$/i, "") : word}`;
+    const label = `${unit(d, cd.labels.days)}, ${unit(h, cd.labels.hours)}, ${unit(m, cd.labels.minutes)} ${cd.caption}`;
     if (label !== lastLabel) { timer.setAttribute("aria-label", label); lastLabel = label; }
   }
 

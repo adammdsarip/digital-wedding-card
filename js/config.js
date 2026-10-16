@@ -42,8 +42,8 @@ const WEDDING = {
   // ---- The day (PLACEHOLDER date, taken from the envelope design) ------
   // One date drives everything. The weekday, day number, month and year
   // are all worked out from it, so they can never disagree with each other.
-  isoDate: "2026-12-12T11:00:00",
-  timeText: "11.00 AM",
+  isoDate: "2026-12-12T19:30:00",
+  timeText: "7.30 PM",
   // The venue's time zone (Singapore), so the countdown reaches zero at the same moment
   // wherever a guest opens the invitation.
   timezone: "+08:00",
@@ -142,7 +142,7 @@ const WEDDING = {
     eyebrow: "Counting down",
     title: "To Our Big Day",
     labels: { days: "Days", hours: "Hours", minutes: "Minutes", seconds: "Seconds" },
-    caption: "until we say I do",
+    caption: "until we celebrate together",
     today: "Today is the day",
     after: "Thank you for celebrating with us",
   },
