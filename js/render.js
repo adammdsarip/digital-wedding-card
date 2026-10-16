@@ -62,6 +62,17 @@
 
   // ---- The card that rises from the envelope ----------------------------------
   set("card-eyebrow", envCard.eyebrow || "");
+  const fam = $("card-families");
+  if (fam) {
+    fam.replaceChildren(...(envCard.families || []).map((f) => {
+      const p = document.createElement("p");
+      p.className = "card__family";
+      const n = document.createElement("span"); n.className = "card__family-name"; n.textContent = f.names;
+      const r = document.createElement("span"); r.className = "card__family-role"; r.textContent = f.role ? `(${f.role})` : "";
+      p.append(n, r);
+      return p;
+    }));
+  }
   set("card-name-one", W.partnerOne);
   set("card-connector", envCard.connector || W.connector);
   set("card-name-two", W.partnerTwo);
@@ -73,7 +84,9 @@
   const card = $("envelope-card");
   if (card) {
     card.setAttribute("aria-label",
-      `${envCard.eyebrow || ""}, ${W.partnerOne} ${envCard.connector || W.connector} ${W.partnerTwo} ` +
+      `${envCard.eyebrow || ""}, ` +
+      `${(envCard.families || []).map((f) => `${f.names}${f.role ? ` (${f.role})` : ""}`).join(", ")}${(envCard.families || []).length ? ", " : ""}` +
+      `${W.partnerOne} ${envCard.connector || W.connector} ${W.partnerTwo} ` +
       `${lines(envCard.invite).join(" ").toLowerCase()} on ${weekday} ${dayNum} ${monthName} ${year}` +
       `${envCard.place ? ", " + envCard.place : ""}.`);
   }

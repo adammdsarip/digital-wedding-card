@@ -33,6 +33,11 @@ const WEDDING = {
     revealHint: "Tap to view the invitation",
     card: {
       eyebrow: "Together with our families",
+      // The family names shown just under the eyebrow. `names` can be one or several people.
+      families: [
+        { names: "Saadiah Binte Said", role: "Bride's Mother" },
+        { names: "Saéyah Salleh & Sitiischa Salleh", role: "Groom's Sisters" },
+      ],
       connector: "&",
       invite: ["Invite you to celebrate", "our wedding"],
       place: "Singapore",
