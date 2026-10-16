@@ -57,13 +57,14 @@ const WEDDING = {
     closing: ["We look forward to", "celebrating with you"],
   },
 
-  // ---- Venue (PLACEHOLDER) -----------------------------------------------
+  // ---- Venue --------------------------------------------------------------
   venue: {
-    name: "Venue Name",
-    address: ["123 Street Name", "Singapore 123456"],
+    name: "De Hall",
+    address: ["3 Irving Road, #02-10", "Singapore 369522"],
     // The map shown on the page. A key-free embed: change the q= search to your venue, or paste
     // the src="..." from Google Maps "Share > Embed a map". Empty = no map is shown.
-    mapEmbedUrl: "",
+    mapEmbedUrl:
+      "https://maps.google.com/maps?q=De+Hall,+3+Irving+Road,+Singapore+369522&z=16&ie=UTF8&iwloc=&output=embed",
     // What the "Open in Google Maps" button opens (the venue's own share link)
     mapLinkUrl: "https://maps.app.goo.gl/4kyRC5K9K3MYWo3K9?g_st=awb",
     mapButton: "Open in Google Maps",
@@ -95,7 +96,7 @@ const WEDDING = {
       title: "Getting here",
       items: [
         { icon: "car", label: "By Car", detail: ["Parking available", "at venue"] },
-        { icon: "train", label: "By MRT", detail: ["Somerset MRT", "(5 mins walk)"] },
+        { icon: "train", label: "By MRT", detail: ["Tai Seng MRT", "(3 mins walk)"] },
         { icon: "bus", label: "By Bus", detail: ["Multiple bus", "services nearby"] },
       ],
     },
