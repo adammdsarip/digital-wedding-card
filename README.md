@@ -50,11 +50,11 @@ assets/
 3. **Location** — map, an "Open in Google Maps" button, and how to get there.
 4. **RSVP** — your Tally form, shown inside the sheet. (See "The RSVP form" below.)
 5. **Countdown** — days, hours, minutes and seconds to the wedding, and a note from you.
-6. **Contact** — two family contacts and your social links.
+6. **Contact** — two family contacts, each with a Call button, and a doa.
 
 ## Customising your own wedding
 
-**Everything** — names, date, venue, schedule, RSVP link, contacts,
+**Everything** — names, date, venue, schedule, RSVP link, contacts, doa,
 colours, music — lives in `js/config.js` as one plain object. Nothing else needs
 to change for day-to-day edits; `render.js` fills the page from it on load.
 Anything marked `PLACEHOLDER` in that file is sample content from the layout
@@ -71,7 +71,7 @@ really a Tuesday is the classic way an invitation goes wrong).
 
 **RSVP.** The deadline, the line under it, and the Tally form's address are under `rsvp` in `config.js`.
 
-**Social links.** Fill in `contact.follow.instagram` / `facebook` / `tiktok`.
+**Contacts and the doa.** Each person under `contact.people` gets their number and a tap-to-call button. The prayer under them is `contact.doa` (Arabic, transliteration and meaning); replace it with your own.
 Any left empty is shown but not clickable.
 
 To add music: place an mp3 in `assets/audio/` and set `music.src` in

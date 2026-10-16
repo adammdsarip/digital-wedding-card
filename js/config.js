@@ -21,9 +21,6 @@ const WEDDING = {
   // The word set between the two names ("and", or "&").
   connector: "and",
 
-  // Social hashtag. Leave empty to derive it from the names.
-  hashtag: "",
-
   // ---- The envelope -------------------------------------------------
   // The monogram and the wax seal are struck from the two initials above;
   // the card's date row is worked out from isoDate below.
@@ -138,21 +135,24 @@ const WEDDING = {
       "Your presence means the world to us. No gifts are necessary, but your prayers, blessings and well wishes are the greatest gift we could ever ask for.",
   },
 
-  // ---- Panel 6: contact and socials -----------------------------------------
+  // ---- Panel 6: contact and the doa -----------------------------------------
+  // Each person gets a "Call" button. `name` can be one line or several.
   contact: {
     title: "Contact",
     intro: "For any enquiries, please reach out to:",
+    callLabel: "Call",
     people: [
       { role: "Bride", phone: "+65 9653 5655", name: ["Yanni", "(Bride's Sister)"] },
       { role: "Groom", phone: "+65 9183 8076", name: ["Siti Ischa", "(Groom's Sister)"] },
     ],
-    follow: {
-      title: "Follow our journey",
-      text: "Share your photos with us",
-      // Leave a link empty and that icon is shown but not clickable.
-      instagram: "",
-      facebook: "",
-      tiktok: "",
+    // The prayer shown under the contacts (the well-known doa for a newly married couple).
+    // Replace the three lines with your own doa; leave one empty to leave it out.
+    doa: {
+      title: "Doa",
+      intro: "A prayer for the bride and groom",
+      arabic: "بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ",
+      transliteration: "Bārakallāhu laka wa bāraka ʿalaika wa jamaʿa bainakumā fī khair.",
+      meaning: "May Allah bless you, shower His blessings upon you, and unite you both in goodness.",
     },
   },
 

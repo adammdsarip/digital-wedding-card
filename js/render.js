@@ -181,36 +181,34 @@
   set("note-title", W.note.title);
   set("note-text", W.note.text);
 
-  // ---- Sheet 6: contact and socials ------------------------------------------------------
+  // ---- Sheet 6: contact (with a Call button each) and the doa -----------------------------
   const ct = W.contact;
   set("ct-title", ct.title);
   set("ct-intro", ct.intro);
   const people = $("ct-people");
   if (people) {
-    people.innerHTML = ct.people.map((p) => `
+    people.innerHTML = ct.people.map((p) => {
+      const tel = "tel:" + p.phone.replace(/[^\d+]/g, "");
+      const who = [].concat(p.name)[0];
+      return `
       <div class="contact__person" data-reveal="fade">
         <p class="contact__role">${esc(p.role)}</p>
-        <p class="contact__phone"><a href="tel:${esc(p.phone.replace(/[^\d+]/g, ""))}">${esc(p.phone)}</a></p>
+        <p class="contact__phone"><a href="${esc(tel)}">${esc(p.phone)}</a></p>
         <p class="contact__name">${br(p.name)}</p>
-      </div>`).join("");
-  }
-
-  set("fl-title", ct.follow.title);
-  set("fl-text", ct.follow.text);
-  const socials = $("fl-socials");
-  if (socials) {
-    socials.innerHTML = ["instagram", "facebook", "tiktok"].map((net) => {
-      const url = ct.follow[net];
-      const label = net.charAt(0).toUpperCase() + net.slice(1);
-      return url
-        ? `<li><a href="${esc(url)}" target="_blank" rel="noopener" aria-label="${label}">${icon("i-" + net)}</a></li>`
-        : `<li><span role="img" aria-label="${label}">${icon("i-" + net)}</span></li>`;
+        <a class="pill pill--dark contact__call" href="${esc(tel)}" aria-label="${esc(`${ct.callLabel} ${who}, ${p.phone}`)}">${icon("i-phone")}<span>${esc(ct.callLabel)}</span></a>
+      </div>`;
     }).join("");
   }
 
-  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-  const joiner = /^[a-z]+$/i.test(W.connector) ? cap(W.connector) : "And";
-  set("fl-hashtag", W.hashtag || `#${cap(W.partnerOne)}${joiner}${cap(W.partnerTwo)}`);
+  const dd = ct.doa;
+  if (dd) {
+    set("doa-title", dd.title);
+    set("doa-intro", dd.intro || "");
+    set("doa-arabic", dd.arabic || "");
+    set("doa-translit", dd.transliteration || "");
+    set("doa-meaning", dd.meaning || "");
+    ["doa-intro", "doa-arabic", "doa-translit", "doa-meaning"].forEach((id) => { const n = $(id); if (n) n.hidden = !n.textContent; });
+  }
 
   // ---- Floral artwork: only drawn once you supply it -----------------------------------------
   const fl = W.florals || {};
