@@ -716,19 +716,19 @@
 .pocket__edge-shine { stroke: rgba(255, 244, 205, 0.7); stroke-width: 0.8; }
 
 /* ---- 7 · the wax seal ---------------------------------------------------- */
-/* The design's gold seal with its ruby sprig (assets/images/wax-seal-ruby.webp,
-   234 × 214, cut out by tools/cut_jewel_assets.py).
+/* The supplied gold seal with the I | K monogram (assets/images/wax-seal-monogram.webp,
+   512 × 496).
    It lives inside the flap, centred on the flap's tip, and everything
    the sequence does to it — press, lift, glint, shade — is applied to
    layers that share its silhouette through a CSS mask of the same image. */
-.scene { --seal: calc(var(--W) * 0.215); }
+.scene { --seal: calc(var(--W) * 0.25); }
 
 .seal {
   position: absolute;
   width: var(--seal);
-  height: calc(var(--seal) * 0.9145);
+  height: calc(var(--seal) * 0.9688);
   left: calc(50% - var(--seal) / 2);
-  top: calc(var(--H) * 0.6 - var(--seal) * 0.4573);
+  top: calc(var(--H) * 0.6 - var(--seal) * 0.4844);
   transform-style: preserve-3d;
   pointer-events: none;
 }
@@ -769,8 +769,8 @@
 .seal__shine {
   position: absolute;
   inset: 0;
-  -webkit-mask: url("../assets/images/wax-seal-ruby.webp") center / 100% 100% no-repeat;
-  mask: url("../assets/images/wax-seal-ruby.webp") center / 100% 100% no-repeat;
+  -webkit-mask: url("../assets/images/wax-seal-monogram.webp") center / 100% 100% no-repeat;
+  mask: url("../assets/images/wax-seal-monogram.webp") center / 100% 100% no-repeat;
 }
 
 /* Darkens the wax as the flap turns it away from the light */

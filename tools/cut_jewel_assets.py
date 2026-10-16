@@ -1,4 +1,4 @@
-"""Cut the wax seal and the corner sprig out of the ruby envelope design image.
+"""Cut the corner sprig out of the ruby envelope design image.
 
     python3 tools/cut_jewel_assets.py assets/images/ruby-envelope-reference.jpg
 
@@ -8,7 +8,8 @@ almost none), the ruby berries by being much brighter than the paper. Specks
 the key finds in the paper's own texture are dropped by size, and the gold edge
 lines that run up to the seal are cut away by shape. Pixels on the very edge
 keep a trace of the crimson they were photographed on, which is the colour they
-sit on again. Writes assets/images/wax-seal-ruby.webp and assets/images/sprig.webp.
+sit on again. Writes assets/images/sprig.webp. (The wax seal is the separately supplied
+assets/images/wax-seal-monogram.webp; it is not cut from this image.)
 """
 import sys, os
 from collections import deque
@@ -76,29 +77,6 @@ def trim_save(crop, alpha, name, pad=3):
     print(name, rgba.shape[1], "x", rgba.shape[0], os.path.getsize(path), "bytes")
     if os.environ.get("DEBUG"):
         Image.fromarray((alpha * 255).astype(np.uint8)).save(os.path.join(os.environ["DEBUG"], name + ".alpha.png"))
-
-# ---- the seal ---------------------------------------------------------------------
-x0, y0, x1, y1 = 610, 440, 930, 750
-crop = A[y0:y1, x0:x1]
-g = gold(crop, 0.26, 0.40)
-core = g > 0.5
-body = morph(morph(core, 9, "erode"), 9, "dilate")           # thin edge lines go, the seal's gold stays
-lab, sizes = components(body)
-H, Wd = body.shape
-Yc, Xc = np.mgrid[0:H, 0:Wd]
-cy, cx = 587 - y0, 769 - x0                                   # the seal's centre in the design
-seal = np.zeros_like(body)
-for n in range(1, len(sizes)):                                # every gold piece that belongs to the seal
-    m = lab == n
-    if sizes[n] >= 30 and np.hypot(Yc[m].mean() - cy, Xc[m].mean() - cx) < 125:
-        seal |= m
-seal = morph(morph(seal, 15, "dilate"), 15, "erode")          # close the gaps between the pieces
-seal = fill_holes(seal)                                       # the ruby sprig inside belongs to the seal
-seal &= np.hypot(Yc - cy, Xc - cx) < 132
-edge = morph(seal, 5, "dilate") & ~seal
-alpha = np.where(seal, 1.0, np.where(edge, g, 0.0))
-alpha = np.maximum(blur(alpha, 0.7), morph(seal, 5, "erode") * 1.0)
-trim_save(crop, alpha, "wax-seal-ruby.webp")
 
 # ---- the top-left corner sprig -------------------------------------------------------
 x0, y0, x1, y1 = 226, 150, 416, 356

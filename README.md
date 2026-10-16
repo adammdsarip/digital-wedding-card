@@ -63,7 +63,7 @@ Emerald green and ruby red, with gold foil, on a cream base. The colours are tok
 - **Gold foil** (`--color-gold…`, and `--gold-foil` for the metallic sheen): the frame around each
   sheet, the rules and the icon rings.
 
-The opening scene follows the same palette: a ruby envelope with gold foil edges and a gold seal,
+The opening scene follows the same palette: a ruby envelope with gold foil edges and your gold I | K seal,
 on an emerald backdrop (see "The opening sequence" below). Text colours are all at least 5:1
 against the cream.
 
@@ -155,16 +155,18 @@ transforms:
    wrapper, with a gold foil band along its edges and a gold sprig in each upper
    corner (`sprig.webp`). At 90° (edge-on, so the swap can't be seen) it turns
    over to show its lined inside and drops behind the card.
-7. **Wax seal** — the gold seal with its ruby sprig from the design
-   (`assets/images/wax-seal-ruby.webp`, 234 × 214), set on the tip of the flap as
-   a child of it, so it turns with the flap. It stands a few pixels off the paper
-   with its own shadow, and darkens as it turns away from the light.
+7. **Wax seal** — your supplied gold seal with the I | K monogram
+   (`assets/images/wax-seal-monogram.webp`, 512 × 496, transparent background), set
+   on the tip of the flap as a child of it, so it turns with the flap. It stands a few
+   pixels off the paper with its own shadow, and darkens as it turns away from the
+   light. To swap the seal, replace that file (keep its proportions, or adjust `.seal`
+   and `--seal` in `css/envelope.css`).
 8. **Light and shadow** — the paper texture, the flap's shadow on the mouth of the
    envelope, and the card's shadow, which grows as the card lifts toward you.
 
-The seal and the sprig are cut out of the design image
+The corner sprig is cut out of the design image
 (`assets/images/ruby-envelope-reference.jpg`) by `tools/cut_jewel_assets.py`, which
-lifts them by colour (gold and ruby against the crimson paper).
+lifts it by colour (gold and ruby against the crimson paper).
 
 ### The paper
 
