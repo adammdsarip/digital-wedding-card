@@ -117,7 +117,7 @@
           <div class="itinerary__body">
             <p class="itinerary__time">${esc(s.time)}</p>
             <h3 class="itinerary__title">${esc(s.title)}</h3>
-            <p class="itinerary__detail">${esc(s.detail)}</p>
+            ${s.detail ? `<p class="itinerary__detail">${esc(s.detail)}</p>` : ""}
           </div>
         </li>`).join("");
   }

@@ -69,18 +69,21 @@ const WEDDING = {
     mapButton: "Open in Google Maps",
   },
 
-  // ---- Panel 2: the itinerary (PLACEHOLDER times) --------------------------
-  // icon: mosque | cutlery | camera | toast | music
+  // ---- Panel 2: the itinerary -------------------------------------------------
+  // icon: mosque | cutlery | hanger | rings | cake | camera | toast | music
+  // `detail` is the optional second line; leave it "" for none.
   itinerary: {
     eyebrow: "The",
     title: "Big Day",
     subtitle: "Itinerary",
     items: [
-      { time: "11.00 AM", title: "Nikah Ceremony", detail: "A sacred moment as we say I do", icon: "mosque" },
-      { time: "12.30 PM", title: "Lunch Reception", detail: "Join us for a meal and celebration", icon: "cutlery" },
-      { time: "2.00 PM", title: "Photo Session", detail: "Capture the moments with us", icon: "camera" },
-      { time: "3.30 PM", title: "Toast & Speeches", detail: "Heartfelt words, love and blessings", icon: "toast" },
-      { time: "4.00 PM", title: "Celebration", detail: "Let's dine, mingle and celebrate together", icon: "music" },
+      { time: "6.30 PM", title: "Solemnization", detail: "Family only", icon: "mosque" },
+      { time: "7.30 PM", title: "Buffet Opens", detail: "", icon: "cutlery" },
+      { time: "8.00 PM", title: "Change to 2nd Bridalwear", detail: "Bride & Groom", icon: "hanger" },
+      { time: "9.00 PM", title: "March In", detail: "Bride & Groom", icon: "rings" },
+      { time: "9.15 PM", title: "Cake Cutting", detail: "", icon: "cake" },
+      { time: "9.30 PM", title: "Photo Taking & Mingle", detail: "", icon: "camera" },
+      { time: "10.00 PM", title: "End of Wedding Celebration", detail: "", icon: "toast" },
     ],
   },
 
