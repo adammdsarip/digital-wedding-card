@@ -11,8 +11,9 @@
 
 #site {
   position: relative;
-  /* the beige of the envelope's photograph, so the hand-over doesn't change the light */
-  background: #e8d9c4;
+  /* the emerald of the envelope's photograph, so the hand-over keeps the same light and the
+     cream sheets sit on it like paper on felt */
+  background: #0b2f17;
   padding: 14px;
   display: flex;
   flex-direction: column;
@@ -21,50 +22,38 @@
 }
 
 .sheet {
+  /* the sheet's width, and the artwork's scale at that width (the frame artwork is 941 px wide) */
+  --sheet-w: min(calc(100vw - 28px), 460px);
+  --fs: calc(var(--sheet-w) / 941);
+
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  width: min(100%, 460px);
-  /* top and bottom leave room for the floral corners (about 0.36 and 0.43 of the sheet's
-     width tall), so the type clears them; the sides stay as they were */
-  padding: clamp(4.2rem, 17vw, 5.4rem) clamp(1.5rem, 7vw, 2.4rem) clamp(7rem, 33vw, 9.2rem);
+  box-sizing: border-box;
+  width: var(--sheet-w);
+  min-height: calc(var(--sheet-w) * 1.28);          /* tall enough for the four corners of the frame */
+  /* The room the frame needs: its gold lines sit about 6% in from the edges, and the flowers at the
+     bottom are the taller pair. */
+  padding: calc(var(--sheet-w) * 0.22) calc(var(--sheet-w) * 0.12) calc(var(--sheet-w) * 0.50);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   color: var(--color-ink);
-  /* The artwork's own cream, top to bottom: the florals are cut from it, so the
-     sheet must be the same colour for them to melt into it rather than sit on it. */
-  background: linear-gradient(180deg, #f9f1e8 0%, #f4eadd 52%, #efe3d5 100%);
+  /* the cream of the frame artwork, so its faint parts (ribbons, leaf shadows) keep their colour */
+  background: #f4e7d7;
   box-shadow: var(--shadow-paper-md);
-}
 
-/* Hairline gold frame, inset from the edge as on the printed sheets */
-.sheet--framed::before {
-  content: "";
-  position: absolute;
-  inset: 9px;
-  border: 1px solid transparent; border-image: var(--gold-foil) 1;
-  pointer-events: none;
-  z-index: 1;
+  /* The supplied floral frame (assets/images/sheet-frame.webp, made by tools/make_sheet_frame.py),
+     cut into nine pieces: its four corners keep their shape on a sheet of any height, and its
+     double gold line runs between them. The slice is in the artwork's own pixels; the drawn size
+     is the same numbers at this sheet's scale. */
+  border: 1px solid transparent;
+  border-image-source: url("../assets/images/sheet-frame.webp");
+  border-image-slice: 540 451 585 460;
+  border-image-width: calc(var(--fs) * 540) calc(var(--fs) * 451) calc(var(--fs) * 585) calc(var(--fs) * 460);
+  border-image-repeat: stretch;
 }
-
-/* Floral artwork: the four corners of the supplied frame (assets/florals), set
-   in the sheet's corners behind the type. Each is feathered into the sheet's
-   cream, and all share one width so the clusters keep one scale. */
-.sheet__floral {
-  position: absolute;
-  z-index: -1;
-  width: 50%;
-  height: auto;
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-.sheet__floral--tl { top: 0; left: 0; }
-.sheet__floral--tr { top: 0; right: 0; }
-.sheet__floral--bl { bottom: 0; left: 0; }
-.sheet__floral--br { bottom: 0; right: 0; }
 
 /* ---- Shared type -------------------------------------------------------- */
 .sheet__head {
@@ -148,7 +137,7 @@
      width, so the whole first sheet fits one screen instead of running off the
      bottom (and, on a taller screen, it is centred in the screen). */
   font-size: clamp(12px, 4.1vw, 16px);
-  padding: 1.2em 1.1em;
+  padding: calc(var(--sheet-w) * 0.16) calc(var(--sheet-w) * 0.12) calc(var(--sheet-w) * 0.32);
 }
 @media (max-width: 600px) {
   .sheet--invite {
@@ -264,16 +253,16 @@
 }
 .invite__weekday,
 .invite__month {
-  font-size: 0.6em;
+  font-size: 0.52em;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-ink);
 }
-.invite__weekday { text-align: right; padding-right: 0.8em; }
-.invite__month { text-align: left; padding-left: 0.8em; }
+.invite__weekday { text-align: right; padding-right: 0.7em; }
+.invite__month { text-align: left; padding-left: 0.7em; }
 .invite__day {
-  padding: 0.05em 0.8em;
+  padding: 0.05em 0.7em;
   font-family: var(--font-display);
   font-size: 2.5em;
   line-height: 1.1;

@@ -156,17 +156,6 @@ const WEDDING = {
     },
   },
 
-  // ---- Floral artwork ----------------------------------------------------
-  // The four corners of the floral frame, set behind the type on every sheet.
-  // They are cut from your artwork by tools/make_florals.py. Leave a path empty
-  // to leave that corner bare.
-  florals: {
-    topLeft: "assets/florals/top-left.webp",
-    topRight: "assets/florals/top-right.webp",
-    bottomLeft: "assets/florals/bottom-left.webp",
-    bottomRight: "assets/florals/bottom-right.webp",
-  },
-
   // ---- Music -----------------------------------------------------------------
   music: {
     // Point this at an mp3/ogg to enable the toggle in the corner.

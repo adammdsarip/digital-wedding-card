@@ -36,8 +36,7 @@ js/
   main.js                Keeps ScrollTrigger's measurements honest
   vendor/                GSAP, ScrollTrigger and CustomEase, vendored (see note below)
 assets/
-  images/                The envelope's ruby paper, seal, corner sprig and emerald backdrop; the card paper
-  florals/               The four floral corners used on every sheet
+  images/                The envelope's ruby paper, seal, corner sprig and emerald backdrop; the card paper; the floral sheet frame
   audio/                 Put an mp3/ogg here and point js/config.js at it
 ```
 
@@ -112,23 +111,22 @@ message with each reply, or export them to a spreadsheet). This site stores noth
   at a fixed height. Change the questions, thank-you message or colours in Tally, not here.
 - To use a different form, replace those two addresses.
 
-### The florals
+### The floral frame
 
-All six sheets carry the floral frame you supplied: its four corners sit behind
-the type, and the sheets are tinted to the artwork's own cream so the clusters
-melt into them. The four corner images are in `assets/florals/` and are cut
-from your artwork by `tools/make_florals.py`:
+Every sheet after the envelope uses the floral artwork you supplied as its background:
+one image, `assets/images/sheet-frame.webp`, stretched over each sheet as a CSS
+nine-slice `border-image` (the four flower corners keep their shape; the plain edges
+between them stretch). The artwork's cream is made transparent so it blends into the
+sheet colour (`#f4e7d7`). Rebuild it from a new image with:
 
 ```bash
-python3 tools/make_florals.py path/to/floral-frame.png   # needs numpy + Pillow
+python3 tools/make_sheet_frame.py path/to/floral-frame.png   # needs numpy + Pillow
 ```
 
-Each corner is cropped to the same width, so one scale fits all, and feathered
-on its inner edge so it dissolves rather than ending on a line. To change or
-drop a corner, edit `florals` in `js/config.js` (an empty path leaves that corner
-bare). The sheets keep clear room at top and bottom so the type never sits on the
-roses; if you change the artwork's size, adjust `.sheet__floral { width }` and
-the sheet padding in `css/sections.css` together.
+The type colours follow the jewel theme (emerald titles, ruby kickers and numbers,
+gold rules). The sheets keep clear room at the top, sides and bottom so the text never
+sits on the roses; if you swap the artwork, adjust the `border-image-slice`/`-width`
+numbers and the sheet padding in `css/sections.css` together.
 
 ## The opening sequence — design notes
 
