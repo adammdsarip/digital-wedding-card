@@ -139,10 +139,12 @@ but it is not a picture: a flat image can't open on a real hinge. Every part
 is its own HTML/CSS layer, so each can move on its own with genuine 3D
 transforms:
 
-1. **Background** — deep emerald felt (`assets/images/emerald-felt.webp`) with the
-   soft shadows of leaves across two corners (`leaf-shadows.webp`), both made by
-   `tools/make_emerald_backdrop.py`. The shadows are pinned to the corners, so they
-   sit right on any screen shape.
+1. **Background** — your photograph, `assets/images/emerald-background.webp`
+   (852 × 1846): emerald felt with red blooms and gypsophila in two corners and
+   leaf shadows, used as it is. On a phone it fills the screen; on wider screens two
+   more crops of the same photograph, one from its top and one from its bottom, keep
+   the flowers framing both corners. To change it, replace that file (a tall
+   portrait works best, with the centre kept clear for the envelope).
 2. **Envelope back** and 3. **lining** — the back carries a gold foil rim; the
    lining inside is a deeper ruby, darker toward the pocket.
 4. **The card** — lives in a slot that clips at the envelope's bottom edge, so it
@@ -183,7 +185,7 @@ unused, if you want to switch back.
 
 ### The three states
 
-- **Closed** — the envelope rests on the felt, drifting very slightly; with a
+- **Closed** — the envelope rests on the green, drifting very slightly; with a
   mouse, it turns a few degrees under the pointer.
 - **Opening** (one tap) — the seal is pressed and lets go, the flap gathers
   pace up to vertical carrying the seal with it, and eases down past it, the view drifts down, and the

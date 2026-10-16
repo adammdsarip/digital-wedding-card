@@ -33,7 +33,7 @@
   --foil: #c9a046;
   --foil-lo: #8a6421;
   --card-ink: #0a3f2f;                  /* the card's names and date: deep emerald */
-  --stone: #05301c;                     /* the emerald backdrop, shown while it loads */
+  --stone: #0b2f17;                     /* the background photo's average, shown while it loads */
 
   position: fixed;
   inset: 0;
@@ -85,33 +85,44 @@
 
 /* ============================================================
    1 · BACKGROUND
-   Deep emerald felt (assets/images/emerald-felt.webp), lit softly from above the
-   envelope, with the shadows of leaves falling across two corners
-   (assets/images/leaf-shadows.webp, top-right, and turned round, bottom-left).
-   Both come from tools/make_emerald_backdrop.py. The shadows are pinned to the
-   corners, so they sit right on any screen shape.
+   The supplied photograph (assets/images/emerald-background.webp, 852 × 1846),
+   used as it is: emerald felt, red blooms and gypsophila in the top-left and
+   bottom-right corners, leaf shadows. Nothing is drawn over it. It is a
+   phone-portrait frame, so on a phone `cover` shows it whole; the centre is
+   left clear for the envelope.
    ============================================================ */
 .scene__bg {
   position: absolute;
   inset: 0;
-  background-color: var(--stone);
-  background-image:
-    radial-gradient(ellipse 75% 55% at 50% 40%, rgba(40, 120, 78, 0.28), rgba(40, 120, 78, 0) 70%),
-    radial-gradient(ellipse 120% 90% at 50% 45%, rgba(0, 0, 0, 0) 55%, rgba(0, 12, 6, 0.55) 100%),
-    url("../assets/images/emerald-felt.webp");
-  background-size: auto, auto, 256px 256px;
+  background-color: var(--stone);      /* the photo's own average, shown while it loads */
+  background-image: url("../assets/images/emerald-background.webp");
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
 }
-.scene__bg::before,
-.scene__bg::after {
-  content: "";
-  position: absolute;
-  width: min(118vmin, 980px);
-  aspect-ratio: 1;
-  background: url("../assets/images/leaf-shadows.webp") center / 100% 100% no-repeat;
-  pointer-events: none;
+
+/* Wider screens (tablets, desktop, landscape phones). The photograph is a tall
+   portrait, so `cover` on a wide screen keeps only a middle band and loses the
+   flowers at both ends. Two more crops of the same photograph fix that: one
+   anchored to its top (the top-left flowers) and one to its bottom (the
+   bottom-right flowers), each fading into the ordinary crop between them. Same
+   pixels, never stretched, nothing added. Phones keep the single crop above. */
+@media (min-aspect-ratio: 3/5) {
+  .scene__bg::before,
+  .scene__bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../assets/images/emerald-background.webp") 50% 0% / cover no-repeat;
+    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 28%, transparent 62%);
+    mask-image: linear-gradient(180deg, #000 0, #000 28%, transparent 62%);
+  }
+  .scene__bg::after {
+    background-position: 50% 100%;
+    -webkit-mask-image: linear-gradient(0deg, #000 0, #000 28%, transparent 62%);
+    mask-image: linear-gradient(0deg, #000 0, #000 28%, transparent 62%);
+  }
 }
-.scene__bg::before { top: 0; right: 0; }
-.scene__bg::after { bottom: 0; left: 0; transform: rotate(180deg); opacity: 0.85; }
 
 /* ============================================================
    STAGE — title, envelope and cue, stacked and centred
