@@ -53,34 +53,16 @@
   const initialTwo = W.partnerTwo.charAt(0).toUpperCase();
 
   // The monogram above the envelope and on the card.
-  ["mono-one", "card-mono-one"].forEach((id) => set(id, initialOne));
-  ["mono-two", "card-mono-two"].forEach((id) => set(id, initialTwo));
+  set("mono-one", initialOne);
+  set("mono-two", initialTwo);
 
   setLines("scene-eyebrow", lines(env.eyebrow));
   if (env.hint) set("scene-hint", env.hint);
   if (env.revealHint) set("scene-next", env.revealHint);
 
   // ---- The card that rises from the envelope ----------------------------------
-  set("card-eyebrow", envCard.eyebrow || "");
-  const fam = $("card-families");
-  if (fam) {
-    fam.replaceChildren(...(envCard.families || []).map((f) => {
-      const p = document.createElement("p");
-      p.className = "card__family";
-      const n = document.createElement("span"); n.className = "card__family-name"; n.textContent = f.names;
-      const r = document.createElement("span"); r.className = "card__family-role"; r.textContent = f.role ? `(${f.role})` : "";
-      p.append(n, r);
-      return p;
-    }));
-  }
-  set("card-name-one", W.partnerOne);
-  set("card-connector", envCard.connector || W.connector);
-  set("card-name-two", W.partnerTwo);
-  setLines("card-invite", lines(envCard.invite));
-  set("card-weekday", weekday.slice(0, 3));
-  set("card-day", dayNum);
-  set("card-month", `${monthName.slice(0, 3)} ${year}`);
-  set("card-place", envCard.place || "");
+  // Its lettering is the supplied artwork (assets/images/invitation-card.webp); what
+  // is built here is the description a screen reader hears, from the same config.
   const card = $("envelope-card");
   if (card) {
     card.setAttribute("aria-label",

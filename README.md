@@ -147,8 +147,13 @@ transforms:
    portrait works best, with the centre kept clear for the envelope).
 2. **Envelope back** and 3. **lining** — the back carries a gold foil rim; the
    lining inside is a deeper ruby, darker toward the pocket.
-4. **The card** — lives in a slot that clips at the envelope's bottom edge, so it
-   can rise freely above the envelope with its foot still tucked in.
+4. **The card** — your supplied card artwork (`assets/images/invitation-card.webp`,
+   1024 × 1536), in a slot that clips at the envelope's bottom edge, so it can rise
+   freely above the envelope with its foot still tucked in. Its lettering (the
+   families, the names, "Sat 12 Dec 2026") is part of the picture, so **when a detail
+   changes, replace that image**; the screen-reader description of the card is still
+   built from `config.js`. The card box is 0.8 × 1.2 of the envelope's width: the
+   artwork's 2:3 shape, with the height the animation is built around.
 5. **Front pocket** — two side flaps under a folded-up bottom flap, all edged in
    gold foil (the X of gold lines on the closed envelope).
 6. **Flap** — rotates on `rotateX` about its top edge inside a `perspective`
@@ -176,8 +181,7 @@ of the envelope (back, flap outside, flap inside, pocket sides, bottom flap,
 lining) lays it as its own background at its own offset, so the texture belongs
 to the paper and turns and foreshortens with it through the whole 3D opening.
 Over it: a soft key light, the gold foil edges, contact shadows under the flap,
-and a shadow thrown by the raised bottom flap. The card keeps its own smoother
-cream stock (`paper.svg`). Regenerate or adjust the tile with
+and a shadow thrown by the raised bottom flap. Regenerate or adjust the tile with
 `tools/make_ruby_paper.py` (numpy + Pillow; the amplitudes are in its "layers"
 section).
 

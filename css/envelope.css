@@ -32,7 +32,6 @@
   --foil-hi: #f6dc8f;                   /* gold foil: highlight, body, shadow */
   --foil: #c9a046;
   --foil-lo: #8a6421;
-  --card-ink: #0a3f2f;                  /* the card's names and date: deep emerald */
   --stone: #0b2f17;                     /* the background photo's average, shown while it loads */
 
   position: fixed;
@@ -73,14 +72,6 @@
   background-image: url("../assets/images/ruby-paper.webp");
   background-size: 384px 384px;
   background-position: var(--tx, 0) var(--ty, 0);
-}
-
-/* The invitation card keeps its own, smoother stock */
-.paper {
-  background-color: var(--paper);
-  background-image: url("../assets/images/paper.svg");
-  background-size: 240px 240px;
-  background-blend-mode: multiply;
 }
 
 /* ============================================================
@@ -155,7 +146,6 @@
   line-height: 1;
   color: var(--foil);
 }
-.monogram--card { color: var(--color-emerald); }
 .monogram i {
   width: 1px;
   height: 1.45em;
@@ -439,8 +429,8 @@
 
 .card-rig {
   position: absolute;
-  left: 8%;
-  width: 84%;
+  left: 10%;
+  width: 80%;                       /* x 1.2 W tall = 2:3, the artwork's own proportions */
   top: calc(var(--W) * 0.04);
   height: calc(var(--W) * 1.2);
   transform-origin: 50% 88%;
@@ -463,178 +453,21 @@
   inset: 0;
   overflow: hidden;
   border-radius: 2px;
-  background-color: #fbf8f2;
-  box-shadow: 0 0 0 0.5px rgba(120, 94, 58, 0.22);
-  color: var(--card-ink);
-  text-align: center;
+  background-color: #f1e9d9;           /* the artwork's own paper, behind it while it loads */
+  box-shadow: 0 0 0 0.5px rgba(120, 94, 58, 0.3);
 }
 
-.card__frame {
+/* the supplied card artwork fills the card */
+.card__art {
   position: absolute;
-  inset: calc(var(--W) * 0.032);
-  border: 1px solid rgba(184, 145, 63, 0.62);
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-user-drag: none;
   pointer-events: none;
 }
-.card__frame::after {
-  content: "";
-  position: absolute;
-  inset: 3px;
-  border: 0.5px solid rgba(184, 145, 63, 0.4);
-}
 
-.card__body {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(var(--W) * 0.088);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.monogram--card { font-size: calc(var(--W) * 0.066); }
-
-.card__eyebrow,
-.card__invite,
-.card__place,
-.card__date {
-  font-family: var(--font-body);
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.card__eyebrow {
-  margin-top: calc(var(--W) * 0.026);
-  font-size: calc(var(--W) * 0.027);
-  letter-spacing: 0.22em;
-  padding-left: 0.22em;
-  color: #4c4038;
-}
-
-/* the families, just under the eyebrow */
-.card__families {
-  margin-top: calc(var(--W) * 0.012);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: calc(var(--W) * 0.009);
-  max-width: 84%;
-}
-.card__family { margin: 0; display: flex; flex-direction: column; align-items: center; }
-.card__family-name {
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: calc(var(--W) * 0.0255);
-  line-height: 1.45;
-  letter-spacing: 0.12em;
-  padding-left: 0.13em;
-  text-transform: uppercase;
-  text-wrap: balance;
-  color: var(--card-ink);
-}
-.card__family-role {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-size: calc(var(--W) * 0.0245);
-  line-height: 1.25;
-  letter-spacing: 0.04em;
-  color: #6b5d52;
-}
-
-.card__names {
-  margin: calc(var(--W) * 0.03) 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-weight: inherit;
-}
-.card__name {
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: calc(var(--W) * 0.09);
-  line-height: 1.04;
-  letter-spacing: 0.2em;
-  padding-left: 0.2em;
-  text-transform: uppercase;
-  color: var(--card-ink);
-}
-.card__amp {
-  display: flex;
-  align-items: center;
-  gap: 0.45em;
-  margin: calc(var(--W) * 0.004) 0 calc(var(--W) * 0.012);
-  font-size: calc(var(--W) * 0.072);
-  line-height: 1;
-  color: var(--color-ruby);
-}
-.card__amp em {
-  font-family: var(--font-script);
-  font-style: normal;
-  transform: translateY(0.06em);
-}
-.card__amp i {
-  width: calc(var(--W) * 0.075);
-  height: 1px;
-  background: rgba(184, 145, 63, 0.7);
-}
-
-.card__invite {
-  margin-top: calc(var(--W) * 0.028);
-  font-size: calc(var(--W) * 0.027);
-  line-height: 1.85;
-  letter-spacing: 0.2em;
-  padding-left: 0.2em;
-  color: #4c4038;
-}
-
-.card__date {
-  margin-top: calc(var(--W) * 0.024);
-  display: flex;
-  align-items: center;
-  gap: 0.85em;
-  font-size: calc(var(--W) * 0.03);
-  letter-spacing: 0.16em;
-  color: var(--card-ink);
-}
-.card__date i {
-  width: 1px;
-  height: 1.5em;
-  background: rgba(184, 145, 63, 0.8);
-}
-.card__day {
-  font-size: 1.5em;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  color: var(--color-ruby);
-}
-
-.card__place {
-  margin-top: calc(var(--W) * 0.018);
-  font-size: calc(var(--W) * 0.025);
-  letter-spacing: 0.32em;
-  padding-left: 0.32em;
-  color: #4c4038;
-}
-
-.card__divider {
-  margin-top: calc(var(--W) * 0.016);
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  color: var(--color-gold);
-}
-.card__divider i {
-  width: calc(var(--W) * 0.06);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-gold));
-}
-.card__divider i:last-child { background: linear-gradient(270deg, transparent, var(--color-gold)); }
-.card__divider svg {
-  width: calc(var(--W) * 0.032);
-  height: calc(var(--W) * 0.032);
-}
-
-/* A single pass of light across the card as it settles */
 .card__sheen {
   position: absolute;
   inset: -10% -70%;

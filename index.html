@@ -18,6 +18,7 @@
 <link rel="preload" as="image" href="assets/images/ruby-paper.webp" type="image/webp" />
 <link rel="preload" as="image" href="assets/images/wax-seal-monogram.webp" type="image/webp" />
 <link rel="preload" as="image" href="assets/images/emerald-background.webp" type="image/webp" />
+<link rel="preload" as="image" href="assets/images/invitation-card.webp" type="image/webp" />
 <link rel="stylesheet" href="css/variables.css" />
 <link rel="stylesheet" href="css/base.css" />
 <link rel="stylesheet" href="css/envelope.css" />
@@ -123,26 +124,10 @@
             <div class="env__slot">
               <div class="card-rig" id="card-rig">
                 <div class="card__shadow" id="card-shadow"></div>
-                <article class="card paper" id="envelope-card">
-                  <div class="card__frame"></div>
-                  <div class="card__body">
-                    <p class="monogram monogram--card" aria-hidden="true">
-                      <span class="monogram__one" id="card-mono-one">I</span><i></i><span class="monogram__two" id="card-mono-two">K</span>
-                    </p>
-                    <p class="card__eyebrow" id="card-eyebrow">Together with our families</p>
-                    <div class="card__families" id="card-families"></div>
-                    <div class="card__names">
-                      <span class="card__name" id="card-name-one">Isz</span>
-                      <span class="card__amp"><i></i><em id="card-connector">&amp;</em><i></i></span>
-                      <span class="card__name" id="card-name-two">Khaty</span>
-                    </div>
-                    <p class="card__invite" id="card-invite">Invite you to celebrate<br>our wedding</p>
-                    <p class="card__date">
-                      <span id="card-weekday">Sat</span><i></i><span class="card__day" id="card-day">12</span><i></i><span id="card-month">Dec 2026</span>
-                    </p>
-                    <p class="card__place" id="card-place">Singapore</p>
-                    <div class="card__divider" aria-hidden="true"><i></i><svg><use href="#ornament"/></svg><i></i></div>
-                  </div>
+                <article class="card" id="envelope-card">
+                  <!-- the supplied card artwork (2:3). Its words are part of the picture; the card's
+                       spoken description is built from config.js (render.js) -->
+                  <img class="card__art" src="assets/images/invitation-card.webp" alt="" decoding="async" width="1024" height="1536">
                   <div class="card__sheen" id="card-sheen"></div>
                 </article>
               </div>
