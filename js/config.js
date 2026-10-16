@@ -109,7 +109,7 @@ const WEDDING = {
   rsvp: {
     eyebrow: "Kindly",
     title: "RSVP",
-    deadline: "By 31 October 2026",   // PLACEHOLDER
+    deadline: "By 1 December 2026",
     intro: "Please let us know if you can join us.",
     endpoint: "",
     labels: {
