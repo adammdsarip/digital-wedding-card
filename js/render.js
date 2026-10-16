@@ -127,7 +127,11 @@
   set("loc-venue", W.venue.name);
   setLines("loc-address", W.venue.address);
   const map = $("loc-map");
-  if (map) map.src = W.venue.mapEmbedUrl;
+  if (map) {
+    // no embed address yet: hide the map rather than show the wrong place
+    if (W.venue.mapEmbedUrl) map.src = W.venue.mapEmbedUrl;
+    else if (map.parentElement) map.parentElement.hidden = true;
+  }
   const mapLink = $("loc-link");
   if (mapLink) mapLink.href = W.venue.mapLinkUrl;
   set("loc-link-text", W.venue.mapButton);

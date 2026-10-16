@@ -61,11 +61,11 @@ const WEDDING = {
   venue: {
     name: "Venue Name",
     address: ["123 Street Name", "Singapore 123456"],
-    // A key-free embed: change the q= search to your venue, or paste a full
-    // "Share > Embed a map" URL from Google Maps for finer control.
-    mapEmbedUrl:
-      "https://maps.google.com/maps?q=Somerset+MRT+Station+Singapore&z=16&ie=UTF8&iwloc=&output=embed",
-    mapLinkUrl: "https://maps.google.com/?q=Somerset+MRT+Station+Singapore",
+    // The map shown on the page. A key-free embed: change the q= search to your venue, or paste
+    // the src="..." from Google Maps "Share > Embed a map". Empty = no map is shown.
+    mapEmbedUrl: "",
+    // What the "Open in Google Maps" button opens (the venue's own share link)
+    mapLinkUrl: "https://maps.app.goo.gl/4kyRC5K9K3MYWo3K9?g_st=awb",
     mapButton: "Open in Google Maps",
   },
 
