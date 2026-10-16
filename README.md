@@ -36,7 +36,7 @@ js/
   main.js                Keeps ScrollTrigger's measurements honest
   vendor/                GSAP, ScrollTrigger and CustomEase, vendored (see note below)
 assets/
-  images/                Background photograph, cotton-paper and wax-seal images, card paper
+  images/                The envelope's ruby paper, seal, corner sprig and emerald backdrop; the card paper
   florals/               The four floral corners used on every sheet
   audio/                 Put an mp3/ogg here and point js/config.js at it
 ```
@@ -63,8 +63,8 @@ Emerald green and ruby red, with gold foil, on a cream base. The colours are tok
 - **Gold foil** (`--color-gold…`, and `--gold-foil` for the metallic sheen): the frame around each
   sheet, the rules and the icon rings.
 
-The envelope's own paper, the wax seal and the photograph behind it are left as they were; only
-the type on the card inside it takes the emerald and ruby. Text colours are all at least 5:1
+The opening scene follows the same palette: a ruby envelope with gold foil edges and a gold seal,
+on an emerald backdrop (see "The opening sequence" below). Text colours are all at least 5:1
 against the cream.
 
 ## Customising your own wedding
@@ -139,56 +139,51 @@ but it is not a picture: a flat image can't open on a real hinge. Every part
 is its own HTML/CSS layer, so each can move on its own with genuine 3D
 transforms:
 
-1. **Background** — your photograph, `assets/images/wedding-background.webp`
-   (853 × 1844), used as it is: nothing is drawn over it. On a phone it fills
-   the screen; on wider screens two more crops of the same photograph, one
-   from its top and one from its bottom, keep the flowers framing both corners.
-   To change it, replace that file (a tall portrait works best, with the
-   centre kept clear for the envelope).
-2. **Envelope back** and 3. **lining** — the taupe liner inside, inset from
-   the paper's edges, darker toward the pocket.
-4. **The card** — lives in a slot that clips only at the envelope's bottom
-   edge, so it can rise freely above the envelope with its foot still tucked in.
-5. **Front pocket** — two side flaps under a folded-up bottom flap.
+1. **Background** — deep emerald felt (`assets/images/emerald-felt.webp`) with the
+   soft shadows of leaves across two corners (`leaf-shadows.webp`), both made by
+   `tools/make_emerald_backdrop.py`. The shadows are pinned to the corners, so they
+   sit right on any screen shape.
+2. **Envelope back** and 3. **lining** — the back carries a gold foil rim; the
+   lining inside is a deeper ruby, darker toward the pocket.
+4. **The card** — lives in a slot that clips at the envelope's bottom edge, so it
+   can rise freely above the envelope with its foot still tucked in.
+5. **Front pocket** — two side flaps under a folded-up bottom flap, all edged in
+   gold foil (the X of gold lines on the closed envelope).
 6. **Flap** — rotates on `rotateX` about its top edge inside a `perspective`
-   wrapper. At 90° (edge-on, so the swap can't be seen) it turns over to show
-   its lined inside and drops behind the card.
-7. **Wax seal** — your supplied seal photograph (`assets/images/wax-seal.webp`),
-   set on the tip of the flap as a child of it, so it turns with the flap. It
-   stands a few pixels off the paper with its own shadow on the flap, and
-   darkens as it turns away from the light. To swap the seal, replace that
-   file (transparent background; keep the 512 × 485 proportions, or adjust
-   `.seal` in `css/envelope.css`).
-8. **Light and shadow** — the cotton texture, the flap's shadow on the mouth of
-   the envelope, and the card's shadow, which grows as the card lifts toward
-   you. (The sunlight and leaf shadows are in the background photograph.)
+   wrapper, with a gold foil band along its edges and a gold sprig in each upper
+   corner (`sprig.webp`). At 90° (edge-on, so the swap can't be seen) it turns
+   over to show its lined inside and drops behind the card.
+7. **Wax seal** — the gold seal with its ruby sprig from the design
+   (`assets/images/wax-seal-ruby.webp`, 234 × 214), set on the tip of the flap as
+   a child of it, so it turns with the flap. It stands a few pixels off the paper
+   with its own shadow, and darkens as it turns away from the light.
+8. **Light and shadow** — the paper texture, the flap's shadow on the mouth of the
+   envelope, and the card's shadow, which grows as the card lifts toward you.
 
-The ribbon and gold dishes in the reference photograph are props and are not
-recreated.
+The seal and the sprig are cut out of the design image
+(`assets/images/ruby-envelope-reference.jpg`) by `tools/cut_jewel_assets.py`, which
+lifts them by colour (gold and ruby against the crimson paper).
 
 ### The paper
 
-The envelope is meant to read as luxury cotton stationery, not a flat colour.
-`assets/images/cotton-paper.webp` is one seamless 768px tile: warm ivory, a soft
-cloud of variation, felted grain, short curly fibres, a few flecks, all lit from
-the top-left. Each piece of the envelope (back, flap outside, flap inside,
-pocket sides, bottom flap, lining) lays it as its own background at its own
-offset, so the texture belongs to the paper and turns and foreshortens with it
-through the whole 3D opening. Matte throughout; nothing is glossy.
+`assets/images/ruby-paper.webp` is one seamless 768px tile matched to the design: deep
+crimson, crinkled, with fine bright curly fibres, lit from the top-left. Each piece
+of the envelope (back, flap outside, flap inside, pocket sides, bottom flap,
+lining) lays it as its own background at its own offset, so the texture belongs
+to the paper and turns and foreshortens with it through the whole 3D opening.
+Over it: a soft key light, the gold foil edges, contact shadows under the flap,
+and a shadow thrown by the raised bottom flap. The card keeps its own smoother
+cream stock (`paper.svg`). Regenerate or adjust the tile with
+`tools/make_ruby_paper.py` (numpy + Pillow; the amplitudes are in its "layers"
+section).
 
-On top of the texture: edge faces that give the sheet its thickness (bright on
-the sides that face the light, shaded on the others), a soft key light across the
-flap and pocket, a contact and an ambient shadow under the flap's edges, and a
-shadow thrown by the raised bottom flap onto the side flaps behind it. The card
-keeps its own smoother stock (`paper.svg`).
-
-To adjust or regenerate the tile, `tools/make_cotton.py` is a short seeded Python script
-(numpy + Pillow); its amplitudes (grain, fibres, warmth) are the first few lines
-of the "layers" section.
+The earlier ivory look's files (`cotton-paper.webp`, `wax-seal.webp`,
+`wedding-background.webp`, and `tools/make_cotton.py`) are still in the project,
+unused, if you want to switch back.
 
 ### The three states
 
-- **Closed** — the envelope rests on the wall, drifting very slightly; with a
+- **Closed** — the envelope rests on the felt, drifting very slightly; with a
   mouse, it turns a few degrees under the pointer.
 - **Opening** (one tap) — the seal is pressed and lets go, the flap gathers
   pace up to vertical carrying the seal with it, and eases down past it, the view drifts down, and the

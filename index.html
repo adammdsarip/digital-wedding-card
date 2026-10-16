@@ -15,9 +15,9 @@
   rel="stylesheet"
 />
 
-<link rel="preload" as="image" href="assets/images/wedding-background.webp" type="image/webp" />
-<link rel="preload" as="image" href="assets/images/cotton-paper.webp" type="image/webp" />
-<link rel="preload" as="image" href="assets/images/wax-seal.webp" type="image/webp" />
+<link rel="preload" as="image" href="assets/images/ruby-paper.webp" type="image/webp" />
+<link rel="preload" as="image" href="assets/images/wax-seal-ruby.webp" type="image/webp" />
+<link rel="preload" as="image" href="assets/images/emerald-felt.webp" type="image/webp" />
 <link rel="stylesheet" href="css/variables.css" />
 <link rel="stylesheet" href="css/base.css" />
 <link rel="stylesheet" href="css/envelope.css" />
@@ -47,7 +47,7 @@
 <div id="envelope-scene" class="scene" data-state="closed" role="button" tabindex="0"
      aria-label="Tap to open your wedding invitation">
 
-  <!-- 1 · Background: the supplied photograph, set in CSS -->
+  <!-- 1 · Background: emerald felt with leaf shadows, set in CSS -->
   <div class="scene__bg" aria-hidden="true"></div>
 
   <div class="scene__stage">
@@ -77,9 +77,20 @@
             <div class="env__hinge" id="env-hinge">
               <div class="env__flap" id="env-flap">
                 <div class="flap__face flap__face--outer cotton" id="flap-outer">
+                  <!-- gold foil along the flap's edges, and a gold sprig in each upper corner -->
                   <svg class="flap__foil" viewBox="0 0 1000 441" preserveAspectRatio="none" aria-hidden="true">
-                    <path d="M12 4 L20 100 L489 417 Q500 424 511 417 L980 100 L988 4"/>
+                    <defs>
+                      <linearGradient id="foil-flap" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#8a6421"/><stop offset=".22" stop-color="#e6c26a"/><stop offset=".42" stop-color="#f6dc8f"/>
+                        <stop offset=".6" stop-color="#c9a046"/><stop offset=".8" stop-color="#e9c873"/><stop offset="1" stop-color="#8a6421"/>
+                      </linearGradient>
+                    </defs>
+                    <path class="foil-band" d="M0 4 H1000"/>
+                    <path class="foil-band" d="M6 0 L16 104 L487 419 Q500 428 513 419 L984 104 L994 0"/>
+                    <path class="foil-shine" d="M8 0 L18 103 L488 416"/>
                   </svg>
+                  <img class="flap__sprig flap__sprig--l" src="assets/images/sprig.webp" alt="" decoding="async" width="178" height="198">
+                  <img class="flap__sprig flap__sprig--r" src="assets/images/sprig.webp" alt="" decoding="async" width="178" height="198">
                   <svg class="flap__rim" viewBox="0 0 1000 441" preserveAspectRatio="none" aria-hidden="true">
                     <path class="rim-lit" d="M0 1.5 H1000"/>
                     <path class="rim-soft" d="M2 0 L12 107 L486 424"/>
@@ -92,13 +103,13 @@
                   <div class="flap__shade" id="flap-shade-in"></div>
                 </div>
 
-                <!-- 7 · the wax seal: the supplied photograph of a gold seal, set on the
+                <!-- 7 · the wax seal: the design's gold seal with its ruby sprig, set on the
                      tip of the flap. It is a child of the flap, so it turns with it. -->
                 <div class="seal" id="wax-seal" aria-hidden="true">
-                  <img class="seal__shadow" id="seal-shadow" src="assets/images/wax-seal.webp" alt="" decoding="async">
+                  <img class="seal__shadow" id="seal-shadow" src="assets/images/wax-seal-ruby.webp" alt="" decoding="async">
                   <div class="seal__lift">
                     <div class="seal__wax" id="seal-wax">
-                      <img class="seal__img" src="assets/images/wax-seal.webp" alt="" decoding="async" fetchpriority="high" width="512" height="485">
+                      <img class="seal__img" src="assets/images/wax-seal-ruby.webp" alt="" decoding="async" fetchpriority="high" width="234" height="214">
                       <div class="seal__shade" id="seal-shade"></div>
                       <div class="seal__shine"><div class="seal__glint" id="seal-glint"></div></div>
                     </div>
@@ -145,8 +156,18 @@
                 <path d="M0 651 L490 347 Q500 343 510 347 L1000 651" filter="url(#fold-blur)"/>
               </svg>
               <div class="pocket__bottom cotton"></div>
+              <!-- gold foil on the pocket's edges: the side flaps' V (seen once the flap is open)
+                   and the bottom flap's two diagonals -->
               <svg class="pocket__edges" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="foil-pocket" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0" stop-color="#8a6421"/><stop offset=".25" stop-color="#e6c26a"/><stop offset=".45" stop-color="#f6dc8f"/>
+                    <stop offset=".62" stop-color="#c9a046"/><stop offset=".82" stop-color="#e9c873"/><stop offset="1" stop-color="#8a6421"/>
+                  </linearGradient>
+                </defs>
+                <path class="pocket__edge-light" d="M3 3 L494 335 Q500 339 506 335 L997 3"/>
                 <path class="pocket__edge-light" d="M0 655 L490 351 Q500 347 510 351 L1000 655"/>
+                <path class="pocket__edge-shine" d="M0 652 L490 348"/>
               </svg>
             </div>
 
