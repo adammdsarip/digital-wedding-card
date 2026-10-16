@@ -29,7 +29,7 @@ css/
 js/
   config.js              *** Single source of truth for all wedding content ***
   render.js              Fills the page from config.js
-  rsvp.js                The RSVP form: what shows when, checking it, sending it
+  rsvp.js                Loads the Tally RSVP form into its sheet
   envelope.js            The opening-sequence state machine + GSAP timeline
   scroll-reveals.js      Entrance animations for the sheets
   audio.js               Optional background-music toggle
@@ -48,8 +48,7 @@ assets/
    whole sheet fits one screen (down to 320 × 568) and is centred on taller ones.
 2. **The Big Day** — the itinerary, with a line that draws itself stop by stop.
 3. **Location** — map, an "Open in Google Maps" button, and how to get there.
-4. **RSVP** — a short form: name, coming or not, number of guests, dietary needs,
-   and a note. (See "The RSVP form" below.)
+4. **RSVP** — your Tally form, shown inside the sheet. (See "The RSVP form" below.)
 5. **Countdown** — days, hours, minutes and seconds to the wedding, and a note from you.
 6. **Contact** — two family contacts and your social links.
 
@@ -70,8 +69,7 @@ really a Tuesday is the classic way an invitation goes wrong).
 **Itinerary icons** are chosen per stop with `icon:` — `mosque`, `cutlery`,
 `camera`, `toast` or `music`. Transport icons are `car`, `train` or `bus`.
 
-**RSVP.** Every word on the form, the most guests one reply can name, and the
-thank-you messages are under `rsvp` in `config.js`.
+**RSVP.** The deadline, the line under it, and the Tally form's address are under `rsvp` in `config.js`.
 
 **Social links.** Fill in `contact.follow.instagram` / `facebook` / `tiktok`.
 Any left empty is shown but not clickable.
@@ -87,18 +85,17 @@ full "Share → Embed a map" URL copied from Google Maps for more control.
 
 ### The RSVP form
 
-Name, coming or not (two large choices), then — only for guests who are coming —
-the number of guests and any dietary needs, and finally an optional note. It
-checks the name and the choice, shows what is missing next to the field, and then
-swaps itself for a thank-you whose wording depends on the answer. Fields are 16px
-or more so iPhones do not zoom in on them, the choices and the guest counter are
-thumb-sized, and it works from the keyboard alone. A hidden field catches
-form-filling bots.
+The reply form is a **Tally** form, built and edited in Tally, and shown inside the RSVP
+sheet. Replies appear in your Tally dashboard (turn on email notifications there for a
+message with each reply, or export them to a spreadsheet). This site stores nothing.
 
-**Sending is not connected yet.** `send()` at the bottom of `js/rsvp.js` is the
-one place that talks to the outside: for now it only logs what would be sent
-(`{ name, attending, guests, dietary, message }`) to the browser console. The
-Tally form connects there.
+- `rsvp.tally` in `js/config.js` is the form's embed address (`https://tally.so/embed/<id>?…`).
+  `rsvp.openLink` is the same form as a normal page, offered under the form as
+  "Form not showing? Open it here" for any browser that will not load the embed.
+- The form is loaded when the sheet is near the screen, not before, so it stays out of the
+  way of the opening sequence. If Tally's helper script cannot load, the form still opens,
+  at a fixed height. Change the questions, thank-you message or colours in Tally, not here.
+- To use a different form, replace those two addresses.
 
 ### The florals
 

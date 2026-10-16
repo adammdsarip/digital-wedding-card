@@ -161,23 +161,15 @@
       </li>`).join("");
   }
 
-  // ---- Sheet 4: RSVP (the words only; the behaviour is in rsvp.js) -----------------------
+  // ---- Sheet 4: RSVP (the words; the Tally form is loaded by rsvp.js) -----------------------
   const r = W.rsvp;
-  const rl = r.labels;
   set("rsvp-eyebrow", r.eyebrow);
   set("rsvp-title", r.title);
   set("rsvp-deadline", r.deadline);
   set("rsvp-intro", r.intro);
-  set("rsvp-name-label", rl.name);
-  set("rsvp-attending-label", rl.attending);
-  setLines("rsvp-yes", rl.yes);
-  setLines("rsvp-no", rl.no);
-  set("rsvp-guests-label", rl.guests);
-  set("rsvp-guests-hint", rl.guestsHint);
-  set("rsvp-dietary-label", rl.dietary);
-  set("rsvp-message-label", rl.message);
-  document.querySelectorAll("#rsvp .field__opt").forEach((el) => { el.textContent = `(${rl.optional})`; });
-  set("rsvp-submit", rl.submit);
+  const rf = $("rsvp-fallback-link");
+  if (rf && r.openLink) { rf.href = r.openLink; rf.textContent = r.fallbackText || ""; }
+  else if ($("rsvp-fallback")) $("rsvp-fallback").hidden = true;
 
   // ---- Sheet 5: the countdown (it ticks in countdown.js) and a note ---------------------
   const cd = W.countdown;

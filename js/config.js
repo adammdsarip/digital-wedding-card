@@ -108,38 +108,17 @@ const WEDDING = {
   },
 
   // ---- Panel 4: RSVP ---------------------------------------------------------
-  // A short form: name, coming or not, how many, any dietary needs, a message.
-  // Every word on it is here. `endpoint` is where it will be sent once the Tally
-  // form is connected (next step); until then it only previews.
+  // The reply form is a Tally form (replies go to your Tally dashboard). `tally` is its
+  // embed address, `openLink` the same form as a normal page for anyone the embed does not
+  // load for (some in-app browsers).
   rsvp: {
     eyebrow: "Kindly",
     title: "RSVP",
     deadline: "By 1 December 2026",
     intro: "Please let us know if you can join us.",
-    endpoint: "",
-    labels: {
-      name: "Your name",
-      attending: "Will you be joining us?",
-      yes: ["Accepts", "with pleasure"],
-      no: ["Regretfully", "declines"],
-      guests: "Number of guests",
-      guestsHint: "Including yourself",
-      dietary: "Dietary requirements",
-      message: "A note for us",
-      optional: "Optional",
-      submit: "Send RSVP",
-      sending: "Sending…",
-    },
-    maxGuests: 6,
-    errors: {
-      name: "Please tell us your name.",
-      attending: "Please let us know if you can come.",
-      send: "Sorry, that did not send. Please try again.",
-    },
-    done: {
-      yes: { title: "Thank you", text: "We are so happy you will be joining us. We cannot wait to celebrate with you." },
-      no: { title: "Thank you for letting us know", text: "You will be missed. We will be thinking of you on the day." },
-    },
+    tally: "https://tally.so/embed/ZjMNvy?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1",
+    openLink: "https://tally.so/r/ZjMNvy",
+    fallbackText: "Form not showing? Open it here",
   },
 
   // ---- Panel 5: the countdown and a note --------------------------------
