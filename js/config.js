@@ -33,7 +33,7 @@ const WEDDING = {
       // The family names shown just under the eyebrow. `names` can be one or several people.
       families: [
         { names: "Saadiah Binte Said", role: "Bride's Mother" },
-        { names: "Saéyah Salleh & Sitiischa Salleh", role: "Groom's Sisters" },
+        { names: "Saéyah Salleh & Siti Ischa Salleh", role: "Groom's Sisters" },
       ],
       connector: "&",
       invite: ["Invite you to celebrate", "our wedding"],
