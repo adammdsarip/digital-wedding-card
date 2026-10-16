@@ -138,13 +138,13 @@ const WEDDING = {
       "Your presence means the world to us. No gifts are necessary, but your prayers, blessings and well wishes are the greatest gift we could ever ask for.",
   },
 
-  // ---- Panel 6: contact and socials (PLACEHOLDER numbers) -------------------
+  // ---- Panel 6: contact and socials -----------------------------------------
   contact: {
     title: "Contact",
     intro: "For any enquiries, please reach out to:",
     people: [
-      { role: "Bride's Family", phone: "+65 9123 4567", name: "(Puan Aisyah)" },
-      { role: "Groom's Family", phone: "+65 8765 4321", name: "(Encik Rahman)" },
+      { role: "Bride", phone: "+65 9653 5655", name: ["Yanni", "(Bride's Sister)"] },
+      { role: "Groom", phone: "+65 9183 8076", name: ["Siti Ischa", "(Groom's Sister)"] },
     ],
     follow: {
       title: "Follow our journey",

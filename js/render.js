@@ -191,7 +191,7 @@
       <div class="contact__person" data-reveal="fade">
         <p class="contact__role">${esc(p.role)}</p>
         <p class="contact__phone"><a href="tel:${esc(p.phone.replace(/[^\d+]/g, ""))}">${esc(p.phone)}</a></p>
-        <p class="contact__name">${esc(p.name)}</p>
+        <p class="contact__name">${br(p.name)}</p>
       </div>`).join("");
   }
 
