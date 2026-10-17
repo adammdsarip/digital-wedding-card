@@ -138,6 +138,9 @@ another address (e.g. a custom domain), change it in those tags. Apps cache prev
 if you change the text or picture later, re-scrape it with Facebook's Sharing Debugger,
 or add `?v=2` to the link you send.
 
+The browser-tab icon and the phone home-screen icon are the I|K seal (`assets/images/favicon.png`,
+`apple-touch-icon.png`), made by `python3 tools/make_icons.py`.
+
 ## The opening sequence — design notes
 
 ### Built in layers, not from a photo
@@ -192,10 +195,6 @@ Over it: a soft key light, the gold foil edges, contact shadows under the flap,
 and a shadow thrown by the raised bottom flap. Regenerate or adjust the tile with
 `tools/make_ruby_paper.py` (numpy + Pillow; the amplitudes are in its "layers"
 section).
-
-The earlier ivory look's files (`cotton-paper.webp`, `wax-seal.webp`,
-`wedding-background.webp`, and `tools/make_cotton.py`) are still in the project,
-unused, if you want to switch back.
 
 ### The three states
 

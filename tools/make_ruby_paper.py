@@ -2,7 +2,7 @@
 
     python3 tools/make_ruby_paper.py 768 assets/images/ruby-paper.webp
 
-The same construction as make_cotton.py, tuned to the ruby envelope design: a deep
+Built from layered noise and curly fibres, tuned to the ruby envelope design: a deep
 crimson stock with a crinkled, mottled surface, the fine raised veins of a pressed
 paper catching the light, short fibres, and all of it lit from the top-left.
 Every layer is periodic, so the tile repeats without a seam.

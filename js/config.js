@@ -5,9 +5,6 @@
  * Every piece of copy, date, link and colour that appears on the
  * invitation lives in this one file. Nothing is hard-coded in the
  * HTML — edit this object and the whole site updates.
- *
- * Anything marked PLACEHOLDER is sample content taken from the
- * layout design; replace it with your real details.
  * ============================================================
  */
 
@@ -41,7 +38,7 @@ const WEDDING = {
     },
   },
 
-  // ---- The day (PLACEHOLDER date, taken from the envelope design) ------
+  // ---- The day -------------------------------------------------------
   // One date drives everything. The weekday, day number, month and year
   // are all worked out from it, so they can never disagree with each other.
   isoDate: "2026-12-12T19:30:00",
