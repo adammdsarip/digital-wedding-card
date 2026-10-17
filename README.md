@@ -128,6 +128,16 @@ gold rules). The sheets keep clear room at the top, sides and bottom so the text
 sits on the roses; if you swap the artwork, adjust the `border-image-slice`/`-width`
 numbers and the sheet padding in `css/sections.css` together.
 
+### The link preview
+
+When the link is pasted into WhatsApp and similar apps, the preview comes from the
+`og:` / `twitter:` tags in `index.html` and the picture `assets/images/og-image.jpg`
+(1200 × 630, the card on the emerald backdrop; rebuild it with `python3 tools/make_og_image.py`).
+The tags use the full address `https://iszandkhaty.netlify.app/`; if the site moves to
+another address (e.g. a custom domain), change it in those tags. Apps cache previews:
+if you change the text or picture later, re-scrape it with Facebook's Sharing Debugger,
+or add `?v=2` to the link you send.
+
 ## The opening sequence — design notes
 
 ### Built in layers, not from a photo
