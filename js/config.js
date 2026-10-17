@@ -55,7 +55,6 @@ const WEDDING = {
     eyebrow: ["Together", "with our families"],
     invite: "We cordially invite you to the wedding of",
     blessing: ["Two hearts • One journey", "In the name of love"],
-    reception: "Reception to follow",
     closing: ["We look forward to", "celebrating with you"],
   },
 

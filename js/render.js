@@ -93,7 +93,6 @@
   set("inv-time", `At ${W.timeText}`);
   set("inv-venue-name", W.venue.name);
   setLines("inv-venue-address", W.venue.address);
-  set("inv-reception", inv.reception);
   setLines("inv-closing", inv.closing);
 
   // ---- Sheet 2: the itinerary ----------------------------------------------------
