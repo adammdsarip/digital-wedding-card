@@ -26,7 +26,7 @@ vig = vig.filter(ImageFilter.GaussianBlur(120))
 dark = Image.new("RGB", (W, H), (4, 24, 12))
 bg = Image.composite(bg, dark, vig)
 
-card = Image.open(os.path.join(IMG, "invitation-card.webp")).convert("RGBA")
+card = Image.open(os.path.join(HERE, "source", "invitation-card-original.webp")).convert("RGBA")  # the full artwork, with its wording
 ch = 560
 card = card.resize((round(card.width * ch / card.height), ch), Image.LANCZOS)
 card = card.rotate(3, resample=Image.BICUBIC, expand=True)

@@ -149,7 +149,7 @@ transforms:
    portrait works best, with the centre kept clear for the envelope).
 2. **Envelope back** and 3. **lining** — the back carries a gold foil rim; the
    lining inside is a deeper ruby, darker toward the pocket.
-4. **The card** — your supplied card artwork (`assets/images/invitation-card.webp`,
+4. **The card** — your supplied card artwork (`assets/images/invitation-card-blank.webp`,
    1024 × 1536), in a slot that clips at the envelope's bottom edge, so it can rise
    freely above the envelope with its foot still tucked in. The picture keeps the
    frame, flowers, the I|K monogram and the big "ISZ & Khaty"; the smaller wording

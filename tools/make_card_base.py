@@ -8,7 +8,7 @@ and the big "ISZ & Khaty") and paints plain paper over the family names, the inv
 the date row and the place, which css/envelope.css then sets in real, larger type.
 
 Paper is rebuilt from the cream either side of each blanked area plus the artwork's own fine
-grain (taken from a clean strip), so no patch shows. Writes assets/images/invitation-card.webp.
+grain (taken from a clean strip), so no patch shows. Writes assets/images/invitation-card-blank.webp.
 Needs numpy and Pillow.
 """
 import os, sys
@@ -17,7 +17,7 @@ from PIL import Image, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "source", "invitation-card-original.webp")
-OUT = os.path.join(HERE, "..", "assets", "images", "invitation-card.webp")
+OUT = os.path.join(HERE, "..", "assets", "images", "invitation-card-blank.webp")
 
 im = Image.open(SRC).convert("RGB")
 a = np.asarray(im).astype(np.float32)
