@@ -32,12 +32,10 @@ js/
   rsvp.js                Loads the Tally RSVP form into its sheet
   envelope.js            The opening-sequence state machine + GSAP timeline
   scroll-reveals.js      Entrance animations for the sheets
-  audio.js               Optional background-music toggle
   main.js                Keeps ScrollTrigger's measurements honest
   vendor/                GSAP, ScrollTrigger and CustomEase, vendored (see note below)
 assets/
   images/                The envelope's ruby paper, seal, corner sprig and emerald backdrop; the card paper; the floral sheet frame
-  audio/                 Put an mp3/ogg here and point js/config.js at it
 ```
 
 ## The six sheets
@@ -69,10 +67,8 @@ against the cream.
 ## Customising your own wedding
 
 **Everything** — names, date, venue, schedule, RSVP link, contacts, doa,
-colours, music — lives in `js/config.js` as one plain object. Nothing else needs
+colours — lives in `js/config.js` as one plain object. Nothing else needs
 to change for day-to-day edits; `render.js` fills the page from it on load.
-Anything marked `PLACEHOLDER` in that file is sample content from the layout
-design and should be replaced.
 
 **The date drives everything.** Set `isoDate` once (the countdown counts to it, in the venue's
 time zone: `timezone`, Singapore by default). The weekday, day number,
@@ -87,11 +83,6 @@ really a Tuesday is the classic way an invitation goes wrong).
 
 **Contacts and the doa.** Each person under `contact.people` gets their number and a tap-to-call button. The prayer under them is `contact.doa` (Arabic, transliteration and meaning); replace it with your own.
 Any left empty is shown but not clickable.
-
-To add music: place an mp3 in `assets/audio/` and set `music.src` in
-`config.js`. The toggle button in the top-right corner appears automatically
-once a track is configured; it never autoplays (browsers block that, and it
-would undercut the quiet tone of the piece).
 
 To change the map: `venue.mapEmbedUrl` accepts either a key-free
 `https://maps.google.com/maps?q=<address>&output=embed` URL (default) or a

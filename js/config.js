@@ -151,13 +151,6 @@ const WEDDING = {
       meaning: "May Allah bless you, shower His blessings upon you, and unite you both in goodness.",
     },
   },
-
-  // ---- Music -----------------------------------------------------------------
-  music: {
-    // Point this at an mp3/ogg to enable the toggle in the corner.
-    src: "assets/audio/wedding-theme.mp3",
-    title: "Our Song",
-  },
 };
 
 // Expose to the rest of the app.
