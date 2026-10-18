@@ -115,7 +115,7 @@
   setLines("inv-blessing", inv.blessing);
   set("inv-weekday", weekday);
   set("inv-day", dayNum);
-  set("inv-month", `${monthName} ${year}`);
+  set("inv-month", `${monthName.slice(0, 3)} ${year}`);
   set("inv-time", `At ${W.timeText}`);
   set("inv-venue-name", W.venue.name);
   setLines("inv-venue-address", W.venue.address);

@@ -10,8 +10,8 @@
   .sheet { padding-inline: 1.25rem; }
   .sheet--invite { padding-inline: 1.25rem; }
   .itinerary__body { padding-left: 0.6rem; }
-  .getting__detail { font-size: 0.72rem; }
-  .contact__role { font-size: 0.94rem; }
+  .getting__detail { font-size: 0.864rem; }
+  .contact__role { font-size: 1.053rem; }
 }
 
 /* Tablet and up: the sheets stay a printed-card width, centred on the ground */
