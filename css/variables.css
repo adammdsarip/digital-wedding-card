@@ -41,13 +41,13 @@
 
   /* Gold for text. The foil gold above is for lines and ornaments; set
      small type in it and it drops under 3:1 on cream, so text uses these. */
-  --color-gold-ink: #7d5a1c;
-  --color-gold-name: #8f6a22;
+  --color-gold-ink: #6b4a10;
+  --color-gold-name: #7a5712;
 
   /* ---- Ink ------------------------------------------------------------- */
-  --color-charcoal: #3a302a;
-  --color-charcoal-soft: #5c4e44;
-  --color-ink: #46392f;
+  --color-charcoal: #2a201a;
+  --color-charcoal-soft: #3d3027;
+  --color-ink: #2f241b;
 
   /* ---- Interface accents ------------------------------------------------
      Gold carries the decorative marks; espresso carries the solid,

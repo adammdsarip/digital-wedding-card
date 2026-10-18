@@ -18,6 +18,7 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
+  font-weight: 600;
   font-size: 18px;
   line-height: 1.6;
   /* Cormorant and Playfair default to old-style figures, which read as
@@ -46,7 +47,7 @@ a {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 700;
   margin: 0;
   color: var(--color-charcoal);
 }

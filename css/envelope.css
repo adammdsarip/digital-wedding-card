@@ -159,7 +159,7 @@
 .scene__eyebrow {
   margin-top: 0.9em;
   font-family: var(--font-body);
-  font-weight: 500;
+  font-weight: 700;
   font-size: max(10px, calc(var(--W) * 0.029));
   line-height: 1.9;
   letter-spacing: 0.34em;
@@ -174,7 +174,7 @@
   align-items: center;
   gap: 0.9em;
   font-family: var(--font-body);
-  font-weight: 500;
+  font-weight: 700;
   font-size: max(10px, calc(var(--W) * 0.028));
   letter-spacing: 0.36em;
   padding-left: 0.36em;
@@ -197,7 +197,7 @@
   bottom: max(22px, calc(env(safe-area-inset-bottom) + 12px));
   text-align: center;
   font-family: var(--font-body);
-  font-weight: 500;
+  font-weight: 700;
   font-size: max(10px, calc(var(--W) * 0.027));
   letter-spacing: 0.3em;
   padding-left: 0.3em;
