@@ -151,11 +151,15 @@ transforms:
    lining inside is a deeper ruby, darker toward the pocket.
 4. **The card** — your supplied card artwork (`assets/images/invitation-card.webp`,
    1024 × 1536), in a slot that clips at the envelope's bottom edge, so it can rise
-   freely above the envelope with its foot still tucked in. Its lettering (the
-   families, the names, "Sat 12 Dec 2026") is part of the picture, so **when a detail
-   changes, replace that image**; the screen-reader description of the card is still
-   built from `config.js`. The card box is 0.8 × 1.2 of the envelope's width: the
-   artwork's 2:3 shape, with the height the animation is built around.
+   freely above the envelope with its foot still tucked in. The picture keeps the
+   frame, flowers, the I|K monogram and the big "ISZ & Khaty"; the smaller wording
+   (families, invitation line, date, place) is real type laid over it in
+   `css/envelope.css`, at a larger size than the artwork's own lettering, and filled
+   from `config.js`, so a changed name, date or place shows without making a new image.
+   (The blank base is made from the original by `tools/make_card_base.py`, which keeps
+   the original in `tools/source/`.) Only the big names are part of the picture: to
+   change them, replace the image. The card box is 0.8 × 1.2 of the envelope's width:
+   the artwork's 2:3 shape, with the height the animation is built around.
 5. **Front pocket** — two side flaps under a folded-up bottom flap, all edged in
    gold foil (the X of gold lines on the closed envelope).
 6. **Flap** — rotates on `rotateX` about its top edge inside a `perspective`

@@ -61,8 +61,34 @@
   if (env.revealHint) set("scene-next", env.revealHint);
 
   // ---- The card that rises from the envelope ----------------------------------
-  // Its lettering is the supplied artwork (assets/images/invitation-card.webp); what
-  // is built here is the description a screen reader hears, from the same config.
+  // The artwork carries the frame, flowers, I|K and the big names; the rest of the wording is
+  // set in type over it (css/envelope.css), filled here, and the description a screen reader
+  // hears is built from the same config.
+  set("ct-eyebrow", envCard.eyebrow || "");
+  const famBox = $("ct-families");
+  if (famBox) {
+    famBox.replaceChildren(...(envCard.families || []).map((f) => {
+      const d = document.createElement("div");
+      d.className = "ct-fam";
+      const n = document.createElement("span");
+      n.className = "ct-fam__names";
+      n.textContent = f.names;
+      d.appendChild(n);
+      if (f.role) {
+        const r = document.createElement("span");
+        r.className = "ct-fam__role";
+        r.textContent = `(${f.role})`;
+        d.appendChild(r);
+      }
+      return d;
+    }));
+  }
+  setLines("ct-invite", lines(envCard.invite));
+  set("ct-weekday", weekday.slice(0, 3));
+  set("ct-day", dayNum);
+  set("ct-month", `${monthName.slice(0, 3)} ${year}`);
+  set("ct-place", envCard.place || "");
+
   const card = $("envelope-card");
   if (card) {
     card.setAttribute("aria-label",

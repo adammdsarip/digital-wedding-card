@@ -468,6 +468,102 @@
   pointer-events: none;
 }
 
+/* The card's wording, set over the blank artwork. Everything is sized in --u, one pixel of the
+   1024 x 1536 artwork at the card's size, so it scales with the card through the whole opening. */
+.card { --u: calc(var(--W) * 0.8 / 1024); }
+.card__text {
+  position: absolute;
+  inset: 0;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  pointer-events: none;
+}
+.ct {
+  position: absolute;
+  left: calc(var(--u) * 142);
+  width: calc(var(--u) * 740);
+  margin: 0;
+}
+.ct-eyebrow {
+  top: calc(var(--u) * 304);
+  left: calc(var(--u) * 172);
+  width: calc(var(--u) * 680);
+  font-size: calc(var(--u) * 31);
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-indent: 0.1em;
+}
+.ct-families {
+  top: calc(var(--u) * 348);
+  left: calc(var(--u) * 202);
+  width: calc(var(--u) * 620);
+}
+.ct-fam { margin-bottom: calc(var(--u) * 8); }
+.ct-fam__names {
+  display: block;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 37);
+  line-height: 1.14;
+  letter-spacing: 0.04em;
+  color: var(--color-emerald-deep, #08402f);
+  text-wrap: balance;
+}
+.ct-fam__role {
+  display: block;
+  margin-top: calc(var(--u) * 1);
+  font-size: calc(var(--u) * 30);
+  line-height: 1.2;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+.ct-invite {
+  top: calc(var(--u) * 1002);
+  font-size: calc(var(--u) * 37);
+  line-height: 1.32;
+  letter-spacing: 0.13em;
+  text-indent: 0.13em;
+}
+.ct-date {
+  position: absolute;
+  left: calc(var(--u) * 222);
+  width: calc(var(--u) * 580);
+  top: calc(var(--u) * 1112);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+.ct-date__side {
+  display: block;
+  padding: calc(var(--u) * 20) calc(var(--u) * 14);
+  border-block: calc(var(--u) * 2.5) solid var(--color-gold);
+  font-size: calc(var(--u) * 40);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  color: var(--color-emerald-deep, #08402f);
+  white-space: nowrap;
+}
+.ct-date__day {
+  display: block;
+  padding: 0 calc(var(--u) * 30);
+  margin: 0 calc(var(--u) * -1);
+  border-inline: calc(var(--u) * 2.5) solid var(--color-gold);
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 112);
+  line-height: 1.05;
+  color: var(--color-ruby);
+}
+.ct-place {
+  top: calc(var(--u) * 1262);
+  font-size: calc(var(--u) * 35);
+  line-height: 1.2;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+}
+
 .card__sheen {
   position: absolute;
   inset: -10% -70%;

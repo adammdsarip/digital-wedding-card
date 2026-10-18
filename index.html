@@ -132,9 +132,21 @@
               <div class="card-rig" id="card-rig">
                 <div class="card__shadow" id="card-shadow"></div>
                 <article class="card" id="envelope-card">
-                  <!-- the supplied card artwork (2:3). Its words are part of the picture; the card's
-                       spoken description is built from config.js (render.js) -->
+                  <!-- the supplied card artwork (2:3), blank apart from the frame, flowers, I|K and the
+                       big names; the rest of the wording is set in type below (filled from config.js).
+                       The card's spoken description is built in render.js. -->
                   <img class="card__art" src="assets/images/invitation-card.webp" alt="" decoding="async" width="1024" height="1536">
+                  <div class="card__text" aria-hidden="true">
+                    <p class="ct ct-eyebrow" id="ct-eyebrow"></p>
+                    <div class="ct ct-families" id="ct-families"></div>
+                    <p class="ct ct-invite" id="ct-invite"></p>
+                    <div class="ct ct-date">
+                      <span class="ct-date__side" id="ct-weekday"></span>
+                      <span class="ct-date__day" id="ct-day"></span>
+                      <span class="ct-date__side" id="ct-month"></span>
+                    </div>
+                    <p class="ct ct-place" id="ct-place"></p>
+                  </div>
                   <div class="card__sheen" id="card-sheen"></div>
                 </article>
               </div>
