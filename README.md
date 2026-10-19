@@ -40,9 +40,11 @@ assets/
 
 ## The six sheets
 
-1. **The invitation** — arched gold frame, the names, the date, the venue. Set in
-   `em` from one size that follows the screen's width *and* height, so on a phone the
-   whole sheet fits one screen (down to 320 × 568) and is centred on taller ones.
+1. **The invitation** — the Bismillah in gold Arabic (`invitation.bismillah` in
+   `config.js`; set it to `""` to remove it), then the arched gold frame, the names, the
+   date and the venue. Set in `em` from one size that follows the screen's width *and*
+   height. At the larger type size the sheet is a little taller than a phone screen, so
+   it scrolls slightly.
 2. **The Big Day** — the itinerary, with a line that draws itself stop by stop.
 3. **Venue** — map, an "Open in Google Maps" button, and how to get there.
 4. **RSVP** — your Tally form, shown inside the sheet. (See "The RSVP form" below.)

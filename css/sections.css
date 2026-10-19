@@ -165,15 +165,16 @@
   border: 1px solid var(--color-gold);
   /* A radius larger than the box resolves to a half-circle at each end */
   border-radius: 999px;
-  padding: 3.5em 6% 2.9em;
+  padding: 3.9em 6% 2.9em;
 }
 
 .invite__bismillah {
-  margin: 0 0 0.3em;
+  margin: 0 0 0.5em;
   font-family: "Amiri", "Traditional Arabic", "Noto Naskh Arabic", "Geeza Pro", "Scheherazade New", serif;
-  font-size: 1.9em;
+  font-size: 1.4em;
   font-weight: 700;
-  line-height: 1.55;
+  line-height: 1.6;
+  white-space: nowrap;
   color: #8a6418;                       /* gold, deep enough to read on cream */
 }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
