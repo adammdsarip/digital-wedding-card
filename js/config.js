@@ -49,6 +49,8 @@ const WEDDING = {
 
   // ---- Panel 1: the invitation ------------------------------------------
   invitation: {
+    // Shown in gold at the very top of the first sheet; leave "" to remove it.
+    bismillah: "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
     eyebrow: ["Together", "with our families"],
     invite: "We cordially invite you to the wedding of",
     blessing: ["Two hearts • One journey", "In the name of love"],

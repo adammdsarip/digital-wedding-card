@@ -168,6 +168,24 @@
   padding: 3.5em 6% 2.9em;
 }
 
+.invite__bismillah {
+  margin: 0 0 0.3em;
+  font-family: "Amiri", "Traditional Arabic", "Noto Naskh Arabic", "Geeza Pro", "Scheherazade New", serif;
+  font-size: 1.9em;
+  font-weight: 700;
+  line-height: 1.55;
+  color: #8a6418;                       /* gold, deep enough to read on cream */
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .invite__bismillah {
+    background: linear-gradient(100deg, #7d5a1c 0%, #b8913f 28%, #d2ac55 50%, #b8913f 72%, #7d5a1c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+
 .invite__eyebrow {
   margin: 0;
   font-size: 0.72em;

@@ -107,6 +107,8 @@
 
   // ---- Sheet 1: the invitation -------------------------------------------------
   const inv = W.invitation;
+  const bism = $("inv-bismillah");
+  if (bism) { if (inv.bismillah) bism.textContent = inv.bismillah; else bism.remove(); }
   setLines("inv-eyebrow", inv.eyebrow);
   set("inv-invite", inv.invite);
   set("inv-name-one", W.partnerOne);
