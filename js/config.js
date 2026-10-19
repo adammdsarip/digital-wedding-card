@@ -89,7 +89,7 @@ const WEDDING = {
   // ---- Panel 3: location --------------------------------------------------
   // icon: car | train | bus
   location: {
-    title: "Location",
+    title: "Venue",
     gettingHere: {
       title: "Getting here",
       items: [

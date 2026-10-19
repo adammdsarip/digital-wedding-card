@@ -44,7 +44,7 @@ assets/
    `em` from one size that follows the screen's width *and* height, so on a phone the
    whole sheet fits one screen (down to 320 × 568) and is centred on taller ones.
 2. **The Big Day** — the itinerary, with a line that draws itself stop by stop.
-3. **Location** — map, an "Open in Google Maps" button, and how to get there.
+3. **Venue** — map, an "Open in Google Maps" button, and how to get there.
 4. **RSVP** — your Tally form, shown inside the sheet. (See "The RSVP form" below.)
 5. **Countdown** — days, hours, minutes and seconds to the wedding, and a note from you.
 6. **Contact** — two family contacts, each with a Call button, and a doa.
