@@ -30,7 +30,7 @@ const WEDDING = {
       // The family names shown just under the eyebrow. `names` can be one or several people.
       families: [
         { names: "Saadiah Binte Said", role: "Bride's Mother" },
-        { names: "Saéyah Salleh & Siti Ischa Salleh", role: "Groom's Sisters" },
+        { names: "Saéyah Salleh & Sitiischa Salleh", role: "Groom's Sisters" },
       ],
       connector: "&",
       invite: ["Invite you to celebrate", "our wedding"],
@@ -141,7 +141,7 @@ const WEDDING = {
     callLabel: "Call",
     people: [
       { role: "Bride", phone: "+65 9653 5655", name: ["Yanni", "(Bride's Sister)"] },
-      { role: "Groom", phone: "+65 9183 8076", name: ["Siti Ischa", "(Groom's Sister)"] },
+      { role: "Groom", phone: "+65 9183 8076", name: ["Sitiischa", "(Groom's Sister)"] },
     ],
     // The prayer shown under the contacts (the well-known doa for a newly married couple).
     // Replace the three lines with your own doa; leave one empty to leave it out.
