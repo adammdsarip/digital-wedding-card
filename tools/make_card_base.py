@@ -8,7 +8,7 @@ and the big "ISZ & Khaty") and paints plain paper over the family names, the inv
 the date row and the place, which css/envelope.css then sets in real, larger type.
 
 Paper is rebuilt from the cream either side of each blanked area plus the artwork's own fine
-grain (taken from a clean strip), so no patch shows. Writes assets/images/invitation-card-blank.webp.
+grain (taken from a clean strip), so no patch shows. Writes assets/images/invitation-card-base.webp.
 Needs numpy and Pillow.
 """
 import os, sys
@@ -17,7 +17,7 @@ from PIL import Image, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "source", "invitation-card-original.webp")
-OUT = os.path.join(HERE, "..", "assets", "images", "invitation-card-blank.webp")
+OUT = os.path.join(HERE, "..", "assets", "images", "invitation-card-base.webp")
 
 im = Image.open(SRC).convert("RGB")
 a = np.asarray(im).astype(np.float32)
@@ -59,6 +59,18 @@ for (x0, y0, x1, y1) in AREAS:
     full = out.copy()
     full[y0:y1, x0:x1] = patch
     out = out * (1 - m[..., None]) + full * m[..., None]
+
+# The big names (and the I|K) are printed in a near-black green. Recolour that ink to the site's
+# emerald, keeping the artwork's own shading, emboss and paper grain: each pixel is shifted by how
+# dark it is. Ruby and gold pixels (the "&" flourish, the gold rule) are left alone.
+EMERALD = np.array([10, 88, 64], np.float32)   # about --color-emerald (#0d5c45)
+INK = np.array([20, 36, 24], np.float32)       # the artwork's own ink
+for (x0, y0, x1, y1) in ((230, 575, 830, 975), (420, 140, 610, 250)):
+    reg = out[y0:y1, x0:x1]
+    lum = reg.mean(axis=2)
+    d = np.clip((230 - lum) / (230 - 25), 0, 1)[..., None]
+    warm = np.clip((reg[..., 0] - reg[..., 1] - 12) / 25, 0, 1)[..., None]   # ruby / gold
+    out[y0:y1, x0:x1] = warm * reg + (1 - warm) * (reg + d * (EMERALD - INK))
 
 res = Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
 res.save(OUT, quality=90, method=6)

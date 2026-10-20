@@ -26,7 +26,7 @@ vig = vig.filter(ImageFilter.GaussianBlur(120))
 dark = Image.new("RGB", (W, H), (4, 24, 12))
 bg = Image.composite(bg, dark, vig)
 
-card = Image.open(os.path.join(IMG, "invitation-card-blank.webp")).convert("RGB")
+card = Image.open(os.path.join(IMG, "invitation-card-base.webp")).convert("RGB")
 # The blank card has no small wording, so it is drawn here (the page sets the same wording in
 # real type). Keep these lines in step with js/config.js if a name, date or place changes.
 from PIL import ImageFont
@@ -48,11 +48,10 @@ def _spaced(d, text, cy, size, track, fill, style="Bold", cx=512):
 _d = ImageDraw.Draw(card)
 INK, GREEN, RUBY, GOLD = (47, 36, 27), (8, 64, 47), (160, 28, 51), (184, 145, 63)
 _spaced(_d, "TOGETHER WITH OUR FAMILIES", 322, 31, 3.4, INK)
-_spaced(_d, "SAADIAH BINTE SAID", 370, 37, 1.6, GREEN)
+_spaced(_d, "Saadiah Binte Said", 368, 41, 0.8, GREEN)
 _spaced(_d, "(Bride's Mother)", 410, 30, 1.2, INK, "Italic")
-_spaced(_d, "SAÉYAH SALLEH &", 452, 37, 1.6, GREEN)
-_spaced(_d, "SITIISCHA SALLEH", 494, 37, 1.6, GREEN)
-_spaced(_d, "(Groom's Sisters)", 534, 30, 1.2, INK, "Italic")
+_spaced(_d, "Saéyah Salleh & Sitiischa Salleh", 450, 41, 0.8, GREEN)
+_spaced(_d, "(Groom's Sisters)", 492, 30, 1.2, INK, "Italic")
 _spaced(_d, "INVITE YOU TO CELEBRATE", 1026, 37, 4.5, INK)
 _spaced(_d, "OUR WEDDING", 1075, 37, 4.5, INK)
 for x0, x1 in ((222, 440), (584, 802)):

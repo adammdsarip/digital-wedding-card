@@ -505,9 +505,10 @@
 .ct-fam__names {
   display: block;
   font-family: var(--font-display);
-  font-size: calc(var(--u) * 37);
-  line-height: 1.14;
-  letter-spacing: 0.04em;
+  font-size: calc(var(--u) * 41);
+  line-height: 1.16;
+  letter-spacing: 0.02em;
+  text-transform: none;
   color: var(--color-emerald-deep, #08402f);
   text-wrap: balance;
 }
