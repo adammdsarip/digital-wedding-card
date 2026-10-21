@@ -48,7 +48,7 @@ def _spaced(d, text, cy, size, track, fill, style="Bold", cx=512):
 _d = ImageDraw.Draw(card)
 INK, GREEN, RUBY, GOLD = (47, 36, 27), (8, 64, 47), (160, 28, 51), (184, 145, 63)
 _spaced(_d, "TOGETHER WITH OUR FAMILIES", 322, 31, 3.4, INK)
-_spaced(_d, "Saadiah Binte Said", 368, 41, 0.8, GREEN)
+_spaced(_d, "Sadiah Binte Said", 368, 41, 0.8, GREEN)
 _spaced(_d, "(Bride's Mother)", 410, 30, 1.2, INK, "Italic")
 _spaced(_d, "Saéyah Salleh & Sitiischa Salleh", 450, 41, 0.8, GREEN)
 _spaced(_d, "(Groom's Sisters)", 492, 30, 1.2, INK, "Italic")
